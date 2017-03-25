@@ -7,7 +7,7 @@ import hasOwn from '../var/hasOwnProperty';
 import dom from '../var/dom';
 //import body from '../var/body';
 import support from '../var/support';
-import animations from '../var/Animations';
+import animations from '../var/animation-name';
 import SHA1 from '../lib/SHA1';
 /*SHA1加密*/
 import IndexDB from '../lib/IndexDB';

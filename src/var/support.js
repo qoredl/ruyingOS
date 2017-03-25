@@ -54,5 +54,5 @@ export default{
 	requestAnimationFrame,
 	cancelAnimationFrame,
 	MutationObserver,
-	touch
+	touch,
 };
