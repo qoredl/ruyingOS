@@ -1,19 +1,13 @@
 /**
  * @工具函数库
  * @date:2016-5-14
- * update:2017-2-18
  */
-import hasOwn from '../var/hasOwnProperty';
 import dom from '../var/dom';
-//import body from '../var/body';
 import support from '../var/support';
 import animations from '../var/animation-name';
-import SHA1 from '../lib/SHA1';
 /*SHA1加密*/
 import IndexDB from '../lib/IndexDB';
 import 'whatwg-fetch';//fetch polyfill
-
-let id = 0;
 
 /*生成封装过的indexedDB操作类实例
  * 可对indexedDB进行系列操作，具体请看IndexDB类使用说明
@@ -63,7 +57,7 @@ const randomStr = (len = 42)=> {
 /**
  * 检测数据类型
  * @param obj
- * @returns {*}
+ * @returns {string}
  */
 const type = obj=> {
 	//null,undefinded
@@ -177,6 +171,7 @@ const parseOptions = optsStr=> {
  * @param prfix [String='r']
  * @returns {string}
  */
+let id = 0;
 const guid = (prfix = 'r')=> `${prfix}-${+(new Date()) + id++}`;
 
 /**
@@ -234,59 +229,6 @@ const camelCase = str=> {
 };
 
 /**
- * A simple javascript utility for conditionally joining classNames together.
- * http://jedwatson.github.io/classnames
- * @returns {string}
- */
-const classnames = (...args)=> {
-	const classes = [];
-	
-	for (let i = 0; i < args.length; i++) {
-		const arg = args[i];
-		if (!arg) continue;
-		
-		const argType = typeof arg;
-		
-		if (argType === 'string' || argType === 'number') {
-			classes.push(arg);
-		} else if (Array.isArray(arg)) {
-			classes.push(classnames.apply(null, arg));
-		} else if (argType === 'object') {
-			for (let key in arg) {
-				if (hasOwn.call(arg, key) && arg[key]) {
-					classes.push(key);
-				}
-			}
-		}
-	}
-	
-	return classes.join(' ');
-};
-
-/**
- * 判断浏览器是否支持某一个CSS3属性
- * @param cssName
- * @returns {boolean}
- */
-/*const cssTest=cssName=>{
- let cssStr=camelCase(cssName);
- 
- for(let style in body.style){
- if (style === cssStr) {
- return true;
- }
- }
- 
- cssStr=camelCase('webkit-'+cssName);
- 
- for(let style in body.style){
- if (style === cssStr) {
- return true;
- }
- }
- };*/
-
-/**
  * 复制除了:constructor,prototype,name外自身属性
  * 与Object.assign区别：Object.assign拷贝的是对象自身的可枚举属性,而本方法拷贝的是除constructor,prototype,name外所有自身属性
  * @param target
@@ -321,7 +263,6 @@ const mix = (...mixins)=> {
 };
 
 export {
-		SHA1,
 		indexDB,
 		fetch,
 		randomStr,
@@ -335,7 +276,6 @@ export {
 		addFlass,
 		getAbsoluteUrl,
 		camelCase,
-		classnames,
 		//cssTest,
 		copyOwnKeys,
 		mix,
