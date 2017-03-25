@@ -1,8 +1,8 @@
-//打包导出reducers
+//统一导出reducers
 import user from './user';
 import pub from './pub';
 
 export {
-		user,
-		pub,
+	pub,
+	user,
 };
