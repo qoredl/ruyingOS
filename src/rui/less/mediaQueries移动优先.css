@@ -1,0 +1,79 @@
+﻿@charset "utf-8";
+/*
+======================
+媒体查询样式模板3,移动优先
+author:ruying(如影)
+date:2014-11-14
+e-mail:qoredl@163.com
+site:www.ok111.net
+update：2014-12-8
+======================
+*/
+
+/*打印设备*/
+@media print{
+	*{color:#000!important;text-shadow:none!important;background:transparent!important;-webkit-box-shadow:none!important;box-shadow:none!important;}
+	a,a:visited{text-decoration:underline;}
+	a[href]:after{content:"("attr(href)")";}
+	abbr[title]:after{content:"("attr(title)")";}
+	a[href^="javascript:"]:after,a[href^="#"]:after{content:"";}
+	pre,blockquote{border:1px solid #999;page-break-inside:avoid;}
+	thead{display:table-header-group;}
+	tr,img{page-break-inside:avoid;}
+	img{max-width:100% !important;}
+	p,h2,h3{orphans:3;widows:3;}
+	h2,h3{page-break-after:avoid;}
+	select{background:#fff !important;}
+}
+
+/*大于等于320px*/
+@media only screen and (min-width: 320px) {
+
+}
+
+/*大于等于375px*/
+@media only screen and (min-width: 375px) {
+	html{
+		font-size: 120px;
+	}
+}
+
+/*大于等于414px*/
+@media only screen and (min-width: 414px) {
+	html{
+		font-size: 130px;
+	}
+}
+
+/*大于等于480px*/
+@media only screen and (min-width: 480px) {
+	html{
+		font-size: 160px;
+	}
+}
+
+/*大于等于640px*/
+@media only screen and (min-width: 640px) {
+	html{
+		font-size: 210px;
+	}
+}
+
+
+/*大于等于768px*/
+@media only screen and (min-width: 768px) {
+
+}
+
+/*大于等于980px*/
+@media screen and (min-width: 980px) {
+
+}
+/*大于等于1280px*/
+@media screen and (min-width: 1280px) {
+
+}
+/*大于等于1920px*/
+@media screen and (min-width: 1920px) {
+
+}

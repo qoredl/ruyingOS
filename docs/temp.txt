@@ -1,0 +1,33 @@
+在本地部署Parse Server
+http://www.shirlman.com/tec/20160507/367
+
+
+MongoDB做为一项windows服务启动:
+cmd必须通过系统管理员运行才行，从开始菜单定位到cmd 右键 以管理员身份运行。
+http://www.cnblogs.com/liusc/p/5160252.html
+
+mongod.exe --logpath "E:\MongoDB\log\log.log" --logappend --dbpath "E:\MongoDB\data" --directoryperdb --serviceName MongoDB --install
+
+启动MongoDB：net start MongoDB
+停止MongoDB：net stop MongoDB
+删除MongoDB：sc delete MongoDB
+
+
+parse-server --appId 57f7c08ea160020007e060ca --masterKey QmNUU2ZCekhOd2EyNG02ZFVwdlJGUQ --databaseURI mongodb://localhost:27017/parse
+
+parse-dashboard --appId 57f7c08ea160020007e060ca --masterKey QmNUU2ZCekhOd2EyNG02ZFVwdlJGUQ --serverURL "http://localhost:1337/parse" --appName ruying
+
+mongo图形化管理
+Robomongo 0.9.0
+adminMongo
+
+parse-server　The REST API：
+http://parseplatform.github.io/docs/rest/guide/
+
+
+parse-server-example：
+http://www.dabu.info/ubuntu14-install-parse-server-nodejs.html
+http://jingyan.baidu.com/article/f00622280cb7d6fbd2f0c878.html
+
+api文档：
+https://leancloud.cn/docs/rest_api.html

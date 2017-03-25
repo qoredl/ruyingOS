@@ -1,0 +1,13 @@
+{
+    "presets": ["stage-2"],
+    "ignore": [
+        "Nsrc/js/app/",
+    
+        "src/js/app.js",
+        "src/js/pub-var",
+        "Nsrc/js/lib/",
+        "src/js/mobiscroll/",
+        "src/js/rui/",
+        "src/js/ruying/"
+    ]
+}

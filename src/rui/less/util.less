@@ -1,0 +1,193 @@
+@charset "utf-8";
+@import "var/var";
+@import "var/mix";
+/*
+======================
+常用辅助类工具函数
+author:ruying(如影)
+date:2016-9-3
+e-mail:qoredl@163.com
+site:www.ok111.net
+update：2016-9-3
+======================
+*/
+
+//logo
+.logo {
+  text-indent: -9999px;
+  overflow: hidden;
+  text-align: left;
+}
+
+.@{ns}scrollable{
+  .scrollable();
+}
+
+.@{ns}circle {
+  border-radius: 50%;
+}
+
+/* Float blocks*/
+.@{ns}cf {
+  .clearfix();
+}
+
+.@{ns}block-center {
+  .center-block();
+}
+
+/*flexbox完美居中*/
+.@{ns}flex-center{
+  .flexbox(flex);
+  .justify-content(center);
+  .align-items(center);
+}
+
+/*flexbox平均分配项列表*/
+.@{ns}flex-avg{
+  .flexbox(flex);
+  .align-items(stretch);
+
+  >li{
+    width: 0;
+    .flex(~'1 1 auto');
+    .flexbox(flex);
+    .justify-content(center);
+    .align-items(center);
+  }
+}
+
+.hide {
+  display: none !important;
+}
+
+// Font family
+// -----------------------------------------------------------------------------
+.@{ns}sans-serif {
+  font-family: @font-family-sans-serif;
+}
+.@{ns}serif {
+  font-family: @font-family-serif;
+}
+.@{ns}kai {
+  font-family: @font-family-kai;
+}
+.@{ns}monospace {
+  font-family: @font-family-monospace;
+}
+// Text color
+// -----------------------------------------------------------------------------
+
+.@{ns}text-primary {
+  color: @global-primary;
+}
+.@{ns}text-secondary {
+  color: @global-secondary;
+}
+.@{ns}text-success {
+  color: @global-success;
+}
+.@{ns}text-warning {
+  color: @global-warning;
+}
+.@{ns}text-danger {
+  color: @global-danger;
+}
+
+.@{ns}link-muted {
+  color: #666;
+  a {
+    color: #666;
+  }
+
+  &:hover,
+  & a:hover {
+    color: #555;
+  }
+}
+
+// Text overflow
+// Requires inline-block or block for proper styling
+// =============================================================================
+.@{ns}ellipsis {
+  //word-wrap: normal; /* for IE */
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/*单词断行*/
+.@{ns}text-break {
+  word-wrap: break-word;
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  hyphens: auto;
+}
+
+
+/*markdown文档*/
+.@{ns}md{
+  margin:0 auto;
+  width: ~'calc(100vw - 40px)';
+}
+
+/*图片懒加载*/
+.@{ns}lazy-img{
+  >img{
+    opacity: 1;
+    transition: opacity 0.6s;
+  }
+  >img[data-r-lazy-url]{
+    width: 50px;
+    height: 50px;
+    opacity:.3;
+    border: 1px solid #ddd;
+    background-color: #ccc;
+  }
+}
+
+/*卷角*/
+.corner{
+  background: -webkit-linear-gradient(45deg, #2e2e2e 24%, #5F5F5F 40%,#6f6f6f 43%,#5F5F5F 46%,#2F2F2F 50%,#fff 50%,#fff);
+  background: -moz-linear-gradient(45deg, #2e2e2e 24%, #5F5F5F 40%,#6f6f6f 43%,#5F5F5F 46%,#2F2F2F 50%,#fff 50%,#fff);height: 90px;
+  background: -o-linear-gradient(45deg, #2e2e2e 24%, #5F5F5F 40%,#6f6f6f 43%,#5F5F5F 46%,#2F2F2F 50%,#fff 50%,#fff);height: 90px;
+  background: -ms-linear-gradient(45deg, #2e2e2e 24%, #5F5F5F 40%,#6f6f6f 43%,#5F5F5F 46%,#2F2F2F 50%,#fff 50%,#fff);height: 90px;
+  background: linear-gradient(45deg, #2e2e2e 24%, #5F5F5F 40%,#6f6f6f 43%,#5F5F5F 46%,#2F2F2F 50%,#fff 50%,#fff);height: 90px;
+  width: 90px;
+  height:90px;
+  border-radius: 0 0 0 90px / 0 0 0 30px;
+  -webkit-transform: rotate(-90deg);
+  -moz-transform: rotate(-90deg);
+  -o-transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+  position: absolute;
+  left:-4px;
+  top: -4px;
+  box-shadow: 5px 2px 8px black;
+  overflow:hidden;
+  -webkit-transition:all 0.3s linear 0s;
+  -moz-transition:all 0.3s linear 0s;
+  -o-transition:all 0.3s linear 0s;
+  -ms-transition:all 0.3s linear 0s;
+  transition:all 0.3s linear 0s;
+}
+
+.corner:after{
+  height:100%;
+  width:100%;
+  position: absolute;
+  content: "";
+  top: -15px;
+  left: -82px;
+  border-radius: 90px 90px 0 0 / 40px 40px 0 0;
+  z-index: 1;
+  background: #2F2F2F;
+  -webkit-transform: rotate(77deg);
+  -moz-transform: rotate(77deg);
+  -o-transform: rotate(77deg);
+  -ms-transform: rotate(77deg);
+  transform: rotate(77deg);
+  box-shadow: 0 0 8px black inset;
+}

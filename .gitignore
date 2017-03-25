@@ -1,0 +1,13 @@
+/.idea
+/cmd
+/node_modules
+/dist
+/app/media
+/web.config
+/src/media
+/app
+/share
+/bin
+/app.bat
+/logs
+/*.log

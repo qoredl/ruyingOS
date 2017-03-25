@@ -1,0 +1,17 @@
+npm install -g babel@5.8.21
+npm install -g babel-runtime@5.6.17
+npm install -g browserify
+
+
+
+babel≈‰÷√£∫
+C:\Users\qored\AppData\Roaming\npm\babel.cmd
+--source-maps --out-file $FileNameWithoutExtension$-es5.js $FilePath$°°°°°°-d H:\web\ruying\www\static\js\ $FileDir$ -s °°°°H:\web\ruying\www\static\es6 -s -d H:\web\ruying\www\static\out
+$FileDir$
+$FileNameWithoutExtension$-es5.js:$FileNameWithoutExtension$.js.map°°°°°°°°$FileNameWithoutExtension$.js:$FileNameWithoutExtension$.js.map
+
+
+babelify≈‰÷√£∫
+C:\Users\qored\AppData\Roaming\npm\browserify.cmd
+main-es5.js -o ../all.js --debug
+$FileDir$
