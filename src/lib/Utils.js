@@ -12,7 +12,7 @@ import 'whatwg-fetch';//fetch polyfill
 /*生成封装过的indexedDB操作类实例
  * 可对indexedDB进行系列操作，具体请看IndexDB类使用说明
  * */
-const indexDB = dbName=>new IndexDB(dbName);
+const indexDB = dbName => new IndexDB(dbName);
 
 /**
  * fetch异部获取数据
@@ -22,7 +22,7 @@ const indexDB = dbName=>new IndexDB(dbName);
  * @param url {String}
  * @param opts [Object]
  */
-const fetch = (url, opts = {})=>window.fetch(url, Object.assign({ method: 'get' }, opts))
+const fetch = (url, opts = {}) => window.fetch(url, Object.assign({ method: 'get' }, opts))
 		.then(response => {
 			if (200 <= response.status && response.status < 300) {
 				if (opts.type === 'text') {
@@ -43,7 +43,7 @@ const fetch = (url, opts = {})=>window.fetch(url, Object.assign({ method: 'get' 
  * @param len　[number=32]
  * @returns {string}
  */
-const randomStr = (len = 42)=> {
+const randomStr = (len = 42) => {
 	const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 	let str = '';
 	
@@ -59,7 +59,7 @@ const randomStr = (len = 42)=> {
  * @param obj
  * @returns {string}
  */
-const type = obj=> {
+const type = obj => {
 	//null,undefinded
 	if (obj == null) {
 		return obj + "";
@@ -79,7 +79,7 @@ const type = obj=> {
  * @param obj {Object}
  * @returns {string}
  */
-const param = obj=> {
+const param = obj => {
 	const returnData = [];
 	
 	// If an array was passed in, assume that it is an array of form elements.
@@ -105,7 +105,7 @@ const param = obj=> {
  * @param optsStr {String}
  * @returns {*}
  */
-const parseOptions = optsStr=> {
+const parseOptions = optsStr => {
 	if (optsStr) {
 		try {
 			return (new Function('return JSON.parse(JSON.stringify(' + optsStr + '));'))();
@@ -121,7 +121,7 @@ const parseOptions = optsStr=> {
  * @returns {string}
  */
 let id = 0;
-const guid = (prfix = 'r')=> `${prfix}-${+(new Date()) + id++}`;
+const guid = (prfix = 'r') => `${prfix}-${+(new Date()) + id++}`;
 
 /**
  * 添加css3动画
@@ -131,7 +131,7 @@ const guid = (prfix = 'r')=> `${prfix}-${+(new Date()) + id++}`;
  * @param isHidden [Boolean=0]
  * @param callBack {Function}
  */
-const addFlass = (target, { flassName, type = 'in', isHidden = false }, callBack)=> {
+const addFlass = (target, { flassName, type = 'in', isHidden = false }, callBack) => {
 	type === 'in' && target.removeAttribute('hidden');
 	target.classList.add(animations.name);
 	target.classList.add(flassName);
@@ -154,7 +154,7 @@ const addFlass = (target, { flassName, type = 'in', isHidden = false }, callBack
  * @param url [String='']
  * @returns {String}
  */
-const getAbsoluteUrl = (url = '')=> {
+const getAbsoluteUrl = (url = '') => {
 	const a = dom.createElement('a');
 	a.href = url;
 	return a.href;
@@ -165,7 +165,7 @@ const getAbsoluteUrl = (url = '')=> {
  * @param str {String}
  * @returns {String}
  */
-const camelCase = str=> {
+const camelCase = str => {
 	str = str.toLowerCase();
 	
 	const keyArr = str.split('-');
@@ -183,7 +183,7 @@ const camelCase = str=> {
  * @param target
  * @param source
  */
-const copyOwnKeys = (target, source)=> {
+const copyOwnKeys = (target, source) => {
 	for (let key of Reflect.ownKeys(source)) {
 		if (!(key === 'constructor' && key === 'prototype' && key === 'name')) {
 			let desc = Object.getOwnPropertyDescriptor(source, key);
@@ -199,7 +199,7 @@ const copyOwnKeys = (target, source)=> {
  * @param mixins {Class}-多个class类
  * @returns {Mix}
  */
-const mix = (...mixins)=> {
+const mix = (...mixins) => {
 	class Mix {
 	}
 	
@@ -211,20 +211,28 @@ const mix = (...mixins)=> {
 	return Mix;
 };
 
+/**
+ * delay
+ * 返回一个 Promise，这个 Promise 将在 time 秒后 resolve
+ * @param time
+ */
+const delay = time => new Promise(resolve => setTimeout(resolve, time));
+
 export {
-		indexDB,
-		fetch,
-		randomStr,
-		type,
-		param,
-		parseOptions,
-		guid,
-		addFlass,
-		getAbsoluteUrl,
-		camelCase,
-		//cssTest,
-		copyOwnKeys,
-		mix,
+	indexDB,
+	fetch,
+	randomStr,
+	type,
+	param,
+	parseOptions,
+	guid,
+	addFlass,
+	getAbsoluteUrl,
+	camelCase,
+	//cssTest,
+	copyOwnKeys,
+	mix,
+	delay,
 };
 
 /*param辅助函数*/

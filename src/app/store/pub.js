@@ -43,14 +43,21 @@ const changeMsgAction = payload=>({ type: CHANG_MSG,payload});
 };*/
 
 /*4.saga********************************************************************************/
+import { takeEvery } from 'redux-saga'
 import { call, put } from 'redux-saga/effects';
+import {delay} from '../../lib/Utils';
 
-export function *autoHideMsg(msg,time=5000) {
-	put(changeMsgAction(msg));
+//过发time时间后自动隐藏
+function *autoHideMsg(time) {
+	yield delay(time);
+	yield put(changeMsgAction(''));
+}
+
+//显示提示信息，默认5秒后自动隐藏
+export function *showMsgTake(msg,time=5000) {
+	yield ;
 	
 	//过发time时间后自动隐藏
-	if (!timer) {
-		clearTimeout(timer);
-		timer=setTimeout(()=>put(changeMsgAction('')),time);
-	}
+	yield delay(time);
+	yield put(changeMsgAction(''));
 }
