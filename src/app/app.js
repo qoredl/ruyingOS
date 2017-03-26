@@ -9,11 +9,12 @@ import { Provider, connect } from 'react-redux';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { Router, hashHistory } from 'react-router'
 import { syncHistoryWithStore, routerReducer, routerMiddleware } from 'react-router-redux';
-import { thunk, logger, } from '../lib/redux-middleware';
+import createSagaMiddleware from 'redux-saga';
 import routes from './routes';
-import * as reducers from './store';
+import reducers,{saga} from './store';
 
-const ReactRedux = { Provider, connect };
+const sagaMiddleware = createSagaMiddleware();
+
 
 //应用react-router-redux routerMiddleware中间件，
 //使其中的push,replace,go,goBack,goForward的actionCreater可用，
@@ -23,11 +24,15 @@ const rMiddleware = routerMiddleware(hashHistory);
 const store = createStore(combineReducers({
 	...reducers,
 	routing: routerReducer
-}), applyMiddleware(thunk, rMiddleware, logger,));
+}), applyMiddleware(rMiddleware, sagaMiddleware,));
 
 const history = syncHistoryWithStore(hashHistory, store);
+const ReactRedux = { Provider, connect };
 
 Object.assign(window, { React, ReactDOM, ReactRedux, });
+
+//执行所有的saga
+saga.forEach(sa=>sagaMiddleware.run(sa,store.getState));
 
 ReactDOM.render(
 		<Provider store={store}>

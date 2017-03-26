@@ -19,9 +19,12 @@ export default ReactRedux.connect(({ pub, routing, user }) => ({
 })((props) => {
 	const {
 		pub: { msg },
-		user: { userInfo },
+		user: {
+			userInfo,
+		},
 		signAction,
-		changUserInfoAction
+		changUserInfoAction,
+		userStartFetchAction,
 	} = props;
 	
 	const handleUsernameChange = e => {
@@ -30,6 +33,7 @@ export default ReactRedux.connect(({ pub, routing, user }) => ({
 	const handlePasswordChange = e => {
 		changUserInfoAction({ ...userInfo, password: e.target.value });
 	};
+	const handleSign=() => signAction(userInfo);
 	
 	return (
 			<div className={'r-page'}>
@@ -63,7 +67,7 @@ export default ReactRedux.connect(({ pub, routing, user }) => ({
 						<Button
 								type="primary"
 								className="login-form-button"
-								onClick={() => signAction(userInfo)}>注册</Button>
+								onClick={() => userStartFetchAction(userInfo)}>注册</Button>
 					</FormItem>
 				</Form>
 				

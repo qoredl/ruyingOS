@@ -49,21 +49,15 @@ export default (state = initState, action) => {
 };
 
 /*3.actions********************************************************************************/
-import { autoHideMsgAction } from './pub';
-
-const userStartFetchAction = () => ({ type: USER_FETCH_START });
-const signYesAction = payload => ({ type: REG_SUCCESS, payload });
+export const userStartFetchAction = (payload) => ({ type: USER_FETCH_START,payload });
+const signSuccessAction = payload => ({ type: REG_SUCCESS, payload });
 const userFetchErrAction = () => ({ type: USER_FETCH_ERROR, error: true });
-
-import { fetch } from '../../lib/Utils';
-import { server } from '../config/index';
-const { headers, baseUrl } = server;
 
 //修改用户名信息
 export const changUserInfoAction = payload => ({ type: CHANG_USERINFO, payload, });
 
 //注册新用户
-export const signAction = (userInfo) => async dispatch => {
+/*export const signAction = (userInfo) => async dispatch => {
 	dispatch(userStartFetchAction());
 	dispatch(autoHideMsgAction('注册用户中...'));
 	
@@ -73,21 +67,21 @@ export const signAction = (userInfo) => async dispatch => {
 			method: 'post',
 			body: JSON.stringify(userInfo)
 		});
-		dispatch(signYesAction({ payload: data }));
+		dispatch(signSuccessAction({ payload: data }));
 		dispatch(autoHideMsgAction('注册用户成功！请登录。'));
 	} catch (e) {
 		dispatch(userFetchErrAction());
 		dispatch(autoHideMsgAction(e.message));
 	}
-};
+};*/
 
 //用户登录
-export const loginAction = userInfo => async dispatch => {
+/*export const loginAction = userInfo => async dispatch => {
 	
-};
+};*/
 
 //查询用户
-const queryAction = (storeName, queryKey, query) => async (dispatch, getState) => {
+/*const queryAction = (storeName, queryKey, query) => async (dispatch, getState) => {
 	//dispatch(fetchStartAction());
 	
 	try {
@@ -96,4 +90,35 @@ const queryAction = (storeName, queryKey, query) => async (dispatch, getState) =
 	} catch (e) {
 		//dispatch(fetchErrAction(e.message));
 	}
-};
+};*/
+
+/*4.saga********************************************************************************/
+import { autoHideMsg } from './pub';
+import { takeEvery, takeLatest } from 'redux-saga';
+import { call, put } from 'redux-saga/effects';
+import { fetch, } from '../../lib/Utils';
+import { server } from '../config/index';
+
+const { headers, baseUrl } = server;
+
+//注册新用户
+function* signTask(action) {
+	//yield *takeLatest(autoHideMsg('注册用户中...'));
+	
+	try {
+		const data= yield call(fetch, baseUrl + '_User',{
+			headers,
+			method: 'post',
+			body: JSON.stringify(action.payload)
+		});
+		yield put(signSuccessAction({ payload: data }));
+		//yield put(autoHideMsg('注册用户成功！请登录。'));
+	} catch (e) {
+		yield put(userFetchErrAction());
+		//yield put(autoHideMsg(e.message));
+	}
+}
+
+export function* userSaga() {
+	yield* takeLatest(USER_FETCH_START, signTask);
+}

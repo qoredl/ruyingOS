@@ -101,57 +101,6 @@ const param = obj=> {
 };
 
 /**
- * 函数节流生成器
- * 应用场景：鼠标移动，mousemove事件；DOM元素动态定位，window对象的resizet和scroll事件
- * @param fn [Function] -节流函数
- * @param delay {Number} - 控制函数连续调用的频率
- * @returns {Function}
- */
-const throttle = (fn, delay)=> {
-	let timer = null;
-	
-	return function (...arg) {
-		timer && clearTimeout(timer);
-		timer = setTimeout(() => {
-			fn.apply(this, arg);
-		}, delay);
-	}
-};
-
-/**
- * 高频执行函数防抖生成器，
- * @param fn {function} - 绑定需要防抖函数
- * @param wait {Number} -空闲时间间隔，空闲时间必须大于或等于此值时才会执行调用函数
- * @param immediate [Boolean] - 无此参数或此参数为false时，执行函数在空闲时间间隔之后执行；相反刚在之前执行。
- * @returns {Function}
- */
-const debounce = (fn, wait, immediate)=> {
-	let timeout;
-	
-	return function (...args) {
-		clearTimeout(timeout);
-		
-		if (immediate && !timeout) {
-			fn.apply(this, args);
-		}
-		
-		timeout = setTimeout(() => {
-			timeout = null;
-			if (!immediate) {
-				fn.apply(this, args);
-			}
-		}, wait);
-	};
-};
-
-/**
- * 纯对象判断
- * @param obj
- * @returns {*|boolean}
- */
-const isPlainObject = obj=>obj.constructor && obj.constructor.name === 'Object' && obj.constructor.prototype.hasOwnProperty('hasOwnProperty');
-
-/**
  * 解析字符串形式的对象为js对象，如：{name:'ruying'}
  * @param optsStr {String}
  * @returns {*}
@@ -268,9 +217,6 @@ export {
 		randomStr,
 		type,
 		param,
-		throttle,
-		debounce,
-		isPlainObject,
 		parseOptions,
 		guid,
 		addFlass,

@@ -1,8 +1,14 @@
-//统一导出reducers
-import user from './user';
+//统一导出reducers与saga
+import {logSaga} from './log';
 import pub from './pub';
+import user, { userSaga } from './user';
 
-export {
+export const saga = [
+	logSaga,
+	userSaga,
+];
+
+export default {
 	pub,
 	user,
 };
