@@ -30,9 +30,6 @@ const ReactRedux = { Provider, connect };
 
 Object.assign(window, { React, ReactDOM, ReactRedux, });
 
-//执行所有的saga
-//saga.forEach(sa=>sagaMiddleware.run(sa,store.getState));
-
 ReactDOM.render(
 		<Provider store={store}>
 			<Router history={history} routes={routes(store,sagaMiddleware)}/>
