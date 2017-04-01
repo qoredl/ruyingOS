@@ -3,9 +3,14 @@
  * 本文件改动会比较频繁
  * @date:2016-11-19
  */
-import { Root, Err } from './ui'
+import { Root, Err } from './ui';
+import {
+	logSaga,
+	signSaga,
+} from './store';
 
-export default [
+
+export default (store,sagaMiddleware)=>[
 	{
 		path: '/',
 		component: Root,//根路由组件
@@ -36,6 +41,9 @@ export default [
 				path: '/reg',
 				getComponent(nextState, cb) {
 					require.ensure([], (require) => cb(null, require('./User/Reg').default));
+					
+					//运行本模块saga逻辑
+					sagaMiddleware.run(signSaga,store.getState);
 				},
 			},
 			
@@ -44,6 +52,9 @@ export default [
 				path: '/login',
 				getComponent(nextState, cb) {
 					require.ensure([], (require) => cb(null, require('./User/Login').default));
+					
+					//运行本模块saga逻辑
+					sagaMiddleware.run(logSaga,store.getState);
 				},
 			},
 		]

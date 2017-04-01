@@ -3,10 +3,10 @@ import {logSaga} from './sagaLog';
 import pub from './pub';
 import user, { signSaga } from './user';
 
-export const saga = [
+export {
 	logSaga,
 	signSaga,
-];
+};
 
 export default {
 	pub,

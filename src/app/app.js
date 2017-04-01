@@ -11,10 +11,9 @@ import { Router, hashHistory } from 'react-router'
 import { syncHistoryWithStore, routerReducer, routerMiddleware } from 'react-router-redux';
 import createSagaMiddleware from 'redux-saga';
 import routes from './routes';
-import reducers,{saga} from './store';
+import reducers from './store';
 
-const sagaMiddleware = createSagaMiddleware();
-
+const sagaMiddleware=createSagaMiddleware();
 
 //应用react-router-redux routerMiddleware中间件，
 //使其中的push,replace,go,goBack,goForward的actionCreater可用，
@@ -32,9 +31,9 @@ const ReactRedux = { Provider, connect };
 Object.assign(window, { React, ReactDOM, ReactRedux, });
 
 //执行所有的saga
-saga.forEach(sa=>sagaMiddleware.run(sa,store.getState));
+//saga.forEach(sa=>sagaMiddleware.run(sa,store.getState));
 
 ReactDOM.render(
 		<Provider store={store}>
-			<Router history={history} routes={routes}/>
+			<Router history={history} routes={routes(store,sagaMiddleware)}/>
 		</Provider>, document.getElementById('r-root'));
