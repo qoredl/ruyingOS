@@ -27,23 +27,11 @@ export default (state = initState, action)=> {
 
 
 /*3.actions********************************************************************************/
-let timer=null;
 const changeMsgAction = payload=>({ type: CHANG_MSG,payload});
 
 
-//定时隐藏消息，默认5秒后自动隐藏
-/*export const autoHideMsgAction = (msg,time=5000)=> dispatch=> {
-	dispatch(changeMsgAction(msg));
-	
-	//过发time时间后自动隐藏
-	if (!timer) {
-		clearTimeout(timer);
-		timer=setTimeout(()=>dispatch(changeMsgAction('')),time);
-	}
-};*/
-
 /*4.saga********************************************************************************/
-import { call, put } from 'redux-saga/effects';
+import {put } from 'redux-saga/effects';
 import {delay} from '../../lib/Utils';
 
 //显示提示信息，默认5秒后自动隐藏

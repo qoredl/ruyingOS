@@ -1,24 +1,29 @@
 /**
  * bundle loader 动态加载组件
- * 用于代码拆分
+ * 常用于用于代码拆分
  * date:2017-4-2
  */
-import { Component } from 'react';
+import {Component} from 'react';
 import { Empty } from '../../rui';
 
 export default class extends Component {
 	state = {
 		// short for "module" but that's a keyword in js, so "mod"
-		mod: this.props ? this.props.loading: Empty,
+		mod: null,
 	};
 	
+	constructor(props){
+		super(props);
+		this.props.cb&&this.props.cb();
+	}
+	
 	componentWillMount() {
-		this.load(this.props)
+		this.load(this.props);
 	}
 	
 	componentWillReceiveProps(nextProps) {
 		if (nextProps.load !== this.props.load) {
-			this.load(nextProps)
+			this.load(nextProps);
 		}
 	}
 	
@@ -26,12 +31,12 @@ export default class extends Component {
 		props.load(mod => this.setState({
 			// handle both es imports and cjs
 			mod: mod.default ? mod.default: mod
-		}))
+		}));
 	}
 	
 	render() {
 		const Mod = this.state.mod;
-		this.props.cb&&this.props.cb();
-		return this.state.mod ? <Mod/>: <span>{}</span>;
+		
+		return Mod ? <Mod/>: <Empty/>;
 	}
-}
+};

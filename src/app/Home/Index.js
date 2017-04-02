@@ -3,7 +3,7 @@
  * @date:2017-3-9
  * update:2017-3-15
  */
-import {Header,Footer} from '../ui';
+import { Header, Footer } from '../ui';
 
 export default ReactRedux.connect(({ routing, users }) => ({
 	routing,
@@ -11,7 +11,7 @@ export default ReactRedux.connect(({ routing, users }) => ({
 }), {})((props) => {
 	const {
 		//routing,
-	}=props;
+	} = props;
 	
 	return (
 			<div className={'r-page'}>
