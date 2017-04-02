@@ -10,7 +10,7 @@ export default ReactRedux.connect(({ routing, users }) => ({
 	users
 }), {})((props) => {
 	const {
-			//routing,
+		//routing,
 	}=props;
 	
 	return (

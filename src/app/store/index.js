@@ -1,11 +1,11 @@
 //统一导出reducers与saga
 import {logSaga} from './sagaLog';
 import pub from './pub';
-import user, { signSaga } from './user';
+import user, { regSaga } from './user';
 
 export {
 	logSaga,
-	signSaga,
+	regSaga,
 };
 
 export default {

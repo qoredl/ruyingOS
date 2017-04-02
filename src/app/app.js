@@ -7,11 +7,20 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider, connect } from 'react-redux';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
-import { Router, hashHistory } from 'react-router'
-import { syncHistoryWithStore, routerReducer, routerMiddleware } from 'react-router-redux';
+//import { /*Router, */hashHistory } from 'react-router'
+import createHistory from 'history/createHashHistory'
+/*import {
+	BrowserRouter as Router,
+	Route,
+	Link
+} from 'react-router-dom';*/
+
+import { ConnectedRouter, routerReducer, routerMiddleware } from 'react-router-redux';
 import createSagaMiddleware from 'redux-saga';
-import routes from './routes';
+import Routes from './Routes';
 import reducers from './store';
+
+const hashHistory=createHistory();
 
 const sagaMiddleware=createSagaMiddleware();
 
@@ -25,12 +34,24 @@ const store = createStore(combineReducers({
 	routing: routerReducer
 }), applyMiddleware(rMiddleware, sagaMiddleware,));
 
-const history = syncHistoryWithStore(hashHistory, store);
+//const history = syncHistoryWithStore(hashHistory, store);
 const ReactRedux = { Provider, connect };
 
 Object.assign(window, { React, ReactDOM, ReactRedux, });
 
+/*import User from './User';
+import Login from './User/Login';
+import Reg from './User/Reg';*/
+
 ReactDOM.render(
 		<Provider store={store}>
-			<Router history={history} routes={routes(store,sagaMiddleware)}/>
+			<ConnectedRouter history={hashHistory}>
+				<Routes sagaMiddleware={sagaMiddleware} store={store}/>
+			</ConnectedRouter>
 		</Provider>, document.getElementById('r-root'));
+
+/*
+ReactDOM.render(
+		<Provider store={store}>
+			<Router history={history} routes={routes({store,sagaMiddleware})}/>
+		</Provider>, document.getElementById('r-root'));*/

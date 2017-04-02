@@ -57,28 +57,7 @@ const userFetchErrAction = () => ({ type: USER_FETCH_ERROR, error: true });
 export const changUserInfoAction = payload => ({ type: CHANG_USERINFO, payload, });
 
 //注册新用户
-/*export const signAction = (userInfo) => async dispatch => {
- dispatch(userStartFetchAction());
- dispatch(autoHideMsgAction('注册用户中...'));
- 
- try {
- const data = await fetch(baseUrl + '_User', {
- headers,
- method: 'post',
- body: JSON.stringify(userInfo)
- });
- dispatch(signSuccessAction({ payload: data }));
- dispatch(autoHideMsgAction('注册用户成功！请登录。'));
- } catch (e) {
- dispatch(userFetchErrAction());
- dispatch(autoHideMsgAction(e.message));
- }
- };*/
-
-//用户登录
-/*export const loginAction = userInfo => async dispatch => {
- 
- };*/
+/*
 
 //查询用户
 /*const queryAction = (storeName, queryKey, query) => async (dispatch, getState) => {
@@ -102,7 +81,7 @@ import { server } from '../config/index';
 const { headers, baseUrl } = server;
 
 //注册新用户
-export function* signSaga() {
+export function* regSaga() {
 	yield* takeLatest(USER_FETCH_START, function* signTask(action) {
 		let take=yield fork(showMsgTake, '注册用户中...');
 		
