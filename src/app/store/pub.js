@@ -9,7 +9,7 @@ const CHANG_MSG='CHANG_MSG';
 
 /*2.reducer********************************************************************************/
 const initState={
-	msg:''//消息内容
+	msg:'',//消息内容
 };
 
 export default (state = initState, action)=> {

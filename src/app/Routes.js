@@ -4,8 +4,8 @@
  * @date:2016-11-19
  */
 import { Route, Switch, } from 'react-router-dom';
-import { Bundle } from './ui';
-import { Err } from './ui';
+import { Empty } from '../rui';
+import { Bundle, Err } from './ui';
 
 //动态加载组件
 import HomeLoad from 'bundle-loader?lazy!./Home';
@@ -18,7 +18,13 @@ import {
 	regSaga,
 } from './store';
 
-const asyncLoadComp = (compLoad, cb) => () => <Bundle load={compLoad} cb={cb}/>;
+const asyncLoadComp = (compLoad, cb) => () =>
+		<Bundle load={compLoad}>
+			{Comp => {
+				cb&&cb();
+				return Comp ? <Comp/>: <Empty/>;
+			}}
+		</Bundle>;
 
 export default ({ sagaMiddleware, getState, }) => (
 		<Switch>

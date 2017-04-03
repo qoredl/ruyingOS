@@ -4,18 +4,12 @@
  * date:2017-4-2
  */
 import {Component} from 'react';
-import { Empty } from '../../rui';
 
 export default class extends Component {
 	state = {
 		// short for "module" but that's a keyword in js, so "mod"
 		mod: null,
 	};
-	
-	constructor(props){
-		super(props);
-		this.props.cb&&this.props.cb();
-	}
 	
 	componentWillMount() {
 		this.load(this.props);
@@ -35,8 +29,6 @@ export default class extends Component {
 	}
 	
 	render() {
-		const Mod = this.state.mod;
-		
-		return Mod ? <Mod/>: <Empty/>;
+		return this.props.children(this.state.mod);
 	}
 };

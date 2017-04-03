@@ -7,9 +7,9 @@ import { take } from 'redux-saga/effects';
 export function *logSaga(getState) {
 	while (true){
 		const action=yield take('*');
+		
 		console.group(action.type);
 		console.info('dispatching action:', action);
-		
 		console.log('state:', getState());
 		console.groupEnd(action.type);
 	}

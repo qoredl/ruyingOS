@@ -10,8 +10,8 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import createHistory from 'history/createHashHistory'
 import { ConnectedRouter, routerReducer, routerMiddleware } from 'react-router-redux';
 import createSagaMiddleware from 'redux-saga';
-import Routes from './Routes';
 import reducers from './store';
+import Routes from './Routes';
 
 const hashHistory = createHistory();
 const sagaMiddleware = createSagaMiddleware();
