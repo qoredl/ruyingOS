@@ -3,7 +3,9 @@
  * date:2017-3-11
  */
 import './index.less';
-import * as userAction from '../store/user';
+import {
+	changUserInfoAction,
+} from '../store/user/actions';
 import { Msg, } from '../../rui/index';
 import { Footer } from '../ui/index';
 
@@ -15,12 +17,11 @@ export default ReactRedux.connect(({ pub, routing, user }) => ({
 	routing,
 	user,
 }), {
-	...userAction,
+	changUserInfoAction,
 })(props => {
 	const {
 		pub: { msg },
 		user: { userInfo },
-		loginAction,
 		changUserInfoAction,
 	} = props;
 	
@@ -63,7 +64,7 @@ export default ReactRedux.connect(({ pub, routing, user }) => ({
 						<Button
 								type="primary"
 								className="login-form-button"
-								onClick={() => loginAction(userInfo)}>登录</Button>
+								onClick={() => ''}>登录</Button>
 						或 <a href="#reg">注册</a>
 					</FormItem>
 				</Form>

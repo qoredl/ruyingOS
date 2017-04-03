@@ -1,8 +1,11 @@
 # store相关数据逻辑
 
-> 每个文件包含actionType,actiontCreacter与reducer，默认导出reducer,对应一个state子集.若是数据库数据集，一般以数据库中每个store来划分
+> 以文件夹为单位划分不同类型的逻辑文件。除了pub文件夹为公共共用逻辑外，其它每种类型逻辑都保持其独立性，不互相引用。每种类型包括actions,reducer与saga逻辑文件，一般以模块来划分逻辑类型。
+
+### pub
+公共逻辑。供其它类型逻辑引用。
 
 ### index.js
-统一导出reducer,供合成store使用
+统一导出reducer,主要供合成store使用。
 
 

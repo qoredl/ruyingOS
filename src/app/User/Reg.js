@@ -3,7 +3,10 @@
  * date:2017-3-11
  */
 import './index.less';
-import * as userAction from '../store/user';
+import {
+	changUserInfoAction,
+	userStartFetchAction,
+} from '../store/user/actions';
 import { Msg, } from '../../rui/index';
 import { Footer } from '../ui/index';
 
@@ -15,14 +18,14 @@ export default ReactRedux.connect(({ pub, routing, user }) => ({
 	routing,
 	user,
 }), {
-	...userAction,
+	changUserInfoAction,
+	userStartFetchAction,
 })((props) => {
 	const {
 		pub: { msg },
 		user: {
 			userInfo,
 		},
-		signAction,
 		changUserInfoAction,
 		userStartFetchAction,
 	} = props;
@@ -33,7 +36,6 @@ export default ReactRedux.connect(({ pub, routing, user }) => ({
 	const handlePasswordChange = e => {
 		changUserInfoAction({ ...userInfo, password: e.target.value });
 	};
-	const handleSign=() => signAction(userInfo);
 	
 	return (
 			<div className={'r-page'}>

@@ -13,13 +13,19 @@ import UserLoad from 'bundle-loader?lazy!./User';
 import RegLoad from 'bundle-loader?lazy!./User/Reg';
 import LoginLoad from 'bundle-loader?lazy!./User/Login';
 
+//动态加载saga
+import logSagaLoader from 'bundle-loader?lazy!./store/pub/logSaga';
+import regSagaLoader from 'bundle-loader?lazy!./store/user/regSaga';
 
-import logSagaLoad from 'bundle-loader?lazy!./store/logSaga';
+//saga加载函数
+const sagaLoadCreator=(sagaMiddleware,getState)=>saga=>
+		sagaMiddleware.run(saga.default?saga.default:saga, getState);
 
-import {
-	logSaga,
-	regSaga,
-} from './store';
+const runSaga=(sagaMiddleware,getState,loadCreator,loader)=>{
+	const load=loadCreator(sagaMiddleware,getState);
+	loader(load);
+};
+
 
 const asyncLoadComp = (compLoad, cb) => () =>
 		<Bundle load={compLoad}>
@@ -32,13 +38,13 @@ const asyncLoadComp = (compLoad, cb) => () =>
 export default ({ sagaMiddleware, getState, }) => (
 		<Switch>
 			{/*首页*/}
-			<Route exact path="/" component={asyncLoadComp(HomeLoad, () => sagaMiddleware.run(logSaga, getState))}/>
+			<Route exact path="/" component={asyncLoadComp(HomeLoad, runSaga(sagaMiddleware,getState,sagaLoadCreator,logSagaLoader))}/>
 			
 			{/*用户首页*/}
 			<Route path="/user" component={asyncLoadComp(UserLoad)}/>
 			
 			{/*用户注册*/}
-			<Route path="/reg" component={asyncLoadComp(RegLoad, () => sagaMiddleware.run(regSaga, getState))}/>
+			<Route path="/reg" component={asyncLoadComp(RegLoad, runSaga(sagaMiddleware,getState,sagaLoadCreator,regSagaLoader))}/>
 			
 			{/*用户登录*/}
 			<Route path="/login" component={asyncLoadComp(LoginLoad)}/>
