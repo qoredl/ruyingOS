@@ -13,6 +13,9 @@ import UserLoad from 'bundle-loader?lazy!./User';
 import RegLoad from 'bundle-loader?lazy!./User/Reg';
 import LoginLoad from 'bundle-loader?lazy!./User/Login';
 
+
+import logSagaLoad from 'bundle-loader?lazy!./store/logSaga';
+
 import {
 	logSaga,
 	regSaga,

@@ -8,10 +8,7 @@ import { Header, Footer } from '../ui';
 export default ReactRedux.connect(({ routing, users }) => ({
 	routing,
 	users
-}), {})((props) => {
-	const {
-		//routing,
-	} = props;
+}), {})(({routing,users,}) => {
 	
 	return (
 			<div className={'r-page'}>

@@ -73,7 +73,7 @@ export const changUserInfoAction = payload => ({ type: CHANG_USERINFO, payload, 
 
 /*4.saga********************************************************************************/
 import { showMsgTake } from './pub';
-import { takeEvery, takeLatest } from 'redux-saga';
+import { takeLatest } from 'redux-saga';
 import { call, put,fork,cancel, } from 'redux-saga/effects';
 import { fetch, } from '../../lib/Utils';
 import { server } from '../config/index';
