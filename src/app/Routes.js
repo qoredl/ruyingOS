@@ -9,6 +9,10 @@ import { Err } from './ui';
 import Home from './Home';//返回Index为高阶组件
 import logSaga from './store/pub/logSaga';
 
+System.import('./Home').then(function (data) {
+	console.log(data);
+});
+
 //运行动态加载的saga
 const runAsyncSaga = (sagaMiddleware, getState) => saga =>
 		sagaMiddleware.run(saga.default ? saga.default: saga, getState);
@@ -20,11 +24,11 @@ const asyncLoadSaga = (sagaMiddleware, getState) =>loader=> () => {
 };
 
 //动态按需加载组件
-const asyncLoadComp = (compLoad, runSagaFn) => () =>
-		<Bundle load={compLoad}>
+const asyncLoadComp = (compLoader, addSaga) => () =>
+		<Bundle load={compLoader}>
 			{Comp => {
 				Comp=Comp ? Comp: Empty;
-				Comp=runSagaFn?runSagaFn(Comp):Comp;
+				Comp=addSaga?addSaga(Comp):Comp;
 				return <Comp/>;
 			}}
 		</Bundle>;
@@ -39,14 +43,12 @@ import regSagaLoader from 'bundle-loader?lazy!./store/user/regSaga';
 
 export default ({ sagaMiddleware, getState, }) => {
 	//辅助函数
-	const sagaBase=(sagaMiddleware, getState)=>f=>f(sagaMiddleware, getState);
-	const base=sagaBase(sagaMiddleware, getState);
-	
-	//动行saga函数
-	const addSaga = sagaLists=>base(runSaga)(sagaLists);
+	const sagaHelper=((sagaMiddleware, getState)=>f=>f(sagaMiddleware, getState))(sagaMiddleware, getState);
+	//添加saga函数
+	const addSaga = saga=>sagaHelper(runSaga)(saga);
 	
 	//saga列表
-	const regSaga=base(asyncLoadSaga)(regSagaLoader);
+	const regSaga=sagaHelper(asyncLoadSaga)(regSagaLoader);
 	
 	return <Switch>
 		{/*首页*/}
@@ -63,5 +65,5 @@ export default ({ sagaMiddleware, getState, }) => {
 		
 		{/*未匹配404*/}
 		<Route component={Err}/>
-	</Switch>
+	</Switch>;
 };

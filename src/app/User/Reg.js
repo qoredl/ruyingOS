@@ -41,7 +41,7 @@ export default ReactRedux.connect(({ pub, routing, user }) => ({
 	
 	//3秒后自动关闭信息提示框
 	message.config({
-		duration: 4
+		duration: 3
 	});
 	
 	return (

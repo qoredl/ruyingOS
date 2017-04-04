@@ -10,7 +10,8 @@
   "scripts": {
     "start": "node index.js",
     "dev": "rimraf app && webpack --progress --watch --config webpack-dev.config.js",
-    "build": "rimraf app && webpack --p --progress --config webpack-prod.config.js"
+    "build": "rimraf app && webpack --p --progress --config webpack-prod.config.js",
+    "test": "rimraf app && webpack --p --progress --watch --config webpack-test.config.js"
   },
   "dependencies": {
     "express": "~4.11.x",
@@ -20,7 +21,7 @@
     "parse-server": "*"
   },
   "devDependencies": {
-    "antd": "^2.8.2",
+    "antd": "^2.9.0",
     "babel-core": "6.x.x",
     "babel-es6-polyfill": "^1.0.1",
     "babel-plugin-import": "^1.1.0",

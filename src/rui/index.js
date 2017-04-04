@@ -10,6 +10,8 @@ import Footer from './Footer';
 import SwitchTab from './switchTab/index';
 import Picker from './picker/index';
 import Calendar from './calendar/index';*/
+import Bundle from './Bundle';
+import runSaga from './runSaga';
 import Empty from './Empty';
 
 export {
@@ -20,5 +22,7 @@ export {
 	SwitchTab,
 	Picker,
 	Calendar,*/
+	Bundle,
+	runSaga,
 	Empty,
 }
