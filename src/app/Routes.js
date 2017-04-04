@@ -4,18 +4,32 @@
  * @date:2016-11-19
  */
 import { Route, Switch, } from 'react-router-dom';
-import { Empty } from '../rui';
-import { Bundle, Err } from './ui';
-import Home from './Home';
+import { Bundle, runSaga, Empty } from '../rui';
+import { Err } from './ui';
+import Home from './Home';//返回Index为高阶组件
 import logSaga from './store/pub/logSaga';
 
-//首页直接加载
-const loadIndex=(sagaMiddleware, getState)=>{
-	sagaMiddleware.run(logSaga, getState);
-	return Home;
+//运行动态加载的saga
+const runAsyncSaga = (sagaMiddleware, getState) => saga =>
+		sagaMiddleware.run(saga.default ? saga.default: saga, getState);
+
+//动态按需加载saga
+const asyncLoadSaga = (sagaMiddleware, getState) =>loader=> () => {
+	const load = runAsyncSaga(sagaMiddleware, getState);
+	loader(load);
 };
 
-//创建组件动态加载器
+//动态按需加载组件
+const asyncLoadComp = (compLoad, runSagaFn) => () =>
+		<Bundle load={compLoad}>
+			{Comp => {
+				Comp=Comp ? Comp: Empty;
+				Comp=runSagaFn?runSagaFn(Comp):Comp;
+				return <Comp/>;
+			}}
+		</Bundle>;
+
+//创建组件动态加载器*******************************************************************/
 import UserLoader from 'bundle-loader?lazy!./User';
 import RegLoader from 'bundle-loader?lazy!./User/Reg';
 import LoginLoader from 'bundle-loader?lazy!./User/Login';
@@ -23,40 +37,31 @@ import LoginLoader from 'bundle-loader?lazy!./User/Login';
 //创建saga动态加载器
 import regSagaLoader from 'bundle-loader?lazy!./store/user/regSaga';
 
-//saga加载函数生成器
-const sagaLoadCreator=(sagaMiddleware,getState)=>saga=>
-		sagaMiddleware.run(saga.default?saga.default:saga, getState);
-
-//saga动态加载回调函数
-const sagaCb=(sagaMiddleware,getState,loader)=>()=>{
-	const load=sagaLoadCreator(sagaMiddleware,getState);
-	loader(load);
+export default ({ sagaMiddleware, getState, }) => {
+	//辅助函数
+	const sagaBase=(sagaMiddleware, getState)=>f=>f(sagaMiddleware, getState);
+	const base=sagaBase(sagaMiddleware, getState);
+	
+	//动行saga函数
+	const addSaga = sagaLists=>base(runSaga)(sagaLists);
+	
+	//saga列表
+	const regSaga=base(asyncLoadSaga)(regSagaLoader);
+	
+	return <Switch>
+		{/*首页*/}
+		<Route exact path="/" component={addSaga(logSaga)(Home)}/>
+		
+		{/*用户首页*/}
+		<Route path="/user" component={asyncLoadComp(UserLoader)}/>
+		
+		{/*用户注册*/}
+		<Route path="/reg" component={asyncLoadComp(RegLoader,addSaga(regSaga))}/>
+		
+		{/*用户登录*/}
+		<Route path="/login" component={asyncLoadComp(LoginLoader)}/>
+		
+		{/*未匹配404*/}
+		<Route component={Err}/>
+	</Switch>
 };
-
-//动态按需加载组件
-const asyncLoadComp = (compLoad, cb) => () =>
-		<Bundle load={compLoad}>
-			{Comp => {
-				cb&&cb();
-				return Comp ? <Comp/>: <Empty/>;
-			}}
-		</Bundle>;
-
-export default ({ sagaMiddleware, getState, }) => (
-		<Switch>
-			{/*首页*/}
-			<Route exact path="/" component={loadIndex(sagaMiddleware, getState)}/>
-			
-			{/*用户首页*/}
-			<Route path="/user" component={asyncLoadComp(UserLoader)}/>
-			
-			{/*用户注册*/}
-			<Route path="/reg" component={asyncLoadComp(RegLoader, sagaCb(sagaMiddleware,getState,regSagaLoader))}/>
-			
-			{/*用户登录*/}
-			<Route path="/login" component={asyncLoadComp(LoginLoader)}/>
-			
-			{/*未匹配404*/}
-			<Route component={Err}/>
-		</Switch>
-);
