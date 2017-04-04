@@ -7,10 +7,9 @@ import {
 	changUserInfoAction,
 	userStartFetchAction,
 } from '../store/user/actions';
-import { Msg, } from '../../rui/index';
 import { Footer } from '../ui/index';
 
-import { Form, Icon, Input, Button, Checkbox } from 'antd';
+import { Form, Icon, Input, Button, Checkbox, message, } from 'antd';
 const FormItem = Form.Item;
 
 export default ReactRedux.connect(({ pub, routing, user }) => ({
@@ -22,7 +21,10 @@ export default ReactRedux.connect(({ pub, routing, user }) => ({
 	userStartFetchAction,
 })((props) => {
 	const {
-		pub: { msg },
+		pub: {
+			msg,
+			msgType,
+		},
 		user: {
 			userInfo,
 		},
@@ -37,15 +39,15 @@ export default ReactRedux.connect(({ pub, routing, user }) => ({
 		changUserInfoAction({ ...userInfo, password: e.target.value });
 	};
 	
+	//3秒后自动关闭信息提示框
+	message.config({
+		duration: 4
+	});
+	
 	return (
 			<div className={'r-page'}>
-				{msg && <Msg
-						message={msg}
-						type="warning"
-						showIcon
-						flashName="slideInDown"
-						closable
-						onClose={() => ''}/>}
+				{message.destroy()}
+				{msg && message[msgType](msg)}
 				
 				<Form className="login-form">
 					<FormItem>

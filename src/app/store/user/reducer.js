@@ -7,7 +7,7 @@ import {
 	REG_SUCCESS,
 	USER_FETCH_ERROR,
 	CHANG_USERINFO,
-} from './actions';
+} from '../pub/type';
 
 const initState = {
 	isFetching: false,//获取数据操作是否正在运行中

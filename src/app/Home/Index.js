@@ -3,9 +3,10 @@
  * @date:2017-3-9
  * update:2017-3-15
  */
+import {connect} from 'react-redux';
 import { Header, Footer } from '../ui';
 
-export default ReactRedux.connect(({ routing, users }) => ({
+export default connect(({ routing, users }) => ({
 	routing,
 	users
 }), {})(({routing,users,}) => {

@@ -10,7 +10,6 @@ import Footer from './Footer';
 import SwitchTab from './switchTab/index';
 import Picker from './picker/index';
 import Calendar from './calendar/index';*/
-import Msg from './Msg';
 import Empty from './Empty';
 
 export {
@@ -21,6 +20,5 @@ export {
 	SwitchTab,
 	Picker,
 	Calendar,*/
-	Msg,
 	Empty,
 }

@@ -6,10 +6,9 @@ import './index.less';
 import {
 	changUserInfoAction,
 } from '../store/user/actions';
-import { Msg, } from '../../rui/index';
 import { Footer } from '../ui/index';
 
-import { Form, Icon, Input, Button, Checkbox, } from 'antd';
+import { Form, Icon, Input, Button, Checkbox,message, } from 'antd';
 const FormItem = Form.Item;
 
 export default ReactRedux.connect(({ pub, routing, user }) => ({
@@ -34,13 +33,7 @@ export default ReactRedux.connect(({ pub, routing, user }) => ({
 	
 	return (
 			<div className={'r-page'}>
-				{msg && <Msg
-						message={msg}
-						type="warning"
-						showIcon
-						flashName="slideInDown"
-						closable
-						onClose={() => ''}/>}
+				{msg && message.info(msg)}
 				
 				<Form className="login-form">
 					<FormItem>

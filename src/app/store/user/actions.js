@@ -2,14 +2,14 @@
  * user用户actions
  * date:2017-4-3
  */
+import {
+	USER_FETCH_START,
+	USER_FETCH_ERROR,
+	REG_SUCCESS,
+	CHANG_USERINFO,
+} from '../pub/type';
 
-/*1.types********************************************************************************/
-export const USER_FETCH_START = 'USER_FETCH_START';
-export const USER_FETCH_ERROR = 'USER_FETCH_ERROR';
-export const REG_SUCCESS = 'REG_SUCCESS';
-export const CHANG_USERINFO = 'CHANG_USERINFO';
 
-/*3.actions********************************************************************************/
 export const userStartFetchAction = (payload) => ({ type: USER_FETCH_START, payload });
 export const signSuccessAction = payload => ({ type: REG_SUCCESS, payload });
 export const userFetchErrAction = () => ({ type: USER_FETCH_ERROR, error: true });

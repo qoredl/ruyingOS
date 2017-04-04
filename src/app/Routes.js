@@ -6,27 +6,34 @@
 import { Route, Switch, } from 'react-router-dom';
 import { Empty } from '../rui';
 import { Bundle, Err } from './ui';
+import Home from './Home';
+import logSaga from './store/pub/logSaga';
 
-//动态加载组件
-import HomeLoad from 'bundle-loader?lazy!./Home';
-import UserLoad from 'bundle-loader?lazy!./User';
-import RegLoad from 'bundle-loader?lazy!./User/Reg';
-import LoginLoad from 'bundle-loader?lazy!./User/Login';
+//首页直接加载
+const loadIndex=(sagaMiddleware, getState)=>{
+	sagaMiddleware.run(logSaga, getState);
+	return Home;
+};
 
-//动态加载saga
-import logSagaLoader from 'bundle-loader?lazy!./store/pub/logSaga';
+//创建组件动态加载器
+import UserLoader from 'bundle-loader?lazy!./User';
+import RegLoader from 'bundle-loader?lazy!./User/Reg';
+import LoginLoader from 'bundle-loader?lazy!./User/Login';
+
+//创建saga动态加载器
 import regSagaLoader from 'bundle-loader?lazy!./store/user/regSaga';
 
-//saga加载函数
+//saga加载函数生成器
 const sagaLoadCreator=(sagaMiddleware,getState)=>saga=>
 		sagaMiddleware.run(saga.default?saga.default:saga, getState);
 
-const runSaga=(sagaMiddleware,getState,loadCreator,loader)=>{
-	const load=loadCreator(sagaMiddleware,getState);
+//saga动态加载回调函数
+const sagaCb=(sagaMiddleware,getState,loader)=>()=>{
+	const load=sagaLoadCreator(sagaMiddleware,getState);
 	loader(load);
 };
 
-
+//动态按需加载组件
 const asyncLoadComp = (compLoad, cb) => () =>
 		<Bundle load={compLoad}>
 			{Comp => {
@@ -38,16 +45,16 @@ const asyncLoadComp = (compLoad, cb) => () =>
 export default ({ sagaMiddleware, getState, }) => (
 		<Switch>
 			{/*首页*/}
-			<Route exact path="/" component={asyncLoadComp(HomeLoad, runSaga(sagaMiddleware,getState,sagaLoadCreator,logSagaLoader))}/>
+			<Route exact path="/" component={loadIndex(sagaMiddleware, getState)}/>
 			
 			{/*用户首页*/}
-			<Route path="/user" component={asyncLoadComp(UserLoad)}/>
+			<Route path="/user" component={asyncLoadComp(UserLoader)}/>
 			
 			{/*用户注册*/}
-			<Route path="/reg" component={asyncLoadComp(RegLoad, runSaga(sagaMiddleware,getState,sagaLoadCreator,regSagaLoader))}/>
+			<Route path="/reg" component={asyncLoadComp(RegLoader, sagaCb(sagaMiddleware,getState,regSagaLoader))}/>
 			
 			{/*用户登录*/}
-			<Route path="/login" component={asyncLoadComp(LoginLoad)}/>
+			<Route path="/login" component={asyncLoadComp(LoginLoader)}/>
 			
 			{/*未匹配404*/}
 			<Route component={Err}/>
