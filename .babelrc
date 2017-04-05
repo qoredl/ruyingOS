@@ -1,0 +1,7 @@
+{
+    "presets": [ "es2015-rollup", "stage-2","react" ],
+    "plugins": [ "external-helpers", "transform-decorators-legacy","transform-object-rest-spread" ],
+    "ignore": [
+        "Nsrc/js/app/"
+    ]
+}
