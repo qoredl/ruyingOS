@@ -2,6 +2,7 @@
  * 用户注册组件
  * date:2017-3-11
  */
+import {connect} from 'react-redux';
 import './index.less';
 import {
 	changUserInfoAction,
@@ -11,7 +12,7 @@ import Footer from '../ui/Footer';
 import { Form, Icon, Input, Button, Checkbox,message, } from 'antd';
 const FormItem = Form.Item;
 
-export default ReactRedux.connect(({ pub, routing, user }) => ({
+export default connect(({ pub, routing, user }) => ({
 	pub,
 	routing,
 	user,

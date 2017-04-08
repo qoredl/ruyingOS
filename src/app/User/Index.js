@@ -2,10 +2,11 @@
  * User模块入口容器组件
  * date:2017-1-15
  */
+import {connect} from 'react-redux';
 import './index.less';
 import Footer from '../ui/Footer';
 
-export default ReactRedux.connect(({ pub, routing, user }) => ({
+export default connect(({ pub, routing, user }) => ({
 	pub,
 	routing,
 	user,

@@ -28,6 +28,7 @@ module.exports={
 	prodConfig:{
 		entry:{
 			app:entry,
+			//vendor: ['react','redux-saga'],
 		},
 		output: {
 			path: path.resolve(__dirname, output),
@@ -83,7 +84,10 @@ module.exports={
 				minify:{ collapseWhitespace: true },
 				template:'./src/index.html',
 			}),
-			//new webpack.optimize.CommonsChunkPlugin('app'),
+			new webpack.optimize.CommonsChunkPlugin({
+				name: 'vendor',
+				filename: 'vendor-[hash].min.js',
+			}),
 			//new ExtractTextPlugin("css/[name].css"),//输出独立的css文件
 			//压缩png图片
 			new ImageminPlugin({

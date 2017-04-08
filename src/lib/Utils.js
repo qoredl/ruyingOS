@@ -8,7 +8,7 @@
 /*SHA1加密*/
 //import IndexDB from '../lib/IndexDB';
 
-import {isPlainObject} from 'lodash';
+//import {curry} from 'lodash/function';
 import 'whatwg-fetch';//fetch polyfill;
 
 /*生成封装过的indexedDB操作类实例
@@ -77,6 +77,13 @@ export const type = obj => {
 };
 
 /**
+ * 纯对象判断
+ * @param obj
+ * @returns {*|boolean}
+ */
+export const isPlainObject = obj=>obj.constructor && obj.constructor.name === 'Object' && obj.constructor.prototype.hasOwnProperty('hasOwnProperty');
+
+/**
  * 对象参数序列化
  * @param obj {Object}
  * @returns {string}
@@ -100,6 +107,40 @@ export const param = obj => {
 	
 	// Return the resulting serialization
 	return returnData.join('&');
+	
+	/*param辅助函数*/
+	function add(key, valueOrFunction, data) {
+		// If value is obj function, invoke it and use its return value
+		const value = typeof valueOrFunction === 'function'
+				? valueOrFunction(): valueOrFunction;
+		
+		data.push(encodeURIComponent(key) + '=' + encodeURIComponent(value === null ? '': value));
+	}
+	function buildParams(key, value, add, data) {
+		const isBracket = /[]$/.test(key);
+		
+		if (Array.isArray(value)) {
+			// Serialize array navs.
+			// 序列化数组项
+			for (let [i, v] of value.entries()) {
+				if (isBracket) {
+					// Treat each array navs as a scalar.
+					add(key, v, data);
+				} else {
+					// Item is non-scalar (array or object), encode its numeric index.
+					buildParams(key + '[' + (typeof v === 'object' && v !== null ? i: '') + ']', v, add, data);
+				}
+			}
+		} else if (typeof value === 'object' && value !== null) {
+			// Serialize object navs.
+			for (let name of Object.keys(value)) {
+				buildParams(key + '[' + name + ']', value[name], add, data);
+			}
+		} else {
+			// Serialize scalar navs.
+			add(key, value, data);
+		}
+	}
 };
 
 /**
@@ -109,7 +150,7 @@ export const param = obj => {
  * @param delay {Number} - 控制函数连续调用的频率
  * @returns {Function}
  */
-/*export const throttle = (fn, delay)=> {
+export const throttle = (fn, delay)=> {
 	let timer = null;
 	
 	return function (...arg) {
@@ -118,7 +159,7 @@ export const param = obj => {
 			fn.apply(this, arg);
 		}, delay);
 	}
-};*/
+};
 
 /**
  * 高频执行函数防抖生成器，
@@ -127,7 +168,7 @@ export const param = obj => {
  * @param immediate [Boolean] - 无此参数或此参数为false时，执行函数在空闲时间间隔之后执行；相反刚在之前执行。
  * @returns {Function}
  */
-/*export const debounce = (fn, wait, immediate)=> {
+export const debounce = (fn, wait, immediate)=> {
 	let timeout;
 	
 	return function (...args) {
@@ -144,14 +185,7 @@ export const param = obj => {
 			}
 		}, wait);
 	};
-};*/
-
-/**
- * 纯对象判断
- * @param obj
- * @returns {*|boolean}
- */
-/*export const isPlainObject = obj=>obj.constructor && obj.constructor.name === 'Object' && obj.constructor.prototype.hasOwnProperty('hasOwnProperty');*/
+};
 
 
 /**
@@ -271,41 +305,3 @@ export const camelCase = str => {
  * @param time
  */
 export const delay = time => new Promise(resolve => setTimeout(resolve, time));
-
-
-
-
-/*param辅助函数*/
-function add(key, valueOrFunction, data) {
-	// If value is obj function, invoke it and use its return value
-	const value = typeof valueOrFunction === 'function'
-			? valueOrFunction(): valueOrFunction;
-	
-	data.push(encodeURIComponent(key) + '=' + encodeURIComponent(value === null ? '': value));
-}
-
-function buildParams(key, value, add, data) {
-	const isBracket = /[]$/.test(key);
-	
-	if (Array.isArray(value)) {
-		// Serialize array navs.
-		// 序列化数组项
-		for (let [i, v] of value.entries()) {
-			if (isBracket) {
-				// Treat each array navs as a scalar.
-				add(key, v, data);
-			} else {
-				// Item is non-scalar (array or object), encode its numeric index.
-				buildParams(key + '[' + (typeof v === 'object' && v !== null ? i: '') + ']', v, add, data);
-			}
-		}
-	} else if (typeof value === 'object' && value !== null) {
-		// Serialize object navs.
-		for (let name of Object.keys(value)) {
-			buildParams(key + '[' + name + ']', value[name], add, data);
-		}
-	} else {
-		// Serialize scalar navs.
-		add(key, value, data);
-	}
-}

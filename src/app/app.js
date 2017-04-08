@@ -5,8 +5,8 @@
  */
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider, connect } from 'react-redux';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { Provider, connect } from 'react-redux';
 import createHistory from 'history/createHashHistory'
 import { ConnectedRouter, routerReducer, routerMiddleware } from 'react-router-redux';
 import createSagaMiddleware from 'redux-saga';
@@ -23,9 +23,9 @@ const rMiddleware = routerMiddleware(hashHistory);
 // 合成app store状态树。
 const store = createStore(combineReducers({ ...reducers, routing: routerReducer}), applyMiddleware(rMiddleware, sagaMiddleware,));
 
-const ReactRedux = { Provider, connect};
+//const ReactRedux = { Provider, connect};
 
-Object.assign(window, { React, ReactDOM, ReactRedux,});
+Object.assign(window, { React, });
 
 ReactDOM.render(
 		<Provider store={store}>

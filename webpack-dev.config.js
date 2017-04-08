@@ -56,6 +56,10 @@ module.exports={
 			filename: 'index.html',
 			template:'./src/index.html',
 		}),
+		/*new webpack.optimize.CommonsChunkPlugin({
+			name: 'vendor',
+			filename: 'js/vendor-[hash].min.js',
+		}),*/
 		/*new CopyWebpackPlugin([
 			// {output}/to/file.txt
 			{ from: './src/'+appName+'/img', to: 'img' },

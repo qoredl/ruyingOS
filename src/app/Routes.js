@@ -18,7 +18,7 @@ import RegLoader from 'bundle-loader?lazy!./User/Reg';
 import LoginLoader from 'bundle-loader?lazy!./User/Login';
 
 //创建saga动态加载器
-import regSagaLoader from 'bundle-loader?lazy!./store/user/sagaReg'
+import sagaRegLoader from 'bundle-loader?lazy!./store/user/sagaReg'
 
 /*System.import('./Home').then(function (data) {
 	console.log(data);
@@ -38,7 +38,7 @@ export default ({ sagaMiddleware, getState, }) => {
 	//动态按需加载saga
 	const asyncLoadSaga = loader => () => loader(saga => sagaMiddleware.run(saga.default ? saga.default: saga, getState));
 	//saga列表
-	const sagaReg = asyncLoadSaga(regSagaLoader);
+	const sagaReg = asyncLoadSaga(sagaRegLoader);
 	
 	//添加saga函数
 	const addSaga = saga => runSagaInComp(sagaMiddleware, getState)(saga);
