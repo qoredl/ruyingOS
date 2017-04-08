@@ -6,7 +6,7 @@ import './index.less';
 import {
 	changUserInfoAction,
 } from '../store/user/actions';
-import { Footer } from '../ui/index';
+import Footer from '../ui/Footer';
 
 import { Form, Icon, Input, Button, Checkbox,message, } from 'antd';
 const FormItem = Form.Item;

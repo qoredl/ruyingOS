@@ -1,5 +1,5 @@
 /**
- * msg信息actions
+ * app共公actions
  * date:2017-4-3
  */
 

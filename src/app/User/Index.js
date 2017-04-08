@@ -3,9 +3,7 @@
  * date:2017-1-15
  */
 import './index.less';
-import {
-	Footer,
-} from '../ui/index';
+import Footer from '../ui/Footer';
 
 export default ReactRedux.connect(({ pub, routing, user }) => ({
 	pub,

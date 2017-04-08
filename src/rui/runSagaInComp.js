@@ -1,6 +1,6 @@
 /**
- * 自动运行添加进来的saga高价组件
- * 使用示例:addSaga(sagaMiddleware, getState)(sagaLists)(Comp);
+ * 在组件内部自动运行添加进来的saga高价组件
+ * 使用示例:f(sagaMiddleware, getState)(sagaLists)(Comp);
  * @param sagaMiddleware
  * @param getState
  */

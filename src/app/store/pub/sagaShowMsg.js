@@ -1,5 +1,5 @@
 /**
- * msg信息saga
+ * 显示msg信息saga-app共用
  * date:2017-4-3
  */
 import {

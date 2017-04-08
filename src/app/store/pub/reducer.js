@@ -1,5 +1,5 @@
 /**
- * msg信息reducer
+ * app公共reducer
  * date:2017-4-3
  */
 import {

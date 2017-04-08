@@ -1,5 +1,5 @@
 /**
- * saga监听action并打印日记
+ * saga监听action并打印日记-app共用
  * date:2017-3-26
  */
 import { take } from 'redux-saga/effects';

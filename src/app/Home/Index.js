@@ -3,7 +3,9 @@
  * @date:2017-3-9
  */
 import {connect} from 'react-redux';
-import { Header, Footer } from '../ui';
+import Header from '../ui/Header';
+import Footer from '../ui/Footer';
+import '../ui/app.less';
 
 export default connect(({ routing, users }) => ({
 	routing,

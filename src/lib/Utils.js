@@ -2,17 +2,19 @@
  * @工具函数库
  * @date:2016-5-14
  */
-import dom from '../var/dom';
-import support from '../var/support';
-import animations from '../var/animation-name';
+//import dom from '../var/dom';
+//import {animationend} from '../var/support';
+//import animations from '../var/animation-name';
 /*SHA1加密*/
-import IndexDB from '../lib/IndexDB';
-import 'whatwg-fetch';//fetch polyfill
+//import IndexDB from '../lib/IndexDB';
+
+import {isPlainObject} from 'lodash';
+import 'whatwg-fetch';//fetch polyfill;
 
 /*生成封装过的indexedDB操作类实例
  * 可对indexedDB进行系列操作，具体请看IndexDB类使用说明
  * */
-const indexDB = dbName => new IndexDB(dbName);
+//const indexDB = dbName => new IndexDB(dbName);
 
 /**
  * fetch异部获取数据
@@ -22,7 +24,7 @@ const indexDB = dbName => new IndexDB(dbName);
  * @param url {String}
  * @param opts [Object]
  */
-const fetch = (url, opts = {}) => window.fetch(url, Object.assign({ method: 'get' }, opts))
+export const fetch = (url, opts = {}) => window.fetch(url, Object.assign({ method: 'get' }, opts))
 		.then(response => {
 			if (200 <= response.status && response.status < 300) {
 				if (opts.type === 'text') {
@@ -43,7 +45,7 @@ const fetch = (url, opts = {}) => window.fetch(url, Object.assign({ method: 'get
  * @param len　[number=32]
  * @returns {string}
  */
-const randomStr = (len = 42) => {
+export const randomStr = (len = 42) => {
 	const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 	let str = '';
 	
@@ -59,7 +61,7 @@ const randomStr = (len = 42) => {
  * @param obj
  * @returns {string}
  */
-const type = obj => {
+export const type = obj => {
 	//null,undefinded
 	if (obj == null) {
 		return obj + "";
@@ -79,7 +81,7 @@ const type = obj => {
  * @param obj {Object}
  * @returns {string}
  */
-const param = obj => {
+export const param = obj => {
 	const returnData = [];
 	
 	// If an array was passed in, assume that it is an array of form elements.
@@ -101,11 +103,63 @@ const param = obj => {
 };
 
 /**
+ * 函数节流生成器
+ * 应用场景：鼠标移动，mousemove事件；DOM元素动态定位，window对象的resizet和scroll事件
+ * @param fn [Function] -节流函数
+ * @param delay {Number} - 控制函数连续调用的频率
+ * @returns {Function}
+ */
+/*export const throttle = (fn, delay)=> {
+	let timer = null;
+	
+	return function (...arg) {
+		timer && clearTimeout(timer);
+		timer = setTimeout(() => {
+			fn.apply(this, arg);
+		}, delay);
+	}
+};*/
+
+/**
+ * 高频执行函数防抖生成器，
+ * @param fn {function} - 绑定需要防抖函数
+ * @param wait {Number} -空闲时间间隔，空闲时间必须大于或等于此值时才会执行调用函数
+ * @param immediate [Boolean] - 无此参数或此参数为false时，执行函数在空闲时间间隔之后执行；相反刚在之前执行。
+ * @returns {Function}
+ */
+/*export const debounce = (fn, wait, immediate)=> {
+	let timeout;
+	
+	return function (...args) {
+		clearTimeout(timeout);
+		
+		if (immediate && !timeout) {
+			fn.apply(this, args);
+		}
+		
+		timeout = setTimeout(() => {
+			timeout = null;
+			if (!immediate) {
+				fn.apply(this, args);
+			}
+		}, wait);
+	};
+};*/
+
+/**
+ * 纯对象判断
+ * @param obj
+ * @returns {*|boolean}
+ */
+/*export const isPlainObject = obj=>obj.constructor && obj.constructor.name === 'Object' && obj.constructor.prototype.hasOwnProperty('hasOwnProperty');*/
+
+
+/**
  * 解析字符串形式的对象为js对象，如：{name:'ruying'}
  * @param optsStr {String}
  * @returns {*}
  */
-const parseOptions = optsStr => {
+export const parseOptions = optsStr => {
 	if (optsStr) {
 		try {
 			return (new Function('return JSON.parse(JSON.stringify(' + optsStr + '));'))();
@@ -121,7 +175,7 @@ const parseOptions = optsStr => {
  * @returns {string}
  */
 let id = 0;
-const guid = (prfix = 'r') => `${prfix}-${+(new Date()) + id++}`;
+export const guid = (prfix = 'r') => `${prfix}-${+(new Date()) + id++}`;
 
 /**
  * 添加css3动画
@@ -131,12 +185,12 @@ const guid = (prfix = 'r') => `${prfix}-${+(new Date()) + id++}`;
  * @param isHidden [Boolean=0]
  * @param callBack {Function}
  */
-const addFlass = (target, { flassName, type = 'in', isHidden = false }, callBack) => {
+/*const addFlass = (target, { flassName, type = 'in', isHidden = false }, callBack) => {
 	type === 'in' && target.removeAttribute('hidden');
 	target.classList.add(animations.name);
 	target.classList.add(flassName);
 	
-	target.addEventListener(support.animationend, eventHandler, false);
+	target.addEventListener(animationend, eventHandler, false);
 	
 	function eventHandler(e) {
 		const thisElment = e.target;
@@ -144,9 +198,9 @@ const addFlass = (target, { flassName, type = 'in', isHidden = false }, callBack
 		thisElment.classList.remove(flassName);
 		isHidden && thisElment.setAttribute('hidden', 'hidden');
 		callBack && callBack();
-		thisElment.removeEventListener(support.animationend, eventHandler, false);
+		thisElment.removeEventListener(animationend, eventHandler, false);
 	}
-};
+};*/
 
 /**
  * 返回绝对网址，即完整网址
@@ -154,18 +208,18 @@ const addFlass = (target, { flassName, type = 'in', isHidden = false }, callBack
  * @param url [String='']
  * @returns {String}
  */
-const getAbsoluteUrl = (url = '') => {
+/*const getAbsoluteUrl = (url = '') => {
 	const a = dom.createElement('a');
 	a.href = url;
 	return a.href;
-};
+};*/
 
 /**
  * 中划线形式单词转换为驼峰式单词
  * @param str {String}
  * @returns {String}
  */
-const camelCase = str => {
+export const camelCase = str => {
 	str = str.toLowerCase();
 	
 	const keyArr = str.split('-');
@@ -183,14 +237,14 @@ const camelCase = str => {
  * @param target
  * @param source
  */
-const copyOwnKeys = (target, source) => {
+/*const copyOwnKeys = (target, source) => {
 	for (let key of Reflect.ownKeys(source)) {
 		if (!(key === 'constructor' && key === 'prototype' && key === 'name')) {
 			let desc = Object.getOwnPropertyDescriptor(source, key);
 			Object.defineProperty(target, key, desc);
 		}
 	}
-};
+};*/
 
 /**
  * Mixin模式
@@ -199,7 +253,7 @@ const copyOwnKeys = (target, source) => {
  * @param mixins {Class}-多个class类
  * @returns {Mix}
  */
-const mix = (...mixins) => {
+/*const mix = (...mixins) => {
 	class Mix {
 	}
 	
@@ -209,31 +263,17 @@ const mix = (...mixins) => {
 	}
 	
 	return Mix;
-};
+};*/
 
 /**
  * delay
  * 返回一个 Promise，这个 Promise 将在 time 秒后 resolve
  * @param time
  */
-const delay = time => new Promise(resolve => setTimeout(resolve, time));
+export const delay = time => new Promise(resolve => setTimeout(resolve, time));
 
-export {
-	indexDB,
-	fetch,
-	randomStr,
-	type,
-	param,
-	parseOptions,
-	guid,
-	addFlass,
-	getAbsoluteUrl,
-	camelCase,
-	//cssTest,
-	copyOwnKeys,
-	mix,
-	delay,
-};
+
+
 
 /*param辅助函数*/
 function add(key, valueOrFunction, data) {

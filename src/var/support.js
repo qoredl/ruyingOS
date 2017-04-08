@@ -1,6 +1,19 @@
 import body from './body';
 
 /**
+ * 返回动画requestAnimationFrame函数
+ *handle multiple browsers for requestAnimationFrame()
+ *http://www.paulirish.com/2011/requestanimationframe-for-smart-animating/
+ *https://github.com/gnarf/jquery-requestAnimationFrame
+ */
+window.requestAnimationFrame=window.requestAnimationFrame||window.webkitRequestAnimationFrame||window.mozRequestAnimationFrame||window.oRequestAnimationFrame;
+
+window.cancelAnimationFrame=window.cancelAnimationFrame||window.webkitCancelAnimationFrame||window.mozCancelAnimationFrame||window.oCancelAnimationFrame;
+
+// https://developer.mozilla.org/zh-CN/docs/DOM/MutationObserver
+//window.MutationObserver = window.MutationObserver||window.WebKitMutationObserver||window.MozMutationObserver;
+
+/**
  * 检测transition,animation动画能力函数
  * @param evenNames
  * @returns {{end}}
@@ -27,19 +40,6 @@ const animationend = supportCheck({
 	animation: 'animationend'
 });
 
-/**
- * 返回动画requestAnimationFrame函数
- *handle multiple browsers for requestAnimationFrame()
- *http://www.paulirish.com/2011/requestanimationframe-for-smart-animating/
- *https://github.com/gnarf/jquery-requestAnimationFrame
- */
-window.requestAnimationFrame=window.requestAnimationFrame||window.webkitRequestAnimationFrame||window.mozRequestAnimationFrame||window.oRequestAnimationFrame;
-
-window.cancelAnimationFrame=window.cancelAnimationFrame||window.webkitCancelAnimationFrame||window.mozCancelAnimationFrame||window.oCancelAnimationFrame;
-
-// https://developer.mozilla.org/zh-CN/docs/DOM/MutationObserver
-window.MutationObserver = window.MutationObserver||window.WebKitMutationObserver||window.MozMutationObserver;
-
 
 const touch = (
 ('ontouchstart' in window && navigator.userAgent.toLowerCase().match(/mobile|tablet/)) ||
@@ -48,11 +48,8 @@ const touch = (
 (window.navigator['pointerEnabled'] && window.navigator['maxTouchPoints'] > 0) || //IE >=11
 false);
 
-export default{
+export {
 	transitionend,
 	animationend,
-	requestAnimationFrame,
-	cancelAnimationFrame,
-	MutationObserver,
 	touch,
 };
