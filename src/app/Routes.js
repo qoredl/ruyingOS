@@ -12,49 +12,70 @@ import Empty from '../rui/Empty';
 import Err from './ui/Err';
 import Home from './Home';
 
+//动态按需加载组件
+const asyncLoadComp = compLoader =>runSaga=> () =>
+    <Bundle load={compLoader}>
+      {Comp => {
+  
+        if (!Comp) {
+          return <Empty/>;
+        }
+        
+        const Tag = runSaga ? runSaga(Comp): Comp;
+        return <Tag/>;
+      }}
+    </Bundle>;
+    
+    //记录saga
+const sagaRec=(()=>{
+  const sagaList=[];
+  
+  return{
+    add:name=>sagaList.push(name),
+    check:sagaName=>sagaList.some(name=>name===sagaName)
+  }
+})();
+
 //创建组件动态加载器*******************************************************************/
 import UserLoader from 'bundle-loader?lazy!./User';
 import RegLoader from 'bundle-loader?lazy!./User/Reg';
 import LoginLoader from 'bundle-loader?lazy!./User/Login';
 
-//创建saga动态加载器
-import sagaRegLoader from 'bundle-loader?lazy!./store/user/sagaReg'
+const UserComp=asyncLoadComp(UserLoader)();
+const RegComp=asyncLoadComp(RegLoader);
+const LoginComp=asyncLoadComp(LoginLoader)();
 
-/*System.import('./Home').then(function (data) {
-	console.log(data);
-});*/
+//创建saga动态加载器
+import sagaRegLoader from 'bundle-loader?lazy!./store/user/sagaReg';
 
 export default ({ sagaMiddleware, getState, }) => {
-	//动态按需加载组件
-	const asyncLoadComp = (compLoader, runSaga) => () =>
-			<Bundle load={compLoader}>
-				{Comp => {
-					Comp = Comp ? Comp: Empty;
-					Comp = runSaga ? runSaga(Comp): Comp;
-					return <Comp/>;
-				}}
-			</Bundle>;
-	
 	//动态按需加载saga
 	const asyncLoadSaga = loader => () => loader(saga => sagaMiddleware.run(saga.default ? saga.default: saga, getState));
 	//saga列表
 	const sagaReg = asyncLoadSaga(sagaRegLoader);
 	
 	//添加saga函数
-	const addSaga = saga => runSagaInComp(sagaMiddleware, getState)(saga);
+	const addSaga = (saga,name) => {
+    saga.isRun=sagaRec.check(name);
+    console.log(saga.isRun);
+    saga.isRun||sagaRec.add(name);
+    return runSagaInComp(sagaMiddleware, getState)(saga)
+  };
+	const sagaLogAdder=addSaga(sagaLog,'sagaLog');
+	const sagaRegAdder=addSaga(sagaReg,'sagaReg');
 	
 	return <Switch>
 		{/*首页*/}
-		<Route exact path="/" component={addSaga(sagaLog)(Home)}/>
-		
-		{/*用户首页*/}
-		<Route path="/user" component={asyncLoadComp(UserLoader)}/>
-		
-		{/*用户注册*/}
-		<Route path="/reg" component={asyncLoadComp(RegLoader, addSaga(sagaReg))}/>
-		
-		{/*用户登录*/}
-		<Route path="/login" component={asyncLoadComp(LoginLoader)}/>
+		<Route exact path="/" component={sagaLogAdder(Home)}/>
+    
+    {/*用户首页*/}
+    <Route path="/user" component={UserComp}/>
+    
+    {/*用户注册*/}
+    <Route path="/reg" component={RegComp(sagaRegAdder)}/>
+    
+    {/*用户登录*/}
+    <Route path="/login" component={LoginComp}/>
 		
 		{/*未匹配404*/}
 		<Route component={Err}/>
