@@ -9,7 +9,7 @@
 //import IndexDB from '../lib/IndexDB';
 
 //import {curry} from 'lodash/function';
-import 'whatwg-fetch';//fetch polyfill;
+//import 'whatwg-fetch';//fetch polyfill;
 
 /*生成封装过的indexedDB操作类实例
  * 可对indexedDB进行系列操作，具体请看IndexDB类使用说明
