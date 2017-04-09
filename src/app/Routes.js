@@ -26,17 +26,30 @@ const asyncLoadComp = compLoader => runSaga => () =>
       }}
     </Bundle>;
 
+//传参辅助函数
+const recVar=(sagaMiddleware, getState)=>f=>f(sagaMiddleware, getState);
+
+//动态按需加载saga
+const asyncLoadSaga = loader =>(sagaMiddleware, getState)=> () => loader(saga => sagaMiddleware.run(saga.default ? saga.default: saga, getState));
+
+
+//添加saga函数
+const addSaga = saga => (sagaMiddleware, getState)=>runSagaInComp(sagaMiddleware, getState)(saga);
+
 //创建组件动态加载器*******************************************************************/
 import UserLoader from 'bundle-loader?lazy!./User';
 import RegLoader from 'bundle-loader?lazy!./User/Reg';
 import LoginLoader from 'bundle-loader?lazy!./User/Login';
+//创建saga动态加载器
+import sagaRegLoader from 'bundle-loader?lazy!./store/user/sagaReg';
 
 const UserComp = asyncLoadComp(UserLoader)();
 const RegComp = asyncLoadComp(RegLoader);
 const LoginComp = asyncLoadComp(LoginLoader)();
 
-//创建saga动态加载器
-import sagaRegLoader from 'bundle-loader?lazy!./store/user/sagaReg';
+//sagaAdder列表
+const sagaLogAdder = addSaga({ sagaName: 'sagaLog', saga: sagaLog });
+const sagaRegAdder = helper=>helper(addSaga({ sagaName: 'sagaReg', saga: helper(asyncLoadSaga(sagaRegLoader)) }));
 
 /**
  * 路由设置
@@ -47,26 +60,16 @@ import sagaRegLoader from 'bundle-loader?lazy!./store/user/sagaReg';
  * @returns {XML}
  */
 export default ({ sagaMiddleware, getState, }) => {
-  //动态按需加载saga
-  const asyncLoadSaga = loader => () => loader(saga => sagaMiddleware.run(saga.default ? saga.default: saga, getState));
-  //添加saga函数
-  const addSaga = saga => runSagaInComp(sagaMiddleware, getState)(saga);
-  
-  //saga列表，type:function
-  const sagaReg = asyncLoadSaga(sagaRegLoader);
-  
-  //sagaAdder列表
-  const sagaLogAdder = addSaga({ sagaName: 'sagaLog', saga: sagaLog });
-  const sagaRegAdder = addSaga({ sagaName: 'sagaReg', saga: asyncLoadSaga(sagaRegLoader) });
+  const rec=recVar(sagaMiddleware, getState);
   
   return <Switch>
     {/*首页*/}
-    <Route exact path="/" component={sagaLogAdder(Home)}/>
+    <Route exact path="/" component={rec(sagaLogAdder)(Home)}/>
     
     {/*用户首页*/}
     <Route path="/user" component={UserComp}/>
     {/*用户注册*/}
-    <Route path="/reg" component={RegComp(sagaRegAdder)}/>
+    <Route path="/reg" component={RegComp(sagaRegAdder(rec))}/>
     {/*用户登录*/}
     <Route path="/login" component={LoginComp}/>
     
