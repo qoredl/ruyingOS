@@ -26,15 +26,7 @@ const asyncLoadComp = compLoader =>runSaga=> () =>
       }}
     </Bundle>;
     
-    //记录saga
-const sagaRec=(()=>{
-  const sagaList=[];
-  
-  return{
-    add:name=>sagaList.push(name),
-    check:sagaName=>sagaList.some(name=>name===sagaName)
-  }
-})();
+    
 
 //创建组件动态加载器*******************************************************************/
 import UserLoader from 'bundle-loader?lazy!./User';
@@ -55,14 +47,9 @@ export default ({ sagaMiddleware, getState, }) => {
 	const sagaReg = asyncLoadSaga(sagaRegLoader);
 	
 	//添加saga函数
-	const addSaga = (saga,name) => {
-    saga.isRun=sagaRec.check(name);
-    console.log(saga.isRun);
-    saga.isRun||sagaRec.add(name);
-    return runSagaInComp(sagaMiddleware, getState)(saga)
-  };
-	const sagaLogAdder=addSaga(sagaLog,'sagaLog');
-	const sagaRegAdder=addSaga(sagaReg,'sagaReg');
+	const addSaga = saga => runSagaInComp(sagaMiddleware, getState)(saga);
+	const sagaLogAdder=addSaga({sagaName:'sagaLog',saga:sagaLog});
+	const sagaRegAdder=addSaga({sagaName:'sagaReg',saga:sagaReg});
 	
 	return <Switch>
 		{/*首页*/}

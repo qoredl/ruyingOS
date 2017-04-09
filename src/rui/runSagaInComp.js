@@ -3,13 +3,22 @@
  * 使用示例:f(sagaMiddleware, getState)(sagaLists)(Comp);
  * @param sagaMiddleware
  * @param getState
+ * @param sagaRec
  */
-export default (sagaMiddleware, getState)=>saga=>Comp=>{
-  console.log(saga,saga.isRun);
-  if (!saga.isRun) {
+
+//记录,检查saga
+const sagaList = {};
+const recSaga = (sagaName, saga) => sagaList[sagaName] = saga;
+const hasSaga = sagaName => !!sagaList[sagaName];
+
+export default (sagaMiddleware, getState) => ({sagaName, saga}) => Comp => {
+  const isRuned = hasSaga(sagaName);
+  isRuned || recSaga(sagaName, saga);
+  
+  if (!isRuned) {
     //只运行一次添加进来的saga逻辑代码
-    saga.name?sagaMiddleware.run(saga, getState):saga();
+    saga.name ? sagaMiddleware.run(saga, getState): saga();
   }
-	
-	return Comp;
+  
+  return Comp;
 }
