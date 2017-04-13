@@ -2,19 +2,10 @@
  * @工具函数库
  * @date:2016-5-14
  */
-//import dom from '../var/dom';
-//import {animationend} from '../var/support';
-//import animations from '../var/animation-name';
-/*SHA1加密*/
-//import IndexDB from '../lib/IndexDB';
-
-//import {curry} from 'lodash/function';
+import hasOwn from '../var/hasOwnProperty';
+import dom from '../var/dom';
+import body from '../var/body';
 //import 'whatwg-fetch';//fetch polyfill;
-
-/*生成封装过的indexedDB操作类实例
- * 可对indexedDB进行系列操作，具体请看IndexDB类使用说明
- * */
-//const indexDB = dbName => new IndexDB(dbName);
 
 /**
  * fetch异部获取数据
@@ -81,7 +72,7 @@ export const type = obj => {
  * @param obj
  * @returns {*|boolean}
  */
-export const isPlainObject = obj=>obj.constructor && obj.constructor.name === 'Object' && obj.constructor.prototype.hasOwnProperty('hasOwnProperty');
+export const isPlainObject = obj => obj.constructor && obj.constructor.name === 'Object' && obj.constructor.prototype.hasOwnProperty('hasOwnProperty');
 
 /**
  * 对象参数序列化
@@ -116,6 +107,7 @@ export const param = obj => {
 		
 		data.push(encodeURIComponent(key) + '=' + encodeURIComponent(value === null ? '': value));
 	}
+	
 	function buildParams(key, value, add, data) {
 		const isBracket = /[]$/.test(key);
 		
@@ -150,7 +142,7 @@ export const param = obj => {
  * @param delay {Number} - 控制函数连续调用的频率
  * @returns {Function}
  */
-export const throttle = (fn, delay)=> {
+export const throttle = (fn, delay) => {
 	let timer = null;
 	
 	return function (...arg) {
@@ -168,7 +160,7 @@ export const throttle = (fn, delay)=> {
  * @param immediate [Boolean] - 无此参数或此参数为false时，执行函数在空闲时间间隔之后执行；相反刚在之前执行。
  * @returns {Function}
  */
-export const debounce = (fn, wait, immediate)=> {
+export const debounce = (fn, wait, immediate) => {
 	let timeout;
 	
 	return function (...args) {
@@ -186,7 +178,6 @@ export const debounce = (fn, wait, immediate)=> {
 		}, wait);
 	};
 };
-
 
 /**
  * 解析字符串形式的对象为js对象，如：{name:'ruying'}
@@ -212,41 +203,16 @@ let id = 0;
 export const guid = (prfix = 'r') => `${prfix}-${+(new Date()) + id++}`;
 
 /**
- * 添加css3动画
- * @param target {HTMLElement}
- * @param flassName {String}
- * @param type [String='in']
- * @param isHidden [Boolean=0]
- * @param callBack {Function}
- */
-/*const addFlass = (target, { flassName, type = 'in', isHidden = false }, callBack) => {
-	type === 'in' && target.removeAttribute('hidden');
-	target.classList.add(animations.name);
-	target.classList.add(flassName);
-	
-	target.addEventListener(animationend, eventHandler, false);
-	
-	function eventHandler(e) {
-		const thisElment = e.target;
-		
-		thisElment.classList.remove(flassName);
-		isHidden && thisElment.setAttribute('hidden', 'hidden');
-		callBack && callBack();
-		thisElment.removeEventListener(animationend, eventHandler, false);
-	}
-};*/
-
-/**
  * 返回绝对网址，即完整网址
  * @see https://davidwalsh.name/get-absolute-url
  * @param url [String='']
  * @returns {String}
  */
-/*const getAbsoluteUrl = (url = '') => {
+const getAbsoluteUrl = (url = '') => {
 	const a = dom.createElement('a');
 	a.href = url;
 	return a.href;
-};*/
+};
 
 /**
  * 中划线形式单词转换为驼峰式单词
@@ -266,38 +232,71 @@ export const camelCase = str => {
 };
 
 /**
- * 复制除了:constructor,prototype,name外自身属性
- * 与Object.assign区别：Object.assign拷贝的是对象自身的可枚举属性,而本方法拷贝的是除constructor,prototype,name外所有自身属性
- * @param target
- * @param source
+ * A simple javascript utility for conditionally joining classNames together.
+ * http://jedwatson.github.io/classnames
+ * @returns {string}
  */
-/*const copyOwnKeys = (target, source) => {
-	for (let key of Reflect.ownKeys(source)) {
-		if (!(key === 'constructor' && key === 'prototype' && key === 'name')) {
-			let desc = Object.getOwnPropertyDescriptor(source, key);
-			Object.defineProperty(target, key, desc);
+const classnames = (...args) => {
+	const classes = [];
+	
+	for (let i = 0; i < args.length; i++) {
+		const arg = args[i];
+		if (!arg) continue;
+		
+		const argType = typeof arg;
+		
+		if (argType === 'string' || argType === 'number') {
+			classes.push(arg);
+		} else if (Array.isArray(arg)) {
+			classes.push(classnames.apply(null, arg));
+		} else if (argType === 'object') {
+			for (let key in arg) {
+				if (hasOwn.call(arg, key) && arg[key]) {
+					classes.push(key);
+				}
+			}
 		}
 	}
-};*/
+	
+	return classes.join(' ');
+};
 
 /**
- * Mixin模式
- * 将多个类的接口“混入”（mix in）另一个类
- * 可以将多个对象合成为一个类。使用的时候，只要继承这个类即可。
- * @param mixins {Class}-多个class类
- * @returns {Mix}
+ * 测量滚动条宽度
+ * Measure scrollbar width for padding body during modal show/hide
+ * https://github.com/react-component/table/blob/master/src/utils.js
+ * @returns {*}
  */
-/*const mix = (...mixins) => {
-	class Mix {
+let scrollbarWidth;
+const scrollbarMeasure = {
+	position: 'absolute',
+	top: '-9999px',
+	width: '50px',
+	height: '50px',
+	overflow: 'scroll',
+};
+export function measureScrollbar() {
+	if (typeof dom === 'undefined' || typeof window === 'undefined') {
+		return 0;
 	}
 	
-	for (let mixin of mixins) {
-		copyOwnKeys(Mix, mixin);
-		copyOwnKeys(Mix.prototype, mixin.prototype);
+	if (scrollbarWidth) {
+		return scrollbarWidth;
 	}
 	
-	return Mix;
-};*/
+	const scrollDiv = dom.createElement('div');
+	
+	for (const scrollProp in scrollbarMeasure) {
+		if (hasOwn.call(scrollbarMeasure,scrollProp)) {
+			scrollDiv.style[scrollProp] = scrollbarMeasure[scrollProp];
+		}
+	}
+	body.appendChild(scrollDiv);
+	scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
+	body.removeChild(scrollDiv);
+	
+	return scrollbarWidth;
+}
 
 /**
  * delay
