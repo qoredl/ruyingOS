@@ -26,7 +26,7 @@ export default function *sagaLogin() {
     try {
       const data = yield call(login, action.payload);
       yield put(loginSuccessAction(data));
-      yield put(showMsgAction({ msg: '登录成功,已自动跳转到用户中心！', msgType: 'success'}));
+      yield put(showMsgAction({ msg: '登录成功！', msgType: 'success'}));
       yield put(push('/user'));
     } catch (e) {
       yield put(userFetchErrAction());

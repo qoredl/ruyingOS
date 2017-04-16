@@ -14,7 +14,7 @@ export const addUser = userInfo => fetch(`${serverURL}users`, {
   headers,
   method: 'post',
   body: JSON.stringify(userInfo)
-});
+})/*.catch(err=>err.error)*/;
 
 /**
  * 用户登录

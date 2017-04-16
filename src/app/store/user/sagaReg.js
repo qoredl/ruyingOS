@@ -26,11 +26,11 @@ export default function *sagaReg() {
     try {
       const data = yield call(addUser, action.payload);
       yield put(signSuccessAction(data));
-      yield put(showMsgAction({ msg: '注册用户成功,已自动跳转到用户中心！', msgType: 'success' }));
+      yield put(showMsgAction({ msg: '注册用户成功！', msgType: 'success' }));
       yield put(push('/user'));
     } catch (e) {
       yield put(userFetchErrAction());
-      yield put(showMsgAction({ msg: e.message, msgType: 'error' }));
+      yield put(showMsgAction({ msg: `注册失败！(${e.message})`, msgType: 'error' }));
     }
   });
 }

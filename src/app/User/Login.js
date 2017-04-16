@@ -13,6 +13,7 @@ import Footer from '../ui/Footer';
 import { Form, Icon, Input, Button, Checkbox, message, } from 'antd';
 const FormItem = Form.Item;
 
+
 export default connect(({ pub, routing, user }) => ({
   pub,
   routing,
@@ -42,8 +43,9 @@ export default connect(({ pub, routing, user }) => ({
     changUserInfoAction({ ...userInfo, password: e.target.value });
   };
   
+  message.config({duration:3});
+  
   const showMsg=msg=>{
-    message.config({duration});
     isClosed||message.destroy();
   
     if (!msg) return;
