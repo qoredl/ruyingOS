@@ -12,6 +12,7 @@ import {
 
 export const userStartFetchAction = (payload) => ({ type: USER_FETCH_START, payload });
 export const signSuccessAction = payload => ({ type: REG_SUCCESS, payload });
+export const loginSuccessAction = payload => ({ type: REG_SUCCESS, payload });
 export const userFetchErrAction = () => ({ type: USER_FETCH_ERROR, error: true });
 
 //修改用户名信息

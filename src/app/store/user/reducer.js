@@ -3,46 +3,56 @@
  * date:2017-4-3
  */
 import {
-	USER_FETCH_START,
-	REG_SUCCESS,
-	USER_FETCH_ERROR,
-	CHANG_USERINFO,
+  USER_FETCH_START,
+  REG_SUCCESS,
+  USER_FETCH_ERROR,
+  CHANG_USERINFO,
 } from '../pub/type';
 
 const initState = {
-	isFetching: false,//获取数据操作是否正在运行中
-	isLogin: false,//是否已登录
-	
-	//用户信息
-	userInfo: {
-		username: '',
-		password: ''
-	},
+  isFetching: false,//获取数据操作是否正在运行中
+  isLogin: false,//是否已登录
+  
+  //用户信息
+  userInfo: {
+    username: '',
+    password: ''
+  },
 };
 export default (state = initState, action) => {
-	switch (action.type) {
-		case USER_FETCH_START:
-			return {
-				...state,
-				isFetching: true,
-			};
-		case REG_SUCCESS:
-			return {
-				...state,
-				isFetching: false,
-				token: action.payload.sessionToken,
-			};
-		case USER_FETCH_ERROR:
-			return {
-				...state,
-				isFetching: false
-			};
-		case CHANG_USERINFO:
-			return {
-				...state,
-				userInfo: action.payload,
-			};
-		default:
-			return state;
-	}
+  switch (action.type) {
+    case USER_FETCH_START:
+      return {
+        ...state,
+        isFetching: true,
+      };
+      
+    case REG_SUCCESS:
+      const {
+        objectId,
+        username,
+        sessionToken,
+      }=action.payload;
+      return {
+        ...state,
+        isFetching: false,
+        userInfo:{username,id:objectId,},
+        token: sessionToken,
+      };
+      
+    case USER_FETCH_ERROR:
+      return {
+        ...state,
+        isFetching: false
+      };
+      
+    case CHANG_USERINFO:
+      return {
+        ...state,
+        userInfo: action.payload,
+      };
+      
+    default:
+      return state;
+  }
 };

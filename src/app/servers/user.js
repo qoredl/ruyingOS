@@ -4,10 +4,23 @@
 import { fetch, } from '../../lib/Utils';
 import { server } from '../config/index';
 
-const { headers, baseUrl } = server;
+const { headers, serverURL } = server;
 
-export const addUser=userInfo=>fetch(baseUrl + '_User', {
-	headers,
-	method: 'post',
-	body: JSON.stringify(userInfo)
+/**
+ * 添加用户
+ * @param userInfo
+ */
+export const addUser = userInfo => fetch(`${serverURL}users`, {
+  headers,
+  method: 'post',
+  body: JSON.stringify(userInfo)
+});
+
+/**
+ * 用户登录
+ * @param username
+ * @param password
+ */
+export const login = ({username,password}) => fetch(`${serverURL}login?username=${username}&password=${password}`, {
+  headers,
 });

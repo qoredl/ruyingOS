@@ -3,7 +3,7 @@ const path = require("path");
 const webpack = require("webpack");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 //const CopyWebpackPlugin = require('copy-webpack-plugin');
-const {appName,prodConfig:{entry,output}}=require('./webpack.config.js');
+const {appName,antdTheme,prodConfig:{entry,output}}=require('./webpack.config.js');
 
 module.exports={
 	entry,
@@ -29,13 +29,13 @@ module.exports={
 					],
 				},
 			},
-				
+			
 			{
 				test: /\.less$/,
 				use: [
 					'style-loader',
 					{ loader: 'css-loader', options: { importLoaders: 1 } },
-					'less-loader'
+					`less-loader?{"modifyVars":${antdTheme}}`//替换antd主题
 				]
 			},
 			

@@ -15,19 +15,20 @@ export default connect(({ pub, routing, user }) => ({
 })(props => {
 	//解构用到的props
 	const {
-		user: { token },
+		user: {
+			token,
+			userInfo:{username},
+		},
 	} = props;
 	
 	return (
 			<div className={'r-page'}>
 				
 				<div className={'r-wrap'}>
-					{token ? <h1>用户中心</h1>
+					{token ? <h2>{`您好！${username}`}</h2>
 							: <div className={'loginBox'}>
-								<h2>您尚未登录，请先登录！</h2>
-								<a href="#login">登录</a>
-								<br/>
-								<a href="#reg">注册新用户</a></div>}
+								<h4>您尚未登录，请先<a href="#login">登录</a>！</h4>
+								或<a href="#reg">注册新用户</a></div>}
 				</div>
 				
 				<Footer/>

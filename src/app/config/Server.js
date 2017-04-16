@@ -4,21 +4,21 @@
  */
 import config from '../../../config';
 
-const {appId,restAPIKey,masterKey,serverURL}=config;
-const baseHeaders={'Content-Type': 'application/json'};
+const { appId, restAPIKey, masterKey, serverURL } = config;
+const baseHeaders = { 'Content-Type': 'application/json' };
 
 /*1.本地parse server，默认headers*/
-const headers=Object.assign(baseHeaders,{
-	'Content-Type': 'application/json',
-	'X-Parse-Application-Id': appId,
-	'X-Parse-REST-API-Key':restAPIKey,
-	'X-Parse-Master-Key':masterKey
+const headers = Object.assign(baseHeaders, {
+  'Content-Type': 'application/json',
+  'X-Parse-Application-Id': appId,
+  'X-Parse-REST-API-Key': restAPIKey,
+  'X-Parse-Master-Key': masterKey
 });
 export default {
-	headers,
-	baseUrl:serverURL+'/classes/',
+  headers,
+  serverURL,
+  //baseUrl: serverURL + '/classes/',
 };
-
 
 /*ApiCloud*/
 /*import {SHA1} from '../../../lib/Utils';

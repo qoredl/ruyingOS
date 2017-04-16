@@ -1,10 +1,4 @@
 //统一导出ui
-import User from './User';
-import Login from './Login';
-import Sign from './Sign';
-
-export {
-		User,
-		Login,
-		Sign,
-};
+export default props => {
+  return <h2>用户中心</h2>
+}
