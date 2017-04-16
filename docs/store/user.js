@@ -8,6 +8,8 @@
     //公共state
 const pub = {
       msg: '',//消息内容
+      isClosed:true,//是否已关闭
+      duration:5,//消息默认显示时间
       msgType: 'info',//消息内容类型,info:一般;success:成功；error：出错；warning：警告；loading：加载中
     };
 

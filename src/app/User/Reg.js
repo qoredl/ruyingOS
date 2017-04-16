@@ -23,8 +23,10 @@ export default connect(({ pub, routing, user }) => ({
 })((props) => {
 	const {
 		pub: {
-			msg,
-			msgType,
+      msg,
+      isClosed,
+      duration,
+      msgType,
 		},
 		user: {
 			userInfo,
@@ -39,16 +41,19 @@ export default connect(({ pub, routing, user }) => ({
 	const handlePasswordChange = e => {
 		changUserInfoAction({ ...userInfo, password: e.target.value });
 	};
-	
-	//3秒后自动关闭信息提示框
-	message.config({
-		duration: 3
-	});
+  
+  const showMsg=msg=>{
+    message.config({duration});
+    isClosed||message.destroy();
+    
+    if (!msg) return;
+    
+    message[msgType](msg)
+  };
 	
 	return (
 			<div className={'r-page'}>
-				{message.destroy()}
-				{msg && message[msgType](msg)}
+        {showMsg(msg)}
 				
 				<Form className="login-form">
 					<FormItem>
