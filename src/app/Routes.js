@@ -8,7 +8,6 @@ import sagaLog from './store/pub/sagaLog';
 
 import runSagaInComp from '../rui/runSagaInComp';
 import Bundle from '../rui/Bundle';
-import Empty from '../rui/Empty';
 import Err from './ui/Err';
 import Home from './Home';
 
@@ -21,7 +20,7 @@ const asyncLoadComp = compLoader => runSaga => () =>
       {Comp => {
         
         if (!Comp) {
-          return <Empty/>;
+          return null;
         }
         
         const Tag = runSaga ? runSaga(Comp): Comp;

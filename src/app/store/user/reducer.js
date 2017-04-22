@@ -10,7 +10,7 @@ import {
 } from '../pub/type';
 
 const initState = {
-  isFetching: false,//获取数据操作是否正在运行中
+  isFetching: false,//是否正在获取数据
   isLogin: false,//是否已登录
   
   //用户信息

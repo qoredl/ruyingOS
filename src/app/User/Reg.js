@@ -25,7 +25,6 @@ export default connect(({ pub, routing, user }) => ({
     pub: {
       msg,
       isClosed,
-      duration,
       msgType,
     },
     user: {

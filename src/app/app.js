@@ -1,6 +1,6 @@
 /**
  * @app入口js
- * 稳定性：稳定
+ * 稳定性：3
  * @date:2016-11-19
  */
 import React from 'react';
@@ -21,6 +21,7 @@ const sagaMiddleware = createSagaMiddleware();
 const rMiddleware = routerMiddleware(hashHistory);
 
 // 合成app store状态树。
+//整个app只有一个store
 const store = createStore(combineReducers({
   ...reducers,
   routing: routerReducer
@@ -28,6 +29,7 @@ const store = createStore(combineReducers({
 
 Object.assign(window, { React, });
 
+//渲染app
 ReactDOM.render(
     <Provider store={store}>
       <ConnectedRouter history={hashHistory}>
