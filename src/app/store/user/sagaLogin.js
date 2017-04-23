@@ -3,14 +3,14 @@
  * date:2017-4-3
  */
 import {
-  LOGIN_START,
+  START_LOGIN,
 } from '../pub/type';
 import {
   showMsgAction,
 } from '../pub/actions';
 import {
   loginSuccessAction,
-  userFetchErrAction,
+  fetchUserErrAction,
 } from './actions';
 import {destroyMsg} from '../pub/sagaPub';
 
@@ -21,7 +21,7 @@ import { push } from 'react-router-redux';
 
 //注册新用户
 export default function *sagaLogin() {
-  yield* takeLatest(LOGIN_START, function* loginTask(action) {
+  yield* takeLatest(START_LOGIN, function* loginTask(action) {
     yield put(showMsgAction({ msg: '登录中...', msgType: 'loading' }));
     
     try {
@@ -31,7 +31,7 @@ export default function *sagaLogin() {
       yield call(destroyMsg,0);
       yield put(push('/user'));
     } catch (e) {
-      yield put(userFetchErrAction());
+      yield put(fetchUserErrAction());
       yield put(showMsgAction({ msg: e.message, msgType: 'error' }));
       yield call(destroyMsg);
     }

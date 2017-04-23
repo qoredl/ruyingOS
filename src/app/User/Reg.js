@@ -43,14 +43,10 @@ export default connect(({ pub, routing, user }) => ({
   
   message.config({duration:msgDuration});
   
-  const showMsg=msg=>{
-    message.destroy();
-    msg&&message[msgType](msg);
-  };
-  
   return (
       <div className={'r-page'}>
-        {showMsg(msg)}
+        {message.destroy()}
+        {msg&&message[msgType](msg)}
         
         <Form className="login-form">
           <FormItem>

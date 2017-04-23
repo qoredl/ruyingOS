@@ -3,10 +3,10 @@
  * date:2017-4-3
  */
 import {
-  LOGIN_START,
-  REG_START,
-  REG_SUCCESS,
-  USER_FETCH_ERROR,
+  START_LOGIN,
+  START_REG,
+  FETCH_USER_SUCCESS,
+  FETCH_USER_ERROR,
   CHANG_USERINFO,
 } from '../pub/type';
 
@@ -22,19 +22,19 @@ const initState = {
 };
 export default (state = initState, action) => {
   switch (action.type) {
-    case LOGIN_START:
+    case START_LOGIN:
       return {
         ...state,
         isFetching: true,
       };
   
-    case REG_START:
+    case START_REG:
       return {
         ...state,
         isFetching: true,
       };
       
-    case REG_SUCCESS:
+    case FETCH_USER_SUCCESS:
       const {
         objectId,
         username,
@@ -47,7 +47,7 @@ export default (state = initState, action) => {
         token: sessionToken,
       };
       
-    case USER_FETCH_ERROR:
+    case FETCH_USER_ERROR:
       return {
         ...state,
         isFetching: false

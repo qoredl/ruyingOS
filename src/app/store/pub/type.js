@@ -9,8 +9,8 @@ export const DESTROY_MSG='DESTROY_MSG';
 
 
 /*user********************************************************************************/
-export const LOGIN_START = 'LOGIN_START';
-export const REG_START = 'REG_START';
-export const USER_FETCH_ERROR = 'USER_FETCH_ERROR';
-export const REG_SUCCESS = 'REG_SUCCESS';
+export const START_LOGIN = 'START_LOGIN';
+export const START_REG = 'START_REG';
+export const FETCH_USER_ERROR = 'FETCH_USER_ERROR';
+export const FETCH_USER_SUCCESS = 'FETCH_USER_SUCCESS';
 export const CHANG_USERINFO = 'CHANG_USERINFO';

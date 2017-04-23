@@ -3,14 +3,14 @@
  * date:2017-4-3
  */
 import {
-  REG_START,
+  START_REG,
 } from '../pub/type';
 import {
   showMsgAction,
 } from '../pub/actions';
 import {
   signSuccessAction,
-  userFetchErrAction,
+  fetchUserErrAction,
 } from './actions';
 import {destroyMsg} from '../pub/sagaPub';
 
@@ -22,7 +22,7 @@ import { push } from 'react-router-redux';
 
 //注册新用户
 export default function *sagaReg() {
-  yield* takeLatest(REG_START, function* signTask(action) {
+  yield* takeLatest(START_REG, function* signTask(action) {
     yield put(showMsgAction({ msg: '注册用户中...', msgType: 'loading' }));
     
     try {
@@ -32,7 +32,7 @@ export default function *sagaReg() {
       yield call(destroyMsg,0);
       yield put(push('/user'));
     } catch (e) {
-      yield put(userFetchErrAction());
+      yield put(fetchUserErrAction());
       yield put(showMsgAction({ msg: `注册失败！(${e.message})`, msgType: 'error' }));
       yield call(destroyMsg);
     }
