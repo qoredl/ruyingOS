@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import './index.less';
 import {
   changUserInfoAction,
-  userStartFetchAction,
+  loginAction,
 } from '../store/user/actions';
 import Footer from '../ui/Footer';
 
@@ -20,19 +20,19 @@ export default connect(({ pub, routing, user }) => ({
   user,
 }), {
   changUserInfoAction,
-  userStartFetchAction,
+  loginAction,
 })(props => {
   const {
     pub: {
       msg,
-      isClosed,
+      msgDuration,
       msgType,
     },
     user: {
       userInfo,
     },
     changUserInfoAction,
-    userStartFetchAction,
+    loginAction,
   } = props;
   
   const handleUsernameChange = e => {
@@ -42,14 +42,11 @@ export default connect(({ pub, routing, user }) => ({
     changUserInfoAction({ ...userInfo, password: e.target.value });
   };
   
-  message.config({duration:3});
+  message.config({duration:msgDuration});
   
   const showMsg=msg=>{
-    isClosed||message.destroy();
-  
-    if (!msg) return;
-  
-    message[msgType](msg)
+    message.destroy();
+    msg&&message[msgType](msg);
   };
   
   return (
@@ -78,7 +75,7 @@ export default connect(({ pub, routing, user }) => ({
             <Button
                 type="primary"
                 className="login-form-button"
-                onClick={() => userStartFetchAction(userInfo)}>登录</Button>
+                onClick={() => loginAction(userInfo)}>登录</Button>
             或 <a href="#reg">注册</a>
           </FormItem>
         </Form>

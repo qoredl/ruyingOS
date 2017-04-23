@@ -5,6 +5,7 @@
 
 import {
   SHOW_MSG,
+  DESTROY_MSG,
 } from './type';
 
 /**
@@ -12,3 +13,4 @@ import {
  * @param payload
  */
 export const showMsgAction = payload=>({ type: SHOW_MSG,payload});
+export const destroyMsgAction = ()=>({ type: DESTROY_MSG});

@@ -4,7 +4,7 @@
  * @date:2016-11-19
  */
 import { Route, Switch, } from 'react-router-dom';
-import sagaLog from './store/pub/sagaLog';
+import sagaPub from './store/pub/sagaPub';
 
 import runSagaInComp from '../rui/runSagaInComp';
 import Bundle from '../rui/Bundle';
@@ -50,7 +50,7 @@ const RegComp = asyncLoadComp(RegLoader);
 const LoginComp = asyncLoadComp(LoginLoader);
 
 //sagaAdder列表
-const sagaLogAdder = addSagaToComp({ sagaName: 'sagaLog', saga: sagaLog });
+const sagaPubAdder = addSagaToComp({ sagaName: 'sagaLog', saga: sagaPub });
 const sagaRegAdder = cacheParamFn=>cacheParamFn(addSagaToComp({ sagaName: 'sagaReg', saga: cacheParamFn(asyncLoadSaga(sagaRegLoader)) }));
 const sagaLoginAdder = cacheParamFn=>cacheParamFn(addSagaToComp({ sagaName: 'sagaLogin', saga: cacheParamFn(asyncLoadSaga(sagaLoginLoader)) }));
 
@@ -67,7 +67,7 @@ export default ({ sagaMiddleware, getState, }) => {
   
   return <Switch>
     {/*首页*/}
-    <Route exact path="/" component={cacheParamFn(sagaLogAdder)(Home)}/>
+    <Route exact path="/" component={cacheParamFn(sagaPubAdder)(Home)}/>
     
     {/*用户首页*/}
     <Route path="/user" component={UserComp}/>

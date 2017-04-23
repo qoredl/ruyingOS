@@ -3,7 +3,8 @@
  * date:2017-4-3
  */
 import {
-  USER_FETCH_START,
+  LOGIN_START,
+  REG_START,
   REG_SUCCESS,
   USER_FETCH_ERROR,
   CHANG_USERINFO,
@@ -21,7 +22,13 @@ const initState = {
 };
 export default (state = initState, action) => {
   switch (action.type) {
-    case USER_FETCH_START:
+    case LOGIN_START:
+      return {
+        ...state,
+        isFetching: true,
+      };
+  
+    case REG_START:
       return {
         ...state,
         isFetching: true,
