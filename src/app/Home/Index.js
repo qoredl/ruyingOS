@@ -11,7 +11,6 @@ export default connect(({ routing, users }) => ({
   routing,
   users
 }), {})(({ routing, users, }) => {
-  
   return (
       <div className={'r-page'}>
         <Header title={'标题'}/>

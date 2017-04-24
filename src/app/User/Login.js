@@ -14,21 +14,24 @@ import { Form, Icon, Input, Button, Checkbox, message, } from 'antd';
 const FormItem = Form.Item;
 
 
-export default connect(({ pub, routing, user }) => ({
-  pub,
+export default connect(({ routing, pubState, userState }) => ({
   routing,
-  user,
+  pubState,
+  userState,
 }), {
   changUserInfoAction,
   loginAction,
 })(props => {
+  //使用replaceReducer按需加载reducer时第一次渲染组件时对应state为空
+  if (!props.userState) return null;
+  
   const {
-    pub: {
+    pubState: {
       msg,
       msgDuration,
       msgType,
     },
-    user: {
+    userState: {
       userInfo,
     },
     changUserInfoAction,

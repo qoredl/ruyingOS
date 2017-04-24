@@ -8,10 +8,11 @@ import ReactDOM from 'react-dom';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import createHistory from 'history/createHashHistory'
-import { ConnectedRouter, routerReducer, routerMiddleware } from 'react-router-redux';
+import { ConnectedRouter, routerReducer as routing, routerMiddleware } from 'react-router-redux';
 import createSagaMiddleware from 'redux-saga';
-import reducers from './store';
-import Routes from './Routes';
+import pubState from './store/pub/reducer';
+import homeState from './store/home/reducer';
+import createRoutes from './createRoutes';
 
 const hashHistory = createHistory();
 const sagaMiddleware = createSagaMiddleware();
@@ -22,17 +23,18 @@ const rMiddleware = routerMiddleware(hashHistory);
 
 // 合成app store状态树。
 //整个app只有一个store
-const store = createStore(combineReducers({
-  ...reducers,
-  routing: routerReducer
-}), applyMiddleware(rMiddleware, sagaMiddleware,));
+const initReducers = { routing, pubState,homeState};
+const store = createStore(combineReducers(initReducers), applyMiddleware(rMiddleware, sagaMiddleware,));
 
 Object.assign(window, { React, });
+
+//生成路由组件
+const Routes = createRoutes({ store, sagaMiddleware, combineReducers, initReducers, });
 
 //渲染app
 ReactDOM.render(
     <Provider store={store}>
       <ConnectedRouter history={hashHistory}>
-        <Routes sagaMiddleware={sagaMiddleware} getState={store.getState}/>
+        <Routes/>
       </ConnectedRouter>
     </Provider>, document.getElementById('r-root'));
