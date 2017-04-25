@@ -4,7 +4,6 @@
  * date:2017-4-2
  */
 import { Component } from 'react';
-
 export default class extends Component {
   state = {
     // short for "module" but that's a keyword in js, so "mod"
@@ -12,17 +11,26 @@ export default class extends Component {
   };
   
   componentWillMount() {
-    this.load(this.props);
+    const {reducer,runSaga}=this.props;
+    
+    //组合reducer
+    reducer&&reducer();
+    
+    //运行saga
+    runSaga&&runSaga();
+  
+    //开始动态加载组件代码
+    this.handleLoad(this.props);
   }
   
-  componentWillReceiveProps(nextProps) {
+  /*componentWillReceiveProps(nextProps) {
     if (nextProps.load !== this.props.load) {
       this.load(nextProps);
     }
-  }
+  }*/
   
-  load(props) {
-    props.load(mod => this.setState({
+  handleLoad({compLoader}) {
+    compLoader(mod => this.setState({
       // handle both es imports and cjs
       mod: mod.default ? mod.default: mod
     }));

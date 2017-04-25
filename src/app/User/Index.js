@@ -12,17 +12,12 @@ export default connect(({ routing, pubState, userState }) => ({
   userState,
 }), {
   //actionCreater
-})(props => {
-  //使用replaceReducer按需加载reducer时第一次渲染组件时对应state为空
-  if (!props.userState) return null;
-  
-  //解构用到的props
-  const {
-    userState: {
-      token,
-      userInfo: { username },
-    },
-  } = props;
+})(({
+      userState: {
+        token,
+        userInfo: { username },
+      },
+    }) => {
   
   return (
       <div className={'r-page'}>
