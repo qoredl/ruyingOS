@@ -31,6 +31,11 @@ Object.assign(window, { React, });
 //生成路由组件
 const Routes = createRoutes({ store, sagaMiddleware, combineReducers, initReducers, });
 
+//生产环境判断
+if (process.env.NODE_ENV !== 'production') {
+  console.log(8888);
+}
+
 //渲染app
 ReactDOM.render(
     <Provider store={store}>

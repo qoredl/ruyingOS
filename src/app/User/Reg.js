@@ -20,23 +20,18 @@ export default connect(({ routing, pubState, userState }) => ({
 }), {
   changUserInfoAction,
   regAction,
-})((props) => {
-  //使用replaceReducer按需加载reducer时第一次渲染组件时对应state为空
-  if (!props.userState) return null;
-  
-  const {
-    pubState: {
-      msg,
-      msgDuration,
-      msgType,
-    },
-    userState: {
-      userInfo,
-    },
-    changUserInfoAction,
-    regAction,
-  } = props;
-  
+})(({
+      pubState: {
+        msg,
+        msgDuration,
+        msgType,
+      },
+      userState: {
+        userInfo,
+      },
+      changUserInfoAction,
+      regAction,
+    }) => {
   const handleUsernameChange = e => {
     changUserInfoAction({ ...userInfo, username: e.target.value });
   };
@@ -44,12 +39,12 @@ export default connect(({ routing, pubState, userState }) => ({
     changUserInfoAction({ ...userInfo, password: e.target.value });
   };
   
-  message.config({duration:msgDuration});
+  message.config({ duration: msgDuration });
   
   return (
       <div className={'r-page'}>
         {message.destroy()}
-        {msg&&message[msgType](msg)}
+        {msg && message[msgType](msg)}
         
         <Form className="login-form">
           <FormItem>

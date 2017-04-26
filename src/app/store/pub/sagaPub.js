@@ -8,7 +8,7 @@ import {
 import { take,call,put } from 'redux-saga/effects';
 import {delay} from '../../../lib/Utils';
 
-export function *destroyMsg(delayTime=5000) {
+export function *destroyMsg(delayTime=3000) {
   yield call(delay,delayTime);
   yield put(destroyMsgAction());
 }

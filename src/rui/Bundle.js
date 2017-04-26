@@ -6,21 +6,21 @@
 import { Component } from 'react';
 export default class extends Component {
   state = {
-    // short for "module" but that's a keyword in js, so "mod"
-    mod: null,
+    // short for "module" but that's a keyword in js, so "comp"
+    comp: null,
   };
   
   componentWillMount() {
-    const {reducer,runSaga}=this.props;
+    const { reducerAdder, sagaAdder } = this.props;
     
     //组合reducer
-    reducer&&reducer();
+    reducerAdder && reducerAdder();
     
     //运行saga
-    runSaga&&runSaga();
-  
+    sagaAdder && sagaAdder();
+    
     //开始动态加载组件代码
-    this.handleLoad(this.props);
+    this.handleLoadComp(this.props);
   }
   
   /*componentWillReceiveProps(nextProps) {
@@ -29,14 +29,14 @@ export default class extends Component {
     }
   }*/
   
-  handleLoad({compLoader}) {
-    compLoader(mod => this.setState({
+  handleLoadComp({ compLoader }) {
+    compLoader(comp => this.setState({
       // handle both es imports and cjs
-      mod: mod.default ? mod.default: mod
+      comp: comp.default ? comp.default: comp
     }));
   }
   
   render() {
-    return this.props.children(this.state.mod);
+    return this.props.children(this.state.comp);
   }
 };
