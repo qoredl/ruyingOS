@@ -16,7 +16,7 @@ export function *destroyMsg(delayTime=3000) {
 
 
 //打印日记
-export default function *sagaPub(getState) {
+export function *sagaLog(getState) {
   while (true) {
     const action = yield take('*');
   

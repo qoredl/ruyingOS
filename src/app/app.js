@@ -12,6 +12,7 @@ import { ConnectedRouter, routerReducer as routing, routerMiddleware } from 'rea
 import createSagaMiddleware from 'redux-saga';
 import pubState from './store/pub/reducer';
 import homeState from './store/home/reducer';
+import {sagaLog} from './store/pub/sagaPub';
 import createRoutes from './createRoutes';
 
 const hashHistory = createHistory();
@@ -31,9 +32,10 @@ Object.assign(window, { React, });
 //生成路由组件
 const Routes = createRoutes({ store, sagaMiddleware, combineReducers, initReducers, });
 
-//生产环境判断
+//生产环境才执行的代码
 if (process.env.NODE_ENV !== 'production') {
-  console.log(8888);
+  //运行打印日记saga
+  sagaMiddleware.run(sagaLog, store.getState);
 }
 
 //渲染app
