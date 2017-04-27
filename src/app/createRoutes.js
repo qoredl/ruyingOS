@@ -42,15 +42,14 @@ export default ({ sagaMiddleware, store, combineReducers, initReducers }) => {
         [stateName]: reducer.default ? reducer.default: reducer,
       })));
   
-  //动态加载saga
   //记录,检查saga
   const sagaRecArr = [];
   const recSaga = sagaName => sagaRecArr.push(sagaName);
   const hasSaga = sagaName => sagaRecArr.includes(sagaName);
   
+  //动态加载saga
   const asyncLoadSaga = (sagaMiddleware, getState) => ({ sagaName, sagaLoader }) => () => sagaLoader(saga => {
     saga = saga.default ? saga.default: saga;
-    
     //记录并只运行一次添加进来的saga逻辑代码
     if (!hasSaga(sagaName)) {
       sagaMiddleware.run(saga, getState);
@@ -58,23 +57,30 @@ export default ({ sagaMiddleware, store, combineReducers, initReducers }) => {
     }
   });
   
-  //reducerAdder列表************************************************************************************************************/
+  /**
+   * reducerAdder列表
+   * ************************************************************************************************************/
   const addReducerParam = asyncLoadReducer(store.replaceReducer, combineReducers, initReducers);
   const reducerUserAdder = addReducerParam('userState', userReducerLoader);
   
-  //sagaAdder列表****************************************************************************************************************/
+  /**
+   * sagaAdder列表
+   * ****************************************************************************************************************/
   const addSagaParam = asyncLoadSaga(sagaMiddleware, store.getState);
   const sagaRegAdder = addSagaParam({ sagaName: 'sagaReg', sagaLoader: sagaRegLoader });
   const sagaLoginAdder = addSagaParam({ sagaName: 'sagaLogin', sagaLoader: sagaLoginLoader });
   
-  
-  //生成路由组件********************************************************************************************************/
+  /**
+   * 生成路由组件
+   * ********************************************************************************************************/
   const UserComp = asyncLoadComp(UserCompLoader)(reducerUserAdder);
   const RegComp = asyncLoadComp(RegCompLoader)(reducerUserAdder, sagaRegAdder);
   const LoginComp = asyncLoadComp(LoginCompLoader)(reducerUserAdder, sagaLoginAdder);
   
-  //注：每次路由切换时此组件都会在运行一次,为了提升性能************************************************************************/
-  //请尽量把需要运行的代码移到此函数外，减少在此函数内运行代码
+  /**
+   * 注：每次路由切换时此组件都会在运行一次,为了提升性能
+   * 请尽量把需要运行的代码移到此函数外，减少在此函数内运行代码
+   * ******************************************************************************************************/
   return () => <Switch>
     {/*首页*/}
     <Route exact path="/" component={Home}/>
