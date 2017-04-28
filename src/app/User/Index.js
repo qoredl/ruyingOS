@@ -1,6 +1,6 @@
 /**
  * User模块入口容器组件
- * date:2017-1-15
+ * @date:2017-1-15
  */
 import { connect } from 'react-redux';
 import './index.less';

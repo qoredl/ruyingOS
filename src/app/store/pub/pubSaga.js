@@ -1,6 +1,6 @@
 /**
  * 公共saga-app共用
- * date:2017-3-26
+ * @date:2017-3-26
  */
 import {
   destroyMsgAction,

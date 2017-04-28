@@ -1,5 +1,5 @@
 /**
- * @Home模块入口组件
+ * Home模块入口组件
  * @date:2017-3-9
  */
 import { connect } from 'react-redux';
@@ -7,10 +7,10 @@ import Header from '../ui/Header';
 import Footer from '../ui/Footer';
 import '../ui/app.less';
 
-export default connect(({ routing, users }) => ({
+export default connect(({ routing,homeState}) => ({
   routing,
-  users
-}), {})(({ routing, users, }) => {
+  homeState,
+}), {})(({ routing,homeState}) => {
   return (
       <div className={'r-page'}>
         <Header title={'标题'}/>

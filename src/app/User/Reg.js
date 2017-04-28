@@ -1,6 +1,6 @@
 /**
  * 用户注册
- * date:2017-3-11
+ * @date:2017-3-11
  */
 import { connect } from 'react-redux';
 import './index.less';
@@ -32,6 +32,7 @@ export default connect(({ routing, pubState, userState }) => ({
       changUserInfoAction,
       regAction,
     }) => {
+  
   const handleUsernameChange = e => {
     changUserInfoAction({ ...userInfo, username: e.target.value });
   };

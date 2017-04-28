@@ -1,6 +1,6 @@
 /**
  * user用户saga
- * date:2017-4-3
+ * @date:2017-4-3
  */
 import {
   START_REG,
@@ -28,7 +28,6 @@ export default function *regSaga() {
     try {
       const data = yield call(addUser, action.payload);
       yield put(signSuccessAction(data));
-      //yield put(showMsgAction({ msg: '注册用户成功！请登录！', msgType: 'success' }));
       yield call(destroyMsg,0);
       yield put(push('/user'));
     } catch (e) {

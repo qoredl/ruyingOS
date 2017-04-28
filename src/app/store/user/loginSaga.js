@@ -1,6 +1,6 @@
 /**
  * user用户saga
- * date:2017-4-3
+ * @date:2017-4-3
  */
 import {
   START_LOGIN,
