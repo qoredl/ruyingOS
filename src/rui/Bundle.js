@@ -10,7 +10,7 @@ export default class extends Component {
     comp: null,
   };
   
-  componentWillMount() {
+  componentDidMount() {
     const { reducerAdder, sagaAdder } = this.props;
     
     //组合reducer
@@ -19,7 +19,7 @@ export default class extends Component {
     //运行saga
     sagaAdder && sagaAdder();
     
-    //开始动态加载组件代码
+    //加载组件
     this.handleLoadComp(this.props);
   }
   
@@ -37,6 +37,6 @@ export default class extends Component {
   }
   
   render() {
-    return this.props.children(this.state.comp);
+    return this.state.comp?<this.state.comp/>:null;
   }
 };

@@ -5,6 +5,7 @@
  */
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Route, Switch, } from 'react-router-dom';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import createHistory from 'history/createHashHistory'
@@ -12,8 +13,8 @@ import { ConnectedRouter, routerReducer as routing, routerMiddleware } from 'rea
 import createSagaMiddleware from 'redux-saga';
 import pubState from './store/pub/reducer';
 import homeState from './store/home/reducer';
-import {sagaLog} from './store/pub/sagaPub';
-import createRoutes from './createRoutes';
+import { logSaga } from './store/pub/pubSaga';
+import createRoutesConfig from './createRoutesConfig';
 
 const hashHistory = createHistory();
 const sagaMiddleware = createSagaMiddleware();
@@ -24,24 +25,26 @@ const rMiddleware = routerMiddleware(hashHistory);
 
 // 合成app store状态树。
 //整个app只有一个store
-const initReducers = { routing, pubState,homeState};
+const initReducers = { routing, pubState, homeState };
 const store = createStore(combineReducers(initReducers), applyMiddleware(rMiddleware, sagaMiddleware,));
 
-Object.assign(window, { React, });
+Object.assign(window, { React});
 
 //生成路由组件
-const Routes = createRoutes({ store, sagaMiddleware, combineReducers, initReducers, });
+const routesConfig = createRoutesConfig({ store, sagaMiddleware, combineReducers, initReducers, });
 
 //生产环境才执行的代码
 if (process.env.NODE_ENV !== 'production') {
-  //运行打印日记saga
-  sagaMiddleware.run(sagaLog, store.getState);
+  //运行actions执行日志saga
+  sagaMiddleware.run(logSaga, store.getState);
 }
 
 //渲染app
 ReactDOM.render(
     <Provider store={store}>
       <ConnectedRouter history={hashHistory}>
-        <Routes/>
+        <Switch>
+          {routesConfig.map((config, i) => <Route key={i} {...config}/>)}
+        </Switch>
       </ConnectedRouter>
     </Provider>, document.getElementById('r-root'));

@@ -5,18 +5,18 @@
 import {
   destroyMsgAction,
 } from '../pub/actions';
-import { take,call,put } from 'redux-saga/effects';
-import {delay} from '../../../lib/Utils';
+import {delay} from 'redux-saga';
+import { take,put,} from 'redux-saga/effects';
 
 export function *destroyMsg(delayTime=3000) {
-  yield call(delay,delayTime);
+  yield delay(delayTime);
   yield put(destroyMsgAction());
 }
 
 
 
 //打印日记
-export function *sagaLog(getState) {
+export function *logSaga(getState) {
   while (true) {
     const action = yield take('*');
   

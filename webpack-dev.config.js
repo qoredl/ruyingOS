@@ -12,6 +12,7 @@ module.exports={
 		sourceMapFilename: 'js/[name].map'
 	}),
 	devtool: 'cheap-module-source-map',
+  //devtool: 'eval-source-map', // 调试工具
 	module: {
 		rules: [
 			{

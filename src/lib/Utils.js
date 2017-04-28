@@ -303,4 +303,4 @@ export function measureScrollbar() {
  * 返回一个 Promise，这个 Promise 将在 time 秒后 resolve
  * @param time
  */
-export const delay = time => new Promise(resolve => setTimeout(resolve, time));
+/*export const delay = time => new Promise(resolve => setTimeout(resolve, time));*/
