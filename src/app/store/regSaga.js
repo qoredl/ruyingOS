@@ -5,16 +5,16 @@
 import {
   showMsgAction,
   destroyMsgAction,
-} from '../pub';
+} from './pub';
 import {
   START_REG,
   signSuccessAction,
   fetchUserErrAction,
-} from './';
+} from './user';
 
 import { takeLatest,delay } from 'redux-saga';
 import { call, put} from 'redux-saga/effects';
-import { addUser } from '../../servers/user';
+import { addUser } from '../servers/user';
 import { push } from 'react-router-redux';
 
 

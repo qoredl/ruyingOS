@@ -15,8 +15,8 @@ import LoginCompLoader from 'bundle-loader?lazy!./User/Login';
 import userReducerLoader from 'bundle-loader?lazy!./store/user';
 
 //saga动态加载器
-import regSagaLoader from 'bundle-loader?lazy!./store/user/regSaga';
-import loginSagaLoader from 'bundle-loader?lazy!./store/user/loginSaga';
+import regSagaLoader from 'bundle-loader?lazy!./store/regSaga';
+import loginSagaLoader from 'bundle-loader?lazy!./store/loginSaga';
 
 /**
  * 生成路由

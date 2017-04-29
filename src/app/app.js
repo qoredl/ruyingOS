@@ -13,7 +13,7 @@ import { ConnectedRouter, routerReducer as routing, routerMiddleware } from 'rea
 import createSagaMiddleware from 'redux-saga';
 import pubState from './store/pub';
 import homeState from './store/home';
-import logSaga from './store/pub/logSaga';
+import logSaga from './store/logSaga';
 import createRoutesConfig from './createRoutesConfig';
 import Err from './ui/Err';
 import Home from './Home';

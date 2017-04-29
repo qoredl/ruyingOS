@@ -2,7 +2,7 @@
  * user用户reducer
  * @date:2017-4-3
  */
-import {guid} from '../../../lib/utils'
+import {guid} from '../../lib/utils'
 
 /**
  * 1.type

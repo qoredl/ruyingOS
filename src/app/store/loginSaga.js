@@ -5,16 +5,16 @@
 import {
   showMsgAction,
   destroyMsgAction,
-} from '../pub/index';
+} from './pub';
 import {
   START_LOGIN,
   loginSuccessAction,
   fetchUserErrAction,
-} from './';
+} from './user';
 
 import { takeLatest, delay, } from 'redux-saga';
 import { call, put } from 'redux-saga/effects';
-import { login } from '../../servers/user';
+import { login } from '../servers/user';
 import { push } from 'react-router-redux';
 
 //注册新用户
