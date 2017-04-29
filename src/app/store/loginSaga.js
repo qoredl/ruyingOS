@@ -8,8 +8,7 @@ import {
 } from './pub';
 import {
   START_LOGIN,
-  loginSuccessAction,
-  fetchUserErrAction,
+  fetchUserSuccessAction,
 } from './user';
 
 import { takeLatest, delay, } from 'redux-saga';
@@ -24,11 +23,10 @@ export default function *loginSaga() {
     
     try {
       const data = yield call(login, action.payload);
-      yield put(loginSuccessAction(data));
+      yield put(fetchUserSuccessAction(data));
       yield put(destroyMsgAction());
       yield put(push('/user'));
     } catch (e) {
-      yield put(fetchUserErrAction());
       yield put(showMsgAction({ msg: e.message, msgType: 'error' }));
       yield delay(3000);
       yield put(destroyMsgAction());

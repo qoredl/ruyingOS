@@ -18,6 +18,8 @@ import createRoutesConfig from './createRoutesConfig';
 import Err from './ui/Err';
 import Home from './Home';
 
+Object.assign(window, { React});
+
 const hashHistory = createHistory();
 const sagaMiddleware = createSagaMiddleware();
 
@@ -30,16 +32,14 @@ const rMiddleware = routerMiddleware(hashHistory);
 const initReducers = { routing, pubState, homeState };
 const store = createStore(combineReducers(initReducers), applyMiddleware(rMiddleware, sagaMiddleware,));
 
-Object.assign(window, { React});
-
-//生成路由组件
-const routesConfig = createRoutesConfig({ store, sagaMiddleware, combineReducers, initReducers, });
-
 //生产环境才执行的代码
 if (process.env.NODE_ENV !== 'production') {
   //运行actions执行日志saga
   sagaMiddleware.run(logSaga, store.getState);
 }
+
+//生成路由组件
+const routesConfig = createRoutesConfig({ store, sagaMiddleware, combineReducers, initReducers, });
 
 //渲染app
 ReactDOM.render(

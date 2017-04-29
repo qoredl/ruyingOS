@@ -76,12 +76,12 @@ export default ({ sagaMiddleware, store, combineReducers, initReducers }) => {
   
   return [
     /**用户首页**/
-    { path: '/user', component: user },
+    { path: '/user', render: user },
     
     /**用户注册**/
-    { path: '/reg', component: reg },
+    { path: '/reg', render: reg },
     
     /**用户登录**/
-    { path: '/login', component: login },
+    { path: '/login', render: login },
   ];
 };

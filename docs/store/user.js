@@ -15,8 +15,6 @@ const pub = {
 
 //用户
 const user = {
-  isFetching: false,//是否正在获取数据
-  isLogin: false,//是否已登录
   token: '',//sessionToken
   userInfo: { id: 'sdffs33', username: 'ruying', password: '1234' },//用户信息
 };

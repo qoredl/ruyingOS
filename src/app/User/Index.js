@@ -6,9 +6,7 @@ import { connect } from 'react-redux';
 import './index.less';
 import Footer from '../ui/Footer';
 
-export default connect(({ routing, pubState, userState }) => ({
-  routing,
-  pubState,
+export default connect(({userState }) => ({
   userState,
 }), {
   //actionCreater

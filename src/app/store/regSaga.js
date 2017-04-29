@@ -8,8 +8,7 @@ import {
 } from './pub';
 import {
   START_REG,
-  signSuccessAction,
-  fetchUserErrAction,
+  fetchUserSuccessAction,
 } from './user';
 
 import { takeLatest,delay } from 'redux-saga';
@@ -25,11 +24,10 @@ export default function *regSaga() {
     
     try {
       const data = yield call(addUser, action.payload);
-      yield put(signSuccessAction(data));
+      yield put(fetchUserSuccessAction(data));
       yield put(destroyMsgAction());
       yield put(push('/user'));
     } catch (e) {
-      yield put(fetchUserErrAction());
       yield put(showMsgAction({ msg: `注册失败！(${e.message})`, msgType: 'error' }));
       yield delay(3000);
       yield put(destroyMsgAction());
