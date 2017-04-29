@@ -11,10 +11,12 @@ import { Provider } from 'react-redux';
 import createHistory from 'history/createHashHistory'
 import { ConnectedRouter, routerReducer as routing, routerMiddleware } from 'react-router-redux';
 import createSagaMiddleware from 'redux-saga';
-import pubState from './store/pub/reducer';
-import homeState from './store/home/reducer';
-import { logSaga } from './store/pub/pubSaga';
+import pubState from './store/pub';
+import homeState from './store/home';
+import logSaga from './store/pub/logSaga';
 import createRoutesConfig from './createRoutesConfig';
+import Err from './ui/Err';
+import Home from './Home';
 
 const hashHistory = createHistory();
 const sagaMiddleware = createSagaMiddleware();
@@ -44,7 +46,13 @@ ReactDOM.render(
     <Provider store={store}>
       <ConnectedRouter history={hashHistory}>
         <Switch>
+          {/*首页*/}
+          <Route exact path='/' component={Home}/>
+          
           {routesConfig.map((config, i) => <Route key={i} {...config}/>)}
+          
+          {/*未匹配404*/}
+          <Route component={Err}/>
         </Switch>
       </ConnectedRouter>
     </Provider>, document.getElementById('r-root'));

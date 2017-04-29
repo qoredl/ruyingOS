@@ -1,7 +1,7 @@
 /**
  * user数据服务
  */
-import { fetch, } from '../../lib/Utils';
+import { fetch, } from '../../lib/utils';
 import { server } from '../config/index';
 
 const { headers, serverURL } = server;

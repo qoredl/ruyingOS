@@ -3,19 +3,17 @@
  * @date:2017-4-3
  */
 import {
-  START_LOGIN,
-} from '../pub/type';
-import {
   showMsgAction,
-} from '../pub/actions';
+  destroyMsgAction,
+} from '../pub/index';
 import {
+  START_LOGIN,
   loginSuccessAction,
   fetchUserErrAction,
-} from './actions';
-import {destroyMsg} from '../pub/pubSaga';
+} from './';
 
-import { takeLatest } from 'redux-saga';
-import { call, put} from 'redux-saga/effects';
+import { takeLatest, delay, } from 'redux-saga';
+import { call, put } from 'redux-saga/effects';
 import { login } from '../../servers/user';
 import { push } from 'react-router-redux';
 
@@ -27,12 +25,13 @@ export default function *loginSaga() {
     try {
       const data = yield call(login, action.payload);
       yield put(loginSuccessAction(data));
-      yield call(destroyMsg,0);
+      yield put(destroyMsgAction());
       yield put(push('/user'));
     } catch (e) {
       yield put(fetchUserErrAction());
       yield put(showMsgAction({ msg: e.message, msgType: 'error' }));
-      yield call(destroyMsg);
+      yield delay(3000);
+      yield put(destroyMsgAction());
     }
   });
 }

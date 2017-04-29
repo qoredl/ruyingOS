@@ -200,7 +200,7 @@ export const parseOptions = optsStr => {
  * @returns {string}
  */
 let id = 0;
-export const guid = (prfix = 'r') => `${prfix}-${+(new Date()) + id++}`;
+export const guid = (prfix = '') => `${prfix}_${+(new Date()) + '_'+id++}`;
 
 /**
  * 返回绝对网址，即完整网址

@@ -3,18 +3,16 @@
  * @date:2017-4-3
  */
 import {
-  START_REG,
-} from '../pub/type';
-import {
   showMsgAction,
-} from '../pub/actions';
+  destroyMsgAction,
+} from '../pub';
 import {
+  START_REG,
   signSuccessAction,
   fetchUserErrAction,
-} from './actions';
-import {destroyMsg} from '../pub/pubSaga';
+} from './';
 
-import { takeLatest } from 'redux-saga';
+import { takeLatest,delay } from 'redux-saga';
 import { call, put} from 'redux-saga/effects';
 import { addUser } from '../../servers/user';
 import { push } from 'react-router-redux';
@@ -28,12 +26,13 @@ export default function *regSaga() {
     try {
       const data = yield call(addUser, action.payload);
       yield put(signSuccessAction(data));
-      yield call(destroyMsg,0);
+      yield put(destroyMsgAction());
       yield put(push('/user'));
     } catch (e) {
       yield put(fetchUserErrAction());
       yield put(showMsgAction({ msg: `注册失败！(${e.message})`, msgType: 'error' }));
-      yield call(destroyMsg);
+      yield delay(3000);
+      yield put(destroyMsgAction());
     }
   });
 }

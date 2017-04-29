@@ -7,7 +7,7 @@ import './index.less';
 import {
   changUserInfoAction,
   loginAction,
-} from '../store/user/actions';
+} from '../store/user';
 import Footer from '../ui/Footer';
 
 import { Form, Icon, Input, Button, Checkbox, message, } from 'antd';

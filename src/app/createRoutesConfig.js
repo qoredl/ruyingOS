@@ -4,8 +4,7 @@
  * @date:2016-11-19
  */
 import Bundle from '../rui/Bundle';
-import Err from './ui/Err';
-import Home from './Home';
+
 
 //组件动态加载器
 import UserCompLoader from 'bundle-loader?lazy!./User';
@@ -13,7 +12,7 @@ import RegCompLoader from 'bundle-loader?lazy!./User/Reg';
 import LoginCompLoader from 'bundle-loader?lazy!./User/Login';
 
 //reducer动态加载器
-import userReducerLoader from 'bundle-loader?lazy!./store/user/reducer';
+import userReducerLoader from 'bundle-loader?lazy!./store/user';
 
 //saga动态加载器
 import regSagaLoader from 'bundle-loader?lazy!./store/user/regSaga';
@@ -69,24 +68,20 @@ export default ({ sagaMiddleware, store, combineReducers, initReducers }) => {
   const sagaLoginAdder = addSagaParamCache({ sagaName: 'sagaLogin', sagaLoader: loginSagaLoader });
   
   /**
-   * 生成路由组件
+   * 生成路由组件,命名保持与路由路径一致，方便管理
    * ********************************************************************************************************/
-  const UserComp = asyncLoadComp(UserCompLoader)(reducerUserAdder);
-  const RegComp = asyncLoadComp(RegCompLoader)(reducerUserAdder, sagaRegAdder);
-  const LoginComp = asyncLoadComp(LoginCompLoader)(reducerUserAdder, sagaLoginAdder);
+  const user = asyncLoadComp(UserCompLoader)(reducerUserAdder);
+  const reg = asyncLoadComp(RegCompLoader)(reducerUserAdder, sagaRegAdder);
+  const login = asyncLoadComp(LoginCompLoader)(reducerUserAdder, sagaLoginAdder);
   
   return [
-    /**首页**/
-    { exact: true, path: '/', component: Home },
-    
     /**用户首页**/
-    { path: '/user', component: UserComp },
-    /**用户注册**/
-    { path: '/reg', component: RegComp },
-    /**用户登录**/
-    { path: '/login', component: LoginComp },
+    { path: '/user', component: user },
     
-    /**未匹配404**/
-    { component: Err },
+    /**用户注册**/
+    { path: '/reg', component: reg },
+    
+    /**用户登录**/
+    { path: '/login', component: login },
   ];
 };
