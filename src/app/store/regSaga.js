@@ -20,6 +20,7 @@ import { push } from 'react-router-redux';
 //注册新用户
 export default function *regSaga() {
   yield* takeLatest(START_REG, function* signTask(action) {
+    
     yield put(showMsgAction({ msg: '注册用户中...', msgType: 'loading' }));
     
     try {

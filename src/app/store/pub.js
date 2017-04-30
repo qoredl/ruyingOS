@@ -1,5 +1,5 @@
 /**
- * app公共reducer
+ * app全局公共reducer
  * @date:2017-4-3
  */
 import {guid} from '../../lib/utils'

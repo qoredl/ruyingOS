@@ -19,6 +19,7 @@ import { push } from 'react-router-redux';
 //注册新用户
 export default function *loginSaga() {
   yield* takeLatest(START_LOGIN, function* loginTask(action) {
+    
     yield put(showMsgAction({ msg: '登录中...', msgType: 'loading' }));
     
     try {

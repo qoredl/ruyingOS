@@ -5,7 +5,7 @@
 import { connect } from 'react-redux';
 import './index.less';
 import {
-  startRegAction,
+  regAction,
 } from '../store/user';
 import Msg from '../ui/Msg';
 import LoginBox from './ui/LoginBox';
@@ -14,8 +14,8 @@ import Footer from '../ui/Footer';
 export default connect(({userState }) => ({
   userState,
 }), {
-  startRegAction,
-})(({ startRegAction, }) => {
+  regAction,
+})(({ regAction, }) => {
   console.log('outer');
   
   return (
@@ -23,7 +23,7 @@ export default connect(({userState }) => ({
         <Msg/>
         {console.log('reg')}
         
-        <LoginBox action={startRegAction}/>
+        <LoginBox action={regAction}/>
         
         <Footer/>
       </div>);

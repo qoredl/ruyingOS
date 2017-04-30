@@ -5,7 +5,7 @@
 import { connect } from 'react-redux';
 import './index.less';
 import {
-  startLoginAction,
+  loginAction,
 } from '../store/user';
 import Msg from '../ui/Msg';
 import LoginBox from './ui/LoginBox';
@@ -14,14 +14,14 @@ import Footer from '../ui/Footer';
 export default connect(({userState}) => ({
   userState,
 }), {
-  startLoginAction,
-})(({ startLoginAction}) => {
+  loginAction,
+})(({ loginAction}) => {
   
   return (
       <div className={'r-page'}>
         <Msg/>
   
-        <LoginBox action={startLoginAction} type="login"/>
+        <LoginBox action={loginAction} type="login"/>
         
         <Footer/>
       </div>);

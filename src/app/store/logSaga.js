@@ -1,5 +1,5 @@
 /**
- * 打印日记公共saga
+ * 打印触发的actions日记saga
  * @date:2017-4-29
  */
 import { take} from 'redux-saga/effects';

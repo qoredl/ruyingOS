@@ -16,8 +16,8 @@ export const FETCH_USER_SUCCESS = 'FETCH_USER_SUCCESS'+guid();
 /**2.action***************************************************************
  * @param payload
  */
-export const startLoginAction = (payload) => ({ type: START_LOGIN, payload });
-export const startRegAction = (payload) => ({ type: START_REG, payload });
+export const loginAction = (payload) => ({ type: START_LOGIN, payload });
+export const regAction = (payload) => ({ type: START_REG, payload });
 export const fetchUserSuccessAction = payload => ({ type: FETCH_USER_SUCCESS, payload });
 
 
