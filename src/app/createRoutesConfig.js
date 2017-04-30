@@ -5,6 +5,8 @@
  */
 import Bundle from '../rui/Bundle';
 
+import('../rui/Bundle').then(m=>console.log(m));
+
 
 //组件动态加载器
 import UserCompLoader from 'bundle-loader?lazy!./User';

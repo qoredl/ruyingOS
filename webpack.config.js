@@ -52,6 +52,8 @@ module.exports = {
             presets: [["es2015", { "modules": false }], "stage-2", "react"],
             plugins: [
               'transform-runtime',
+              //Babel plugin to transpile import() to require.ensure, for Webpack.
+              'dynamic-import-webpack',
               'transform-object-rest-spread',//对象扩展...obj
               ["import", { "libraryName": "antd", "style": true }],
             ],
