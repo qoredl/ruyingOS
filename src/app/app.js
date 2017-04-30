@@ -13,7 +13,7 @@ import { ConnectedRouter, routerReducer as routing, routerMiddleware } from 'rea
 import createSagaMiddleware from 'redux-saga';
 import pubState from './store/pub';
 import homeState from './store/home';
-import logSaga from './store/logSaga';
+//import logSaga from './store/logSaga';
 import createRoutesConfig from './createRoutesConfig';
 import Err from './ui/Err';
 import Home from './Home';
@@ -38,9 +38,6 @@ if (process.env.NODE_ENV !== 'production') {
       applyMiddleware(rMiddleware, sagaMiddleware,),
       window.devToolsExtension ? window.devToolsExtension() : f => f
   ));
-  
-  //运行actions执行日志saga
-  sagaMiddleware.run(logSaga, store.getState);
 }
 
 //生成路由组件
