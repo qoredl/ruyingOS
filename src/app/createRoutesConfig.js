@@ -28,8 +28,10 @@ import loginSagaLoader from 'bundle-loader?lazy!./store/loginSaga';
  */
 export default ({ sagaMiddleware, store, combineReducers, initReducers }) => {
   //动态加载组件
+  //把路由url参数params原本传进去，
+  // 以弥补react-router-redux中state无params数据
   const asyncLoadComp = compLoader => (reducerAdder, sagaAdder) =>
-      () => <Bundle compLoader={compLoader} reducerAdder={reducerAdder} sagaAdder={sagaAdder}/>;
+      ({match:{params}}) => <Bundle compLoader={compLoader} reducerAdder={reducerAdder} sagaAdder={sagaAdder} params={params}/>;
   
   //动态加载reducer
   const asyncLoadReducer = (replaceReducer, combineReducers, initReducer) => (reducerName, reducerLoader) =>

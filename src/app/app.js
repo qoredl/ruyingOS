@@ -6,7 +6,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Route, Switch, } from 'react-router-dom';
-import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { createStore, combineReducers, applyMiddleware,compose } from 'redux';
 import { Provider } from 'react-redux';
 import createHistory from 'history/createHashHistory'
 import { ConnectedRouter, routerReducer as routing, routerMiddleware } from 'react-router-redux';
@@ -30,10 +30,15 @@ const rMiddleware = routerMiddleware(hashHistory);
 // 合成app store状态树。
 //整个app只有一个store
 const initReducers = { routing, pubState, homeState };
-const store = createStore(combineReducers(initReducers), applyMiddleware(rMiddleware, sagaMiddleware,));
+let store = createStore(combineReducers(initReducers), applyMiddleware(rMiddleware, sagaMiddleware,));
 
 //生产环境才执行的代码
 if (process.env.NODE_ENV !== 'production') {
+  store = createStore(combineReducers(initReducers), compose(
+      applyMiddleware(rMiddleware, sagaMiddleware,),
+      window.devToolsExtension ? window.devToolsExtension() : f => f
+  ));
+  
   //运行actions执行日志saga
   sagaMiddleware.run(logSaga, store.getState);
 }

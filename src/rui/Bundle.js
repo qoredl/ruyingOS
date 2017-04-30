@@ -11,7 +11,8 @@ export default class extends Component {
   };
   
   componentDidMount() {
-    const { reducerAdder, sagaAdder } = this.props;
+    const { compLoader,reducerAdder, sagaAdder,params} = this.props;
+    this.params=params;
     
     //组合reducer
     reducerAdder && reducerAdder();
@@ -20,7 +21,7 @@ export default class extends Component {
     sagaAdder && sagaAdder();
     
     //加载组件
-    this.handleLoadComp(this.props);
+    this.handleLoadComp(compLoader);
   }
   
   /*componentWillReceiveProps(nextProps) {
@@ -29,7 +30,7 @@ export default class extends Component {
     }
   }*/
   
-  handleLoadComp({ compLoader }) {
+  handleLoadComp(compLoader) {
     compLoader(comp => this.setState({
       // handle both es imports and cjs
       comp: comp.default ? comp.default: comp
@@ -37,6 +38,6 @@ export default class extends Component {
   }
   
   render() {
-    return this.state.comp?<this.state.comp/>:null;
+    return this.state.comp?<this.state.comp params={this.params}/>:null;
   }
 };
