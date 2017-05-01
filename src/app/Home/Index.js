@@ -7,10 +7,9 @@ import Header from '../ui/Header';
 import Footer from '../ui/Footer';
 import '../ui/app.less';
 
-export default connect(({ routing,homeState}) => ({
-  routing,
+export default connect(({ homeState}) => ({
   homeState,
-}), {})(({ routing,homeState}) => {
+}), {})(({homeState}) => {
   return (
       <div className={'r-page'}>
         <Header title={'标题'}/>

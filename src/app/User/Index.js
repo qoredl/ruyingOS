@@ -6,15 +6,18 @@ import { connect } from 'react-redux';
 import './index.less';
 import Footer from '../ui/Footer';
 
-export default connect(state => state, {
+export default connect(({ userState }, owerProps) => ({ userState, ...owerProps }), {
   //regAction
 })(({
       userState: {
         token,
         userInfo: { username },
       },
+      location,
       param,
     }) => {
+  
+  console.log(location, param);
   
   return <div className={'r-page'}>
     

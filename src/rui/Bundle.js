@@ -11,8 +11,8 @@ export default class extends Component {
   };
   
   componentDidMount() {
-    const { compLoader,reducerAdder, sagaAdder,params} = this.props;
-    this.params=params;
+    const { compLoader,reducerAdder, sagaAdder,...otherProps} = this.props;
+    this.otherProps=otherProps;
     
     //组合reducer
     reducerAdder && reducerAdder();
@@ -38,6 +38,6 @@ export default class extends Component {
   }
   
   render() {
-    return this.state.comp?<this.state.comp params={this.params}/>:null;
+    return this.state.comp?<this.state.comp {...this.otherProps}/>:null;
   }
 };

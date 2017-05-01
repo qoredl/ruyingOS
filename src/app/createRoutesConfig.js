@@ -3,10 +3,10 @@
  * 本文件改动会比较频繁
  * @date:2016-11-19
  */
+import homeState from './store/home';
 import Bundle from '../rui/Bundle';
-
-import('../rui/Bundle').then(m=>console.log(m));
-
+import Home from './Home';
+import Err from './ui/Err';
 
 //组件动态加载器
 import UserCompLoader from 'bundle-loader?lazy!./User';
@@ -25,20 +25,30 @@ import loginSagaLoader from 'bundle-loader?lazy!./store/loginSaga';
  * @param sagaMiddleware
  * @param store
  * @param combineReducers
- * @param initReducers
+ * @param pubState
  * @returns {[*,*,*,*,*]}
  */
-export default ({ sagaMiddleware, store, combineReducers, initReducers }) => {
+export default ({ sagaMiddleware, store, combineReducers, pubState }) => {
+  //加载首页
+  const HomeComp=()=>{
+    store.replaceReducer(combineReducers({
+      pubState,
+      homeState,
+    }));
+    
+    return <Home/>;
+  };
+  
   //动态加载组件
   //把路由url参数params原本传进去，
   // 以弥补react-router-redux中state无params数据
   const asyncLoadComp = compLoader => (reducerAdder, sagaAdder) =>
-      ({match:{params}}) => <Bundle compLoader={compLoader} reducerAdder={reducerAdder} sagaAdder={sagaAdder} params={params}/>;
+      ({location,match:{params}}) => <Bundle compLoader={compLoader} reducerAdder={reducerAdder} sagaAdder={sagaAdder} location={location} params={params}/>;
   
   //动态加载reducer
-  const asyncLoadReducer = (replaceReducer, combineReducers, initReducer) => (reducerName, reducerLoader) =>
+  const asyncLoadReducer = (replaceReducer, combineReducers, pubState) => (reducerName, reducerLoader) =>
       () => reducerLoader(reducer => replaceReducer(combineReducers({
-        ...initReducer,
+        pubState,
         [reducerName]: reducer.default ? reducer.default: reducer,
       })));
   
@@ -61,7 +71,7 @@ export default ({ sagaMiddleware, store, combineReducers, initReducers }) => {
   /**
    * reducerAdder列表
    * ************************************************************************************************************/
-  const addReducerParamCache = asyncLoadReducer(store.replaceReducer, combineReducers, initReducers);
+  const addReducerParamCache = asyncLoadReducer(store.replaceReducer, combineReducers, pubState);
   const reducerUserAdder = addReducerParamCache('userState', userReducerLoader);
   
   /**
@@ -80,6 +90,9 @@ export default ({ sagaMiddleware, store, combineReducers, initReducers }) => {
   
   return [
     /**用户首页**/
+    { exact:true,path: '/', render: HomeComp },
+    
+    /**用户首页**/
     { path: '/user', render: user },
     
     /**用户注册**/
@@ -87,5 +100,8 @@ export default ({ sagaMiddleware, store, combineReducers, initReducers }) => {
     
     /**用户登录**/
     { path: '/login', render: login },
+    
+    /**未匹配404**/
+    {component: Err },
   ];
 };
