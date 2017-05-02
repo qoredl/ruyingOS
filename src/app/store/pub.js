@@ -2,14 +2,17 @@
  * app全局公共reducer
  * @date:2017-4-3
  */
-import {guid} from '../../lib/utils'
+import {guid} from '../../lib/utils';
+
+//定义全属唯一的命名空间，可访止冲突与action分类，
+const nameSpace=guid();
 
 /**
  * 1.type***************************************************************
  * @type {string}
  */
-export const SHOW_MSG='SHOW_MSG'+guid();
-export const DESTROY_MSG='DESTROY_MSG'+guid();
+export const SHOW_MSG='SHOW_MSG'+nameSpace;
+export const DESTROY_MSG='DESTROY_MSG'+nameSpace;
 
 /**2.action***************************************************************
  * @param payload
@@ -41,7 +44,6 @@ export default (state = initState, action) => {
         msg,
         msgType,
       };
-  
     case DESTROY_MSG:
       return {
         ...state,

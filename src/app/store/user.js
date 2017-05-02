@@ -2,15 +2,18 @@
  * user用户reducer
  * @date:2017-4-3
  */
-import {guid} from '../../lib/utils'
+import {guid} from '../../lib/utils';
+
+//定义全属唯一的命名空间，可访止冲突与action分类，
+const nameSpace=guid();
 
 /**
  * 1.type
  * @type {string}
  */
-export const START_LOGIN = 'START_LOGIN'+guid();
-export const START_REG = 'START_REG'+guid();
-export const FETCH_USER_SUCCESS = 'FETCH_USER_SUCCESS'+guid();
+export const START_LOGIN = 'START_LOGIN'+nameSpace;
+export const START_REG = 'START_REG'+nameSpace;
+export const FETCH_USER_SUCCESS = 'FETCH_USER_SUCCESS'+nameSpace;
 
 
 /**2.action***************************************************************
