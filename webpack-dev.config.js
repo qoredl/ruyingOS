@@ -3,7 +3,7 @@ const path = require("path");
 const webpack = require("webpack");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 //const CopyWebpackPlugin = require('copy-webpack-plugin');
-const { appName, antdTheme, prodConfig: { entry, output } } = require('./webpack-base.config.js');
+const { appName, antdTheme, prodConfig: { entry, output } } = require('./webpack.config.js');
 
 module.exports = {
   entry,
