@@ -1,15 +1,15 @@
 //开发环境打包配置文件
 const path = require("path");
 const webpack = require("webpack");
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+//const HtmlWebpackPlugin = require('html-webpack-plugin');
 //const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { appName, antdTheme, prodConfig: { entry, output } } = require('./webpack.config.js');
 
 module.exports = {
   entry,
   output: Object.assign(output, {
-    chunkFilename: 'js/[name].chunk.js',
-    sourceMapFilename: 'js/[name].map'
+    chunkFilename: 'app/js/[name].chunk.js',
+    sourceMapFilename: 'app/js/[name].map'
   }),
   devtool: 'cheap-module-source-map',
   //devtool: 'inline-source-map',
@@ -56,10 +56,10 @@ module.exports = {
     ]
   },
   plugins: [
-    new HtmlWebpackPlugin({
+    /*new HtmlWebpackPlugin({
       filename: 'index.html',
       template: './src/index.html',
-    }),
+    }),*/
     /*new webpack.optimize.CommonsChunkPlugin({
      name: 'vendor',
      filename: 'js/vendor-[hash].min.js',

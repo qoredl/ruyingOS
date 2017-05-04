@@ -18,7 +18,8 @@ const ImageminPlugin = require('imagemin-webpack-plugin').default;
 const appName = 'app';
 
 const entry = `./src/${appName}/app.js`;
-const output = `./${appName}/`;
+//const output = `./${appName}/`;
+const output = `./`;
 
 //antd主题设置
 const antdTheme=JSON.stringify({ "primary-color": "#0e90d2"});
@@ -35,9 +36,9 @@ module.exports = {
     },
     output: {
       path: path.resolve(__dirname, output),
-      filename: 'js/[name].js',
-      chunkFilename: 'js/[name].[chunkhash:5].chunk.js',
-      publicPath: './',
+      filename: 'app/js/[name].js',
+      chunkFilename: 'app/js/[name].[chunkhash:5].chunk.js',
+      publicPath: '',
     },
     module: {
       rules: [
