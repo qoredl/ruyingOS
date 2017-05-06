@@ -3,7 +3,7 @@
  * 本文件改动会比较频繁
  * @date:2016-11-19
  */
-import homeState from './store/home';
+
 import Bundle from '../rui/Bundle';
 import Home from './Home';
 import Err from './ui/Err';
@@ -29,15 +29,6 @@ import loginSagaLoader from 'bundle-loader?lazy!./store/loginSaga';
  * @returns {[*,*,*,*,*]}
  */
 export default ({ sagaMiddleware, store, combineReducers, pubState }) => {
-  //加载首页
-  const HomeComp=()=>{
-    store.replaceReducer(combineReducers({
-      pubState,
-      homeState,
-    }));
-    
-    return <Home/>;
-  };
   
   //动态加载组件
   //把路由url参数params原本传进去，
@@ -90,7 +81,7 @@ export default ({ sagaMiddleware, store, combineReducers, pubState }) => {
   
   return [
     /**用户首页**/
-    { exact:true,path: '/', render: HomeComp },
+    { exact:true,path: '/', component: Home },
     
     /**用户首页**/
     { path: '/user', render: user },

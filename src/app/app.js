@@ -12,6 +12,7 @@ import createHistory from 'history/createHashHistory'
 import { ConnectedRouter, routerMiddleware } from 'react-router-redux';
 import createSagaMiddleware from 'redux-saga';
 import pubState from './store/pub';
+import homeState from './store/home';
 
 import createRoutesConfig from './createRoutesConfig';
 
@@ -26,17 +27,18 @@ const sagaMiddleware = createSagaMiddleware();
 const rMiddleware = routerMiddleware(hashHistory);
 
 // 合成app store状态树,整个app只有一个store
+const initState=window.__initState__;
 let store;
 
 if (process.env.NODE_ENV !== 'production') {
   //生产环境才执行的代码
-  store = createStore(pubState, compose(
+  store = createStore(combineReducers({pubState,homeState}),initState, compose(
       applyMiddleware(rMiddleware, sagaMiddleware,),
       window.devToolsExtension ? window.devToolsExtension() : f => f
   ));
 }else {
   //产品环境
-  store = createStore(pubState, applyMiddleware(rMiddleware, sagaMiddleware,));
+  store = createStore(combineReducers({pubState,homeState}),initState, applyMiddleware(rMiddleware, sagaMiddleware,));
 }
 
 //生成路由组件

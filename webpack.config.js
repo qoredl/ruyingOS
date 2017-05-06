@@ -8,7 +8,7 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 // 样式生成单独css文件插件
-//const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 // 图片压缩插件
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
@@ -36,8 +36,8 @@ module.exports = {
     },
     output: {
       path: path.resolve(__dirname, output),
-      filename: 'app/js/[name].js',
-      chunkFilename: 'app/js/[name].[chunkhash:5].chunk.js',
+      filename: `${appName}/js/[name].js`,
+      chunkFilename: `${appName}/js/[name].[chunkhash:5].chunk.js`,
       publicPath: '',
     },
     module: {
@@ -63,11 +63,18 @@ module.exports = {
         
         {
           test: /\.less$/,
-          use: [
+          use: ExtractTextPlugin.extract({
+            fallback: "style-loader",
+            use: [
+              { loader: 'css-loader', options: { importLoaders: 1 } },
+              `less-loader?{"modifyVars":${antdTheme}}`//替换antd主题
+            ]
+          }),
+          /*use: [
             'style-loader',
             { loader: 'css-loader', options: { importLoaders: 1 } },
             `less-loader?{"modifyVars":${antdTheme}}`//替换antd主题
-          ]
+          ]*/
         },
         
         //url-loader transforms image files. If the image size is smaller than 8192 bytes, it will be transformed into Data URL; otherwise, it will be transformed into normal URL. As you see, question mark(?) is used to pass parameters into loaders.
@@ -94,7 +101,7 @@ module.exports = {
         name: 'vendor',
         filename: 'vendor-[hash].min.js',
       }),
-      //new ExtractTextPlugin("css/[name].css"),//输出独立的css文件
+      new ExtractTextPlugin(`${appName}/app.css`),//输出独立的css文件
       //压缩png图片
       new ImageminPlugin({
         test: ['images/*.png', 'images/*/*.png'],
