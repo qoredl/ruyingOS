@@ -35,6 +35,7 @@ const initState = {
   },
 };
 export default (state = initState, action) => {
+  console.log('user');
   switch (action.type) {
     case FETCH_USER_SUCCESS:
       const {

@@ -71,7 +71,10 @@ app.use('/app', express.static(path.join(__dirname, '/app')));
 // Parse Server plays nicely with the rest of your web routes
 var appServer=require('./bin/server.js');
 app.get('/', function (req, res) {
-  res.send(appServer.default);
+  appServer.default.then(data=>{
+    res.send(data);
+  });
+  
   //res.status(200).send('I dream of being a website.  Please star the parse-server repo on GitHub!');
   //重定向到app主页
   //res.status(200).redirect('app');

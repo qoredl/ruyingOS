@@ -2,7 +2,18 @@
  * index.html模板
  * @date:2017-5-6
  */
-export default (state, htmlStr) => `<!doctype html>
+import {
+  addData,
+  getData
+} from './servers/homeServer';
+
+export default async (state, htmlStr) => {
+  
+  //服务器端状态与客户端同步
+  const data=await getData();
+  Object.assign(state,{homeState:{data}});
+  
+  return `<!doctype html>
 <html lang="zh-cn">
 
 <head>
@@ -53,3 +64,4 @@ export default (state, htmlStr) => `<!doctype html>
 <script>window.__initState__=${JSON.stringify(state)}</script>
 <script src="./app/js/app.js"></script></body>
 </html>`
+}

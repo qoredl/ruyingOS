@@ -11,8 +11,9 @@ import { Provider } from 'react-redux';
 import createHistory from 'history/createHashHistory'
 import { ConnectedRouter, routerMiddleware } from 'react-router-redux';
 import createSagaMiddleware from 'redux-saga';
-import pubState from './store/pub';
-import homeState from './store/home';
+import pubState from './store/pubStore';
+import homeState from './store/homeStore';
+import homeSaga from './store/homeSaga';
 
 import createRoutesConfig from './createRoutesConfig';
 
@@ -40,6 +41,9 @@ if (process.env.NODE_ENV !== 'production') {
   //产品环境
   store = createStore(combineReducers({pubState,homeState}),initState, applyMiddleware(rMiddleware, sagaMiddleware,));
 }
+
+//运行首页
+sagaMiddleware.run(homeSaga, store.getState);
 
 //生成路由组件
 const routesConfig = createRoutesConfig({ store, sagaMiddleware, combineReducers, pubState, });

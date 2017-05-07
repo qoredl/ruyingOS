@@ -14,7 +14,7 @@ import RegCompLoader from 'bundle-loader?lazy!./User/Reg';
 import LoginCompLoader from 'bundle-loader?lazy!./User/Login';
 
 //reducer动态加载器
-import userReducerLoader from 'bundle-loader?lazy!./store/user';
+import userReducerLoader from 'bundle-loader?lazy!./store/userStore';
 
 //saga动态加载器
 import regSagaLoader from 'bundle-loader?lazy!./store/regSaga';
