@@ -7,11 +7,12 @@ import {
   getData
 } from './servers/homeServer';
 
-export default async (state, htmlStr) => {
-  
+export default (state, renderComps) =>async (url)=> {
   //服务器端状态与客户端同步
   const data=await getData();
   Object.assign(state,{homeState:{data}});
+  
+  const htmlStr=renderComps(url);
   
   return `<!doctype html>
 <html lang="zh-cn">

@@ -70,8 +70,9 @@ app.use('/app', express.static(path.join(__dirname, '/app')));
 //运行服务器端渲染
 // Parse Server plays nicely with the rest of your web routes
 var appServer=require('./bin/server.js');
-app.get('/', function (req, res) {
-  appServer.default.then(data=>{
+app.get('/*', function (req, res) {
+  console.log(req.url);
+  appServer.default(req.url).then(data=>{
     res.send(data);
   });
   

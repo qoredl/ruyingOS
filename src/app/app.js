@@ -8,7 +8,8 @@ import ReactDOM from 'react-dom';
 import { Route, Switch, } from 'react-router-dom';
 import { createStore, combineReducers, applyMiddleware,compose } from 'redux';
 import { Provider } from 'react-redux';
-import createHistory from 'history/createHashHistory'
+//import createHistory from 'history/createHashHistory'
+import createHistory from 'history/createBrowserHistory'
 import { ConnectedRouter, routerMiddleware } from 'react-router-redux';
 import createSagaMiddleware from 'redux-saga';
 import pubState from './store/pubStore';
@@ -20,12 +21,12 @@ import createRoutesConfig from './createRoutesConfig';
 
 Object.assign(window, { React});
 
-const hashHistory = createHistory();
+const history = createHistory();
 const sagaMiddleware = createSagaMiddleware();
 
 //应用react-router-redux routerMiddleware中间件，
 //使其中的push,replace,go,goBack,goForward的actionCreater可用，
-const rMiddleware = routerMiddleware(hashHistory);
+const rMiddleware = routerMiddleware(history);
 
 // 合成app store状态树,整个app只有一个store
 const initState=window.__initState__;
@@ -51,7 +52,7 @@ const routesConfig = createRoutesConfig({ store, sagaMiddleware, combineReducers
 //渲染app
 ReactDOM.render(
     <Provider store={store}>
-      <ConnectedRouter history={hashHistory}>
+      <ConnectedRouter history={history}>
         <Switch>
           {routesConfig.map((config, i) => <Route key={i} {...config}/>)}
         </Switch>
