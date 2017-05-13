@@ -7,6 +7,20 @@ import {
   getData
 } from './servers/homeServer';
 
+//生产环境
+let devJ='';
+if (process.env.NODE_ENV !== 'production') {
+  devJ=`<script src="node_modules/react/dist/react.min.js"></script>
+<script src="node_modules/react-dom/dist/react-dom.min.js"></script>
+<script src="node_modules/react-router/umd/react-router.min.js"></script>
+<script src="node_modules/react-router-dom/umd/react-router-dom.min.js"></script>
+<script src="node_modules/redux/dist/redux.min.js"></script>
+<script src="node_modules/react-redux/dist/react-redux.min.js"></script>
+<script src="node_modules/history/umd/history.min.js"></script>
+<script src="node_modules/react-router-redux/umd/react-router-redux.min.js"></script>
+<script src="node_modules/redux-saga/dist/redux-saga.min.js"></script>`;
+}
+
 export default (state, renderComps) =>async (url)=> {
   //服务器端状态与客户端同步
   const data=await getData();
@@ -57,12 +71,12 @@ export default (state, renderComps) =>async (url)=> {
     <meta content="telephone=no,email=no" name="format-detection">
     
     <link rel="shortcut icon" href="favicon.ico">
-    <link rel="stylesheet" href="app/css/app.css">
+    <link rel="stylesheet" href="./app/css/app.css">
 </head>
 
 <body>
 <div id="r-root">${htmlStr}</div>
-<script>window.__initState__=${JSON.stringify(state)}</script>
+<script>window.__initState__=${JSON.stringify(state)}</script>${devJ}
 <script src="./app/js/app.js"></script></body>
 </html>`
 }

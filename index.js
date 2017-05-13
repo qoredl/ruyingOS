@@ -63,6 +63,7 @@ app.use(
 
 // 静态资源文件夹
 app.use('/app', express.static(path.join(__dirname, '/app')));
+app.use('/node_modules', express.static(path.join(__dirname, '/node_modules')));
 /*app.get('/app', function (req, res) {
   res.send(html);
 });*/

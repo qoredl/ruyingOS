@@ -92,16 +92,16 @@ module.exports = {
     },
     
     plugins: [
-      new HtmlWebpackPlugin({
+      /*new HtmlWebpackPlugin({
         filename: 'index.html',
         minify: { collapseWhitespace: true },
         template: './src/index.html',
-      }),
-      new webpack.optimize.CommonsChunkPlugin({
+      }),*/
+      /*new webpack.optimize.CommonsChunkPlugin({
         name: 'vendor',
         filename: 'vendor-[hash].min.js',
-      }),
-      new ExtractTextPlugin(`${appName}/app.css`),//输出独立的css文件
+      }),*/
+      new ExtractTextPlugin(`${appName}/css/app.css`),//输出独立的css文件
       //压缩png图片
       new ImageminPlugin({
         test: ['images/*.png', 'images/*/*.png'],
