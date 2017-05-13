@@ -35,9 +35,8 @@ const initState = {
   },
 };
 export default (state = initState, action) => {
-  console.log('user');
   switch (action.type) {
-    case FETCH_USER_SUCCESS:
+    case FETCH_USER_SUCCESS:{
       const {
         objectId,
         username,
@@ -48,6 +47,7 @@ export default (state = initState, action) => {
         userInfo:{username,id:objectId,},
         token: sessionToken,
       };
+    }
       
     default:
       return state;

@@ -24,8 +24,8 @@ export default connect(({ userState }, owerProps) => ({ userState, ...owerProps 
     <div className={'r-wrap'}>
       {token ? <h2>{`您好！${username}`}</h2>
           : <div style={{ 'textAlign': 'center' }}>
-            <h4>您尚未登录，请先<a href="#login">登录</a>！</h4>
-            或<a href="#reg">注册新用户</a></div>}
+            <h4>您尚未登录，请先<a href="login">登录</a>！</h4>
+            或<a href="reg">注册新用户</a></div>}
     </div>
     
     <Footer/>

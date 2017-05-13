@@ -34,7 +34,7 @@ const initState = {
 
 export default (state = initState, action) => {
   switch (action.type) {
-    case SHOW_MSG:
+    case SHOW_MSG:{
       const {
         msg,
         msgType,
@@ -44,6 +44,8 @@ export default (state = initState, action) => {
         msg,
         msgType,
       };
+    }
+    
     case DESTROY_MSG:
       return {
         ...state,

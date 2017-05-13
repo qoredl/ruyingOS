@@ -1,1 +1,1 @@
-export default {}.hasOwnProperty;
+export default Array.prototype.hasOwnProperty;
