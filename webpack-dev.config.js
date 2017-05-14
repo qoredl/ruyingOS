@@ -1,17 +1,15 @@
 //开发环境打包配置文件
 const path = require("path");
 const webpack = require("webpack");
-// 样式生成单独css文件插件
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
-//const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 //const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { appName, antdTheme, prodConfig: { entry, output } } = require('./webpack.config.js');
 
 module.exports = {
   entry,
   output: Object.assign(output, {
-    chunkFilename: `${appName}/js/[name].chunk.js`,
-    sourceMapFilename: `${appName}/js/[name].map`,
+    chunkFilename: 'js/[name].chunk.js',
+    sourceMapFilename: 'js/[name].map'
   }),
   devtool: 'cheap-module-source-map',
   //devtool: 'inline-source-map',
@@ -38,13 +36,11 @@ module.exports = {
       
       {
         test: /\.less$/,
-        use: ExtractTextPlugin.extract({
-          fallback: "style-loader",
-          use: [
-            { loader: 'css-loader', options: { importLoaders: 1 } },
-            `less-loader?{"modifyVars":${antdTheme}}`//替换antd主题
-          ]
-        }),
+        use: [
+          'style-loader',
+          { loader: 'css-loader', options: { importLoaders: 1 } },
+          `less-loader?{"modifyVars":${antdTheme}}`//替换antd主题
+        ]
       },
       
       //url-loader transforms image files. If the image size is smaller than 8192 bytes, it will be transformed into Data URL; otherwise, it will be transformed into normal URL. As you see, question mark(?) is used to pass parameters into loaders.
@@ -60,17 +56,10 @@ module.exports = {
     ]
   },
   plugins: [
-    new ExtractTextPlugin(`${appName}/css/app.css`),//输出独立的css文件
-    //设置环境变量
-    /*new webpack.DefinePlugin({
-      'process.env': {
-        'NODE_ENV': JSON.stringify(nodeEnv)
-      }
-    })*/
-    /*new HtmlWebpackPlugin({
-     filename: 'index.html',
-     template: './src/index.html',
-     }),*/
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: './src/index.html',
+    }),
     /*new webpack.optimize.CommonsChunkPlugin({
      name: 'vendor',
      filename: 'js/vendor-[hash].min.js',

@@ -1,6 +1,5 @@
 /**
  * parse server
- * @date:2017-5-6
  */
 var path = require('path');
 var express = require('express');
@@ -63,23 +62,12 @@ app.use(
 
 // 静态资源文件夹
 app.use('/app', express.static(path.join(__dirname, '/app')));
-app.use('/node_modules', express.static(path.join(__dirname, '/node_modules')));
-/*app.get('/app', function (req, res) {
-  res.send(html);
-});*/
 
-//运行服务器端渲染
 // Parse Server plays nicely with the rest of your web routes
-var appServer=require('./bin/server.js');
-app.get('/*', function (req, res) {
-  console.log('server:',req.url);
-  appServer.default(req.url).then(data=>{
-    res.send(data);
-  });
-  
+app.get('/', function (req, res) {
   //res.status(200).send('I dream of being a website.  Please star the parse-server repo on GitHub!');
   //重定向到app主页
-  //res.status(200).redirect('app');
+  res.status(200).redirect('app');
 });
 
 /**

@@ -3,7 +3,7 @@
  * 本文件改动会比较频繁
  * @date:2016-11-19
  */
-
+import homeState from './store/homeStore';
 import Bundle from '../rui/Bundle';
 import Home from './Home';
 import Err from './ui/Err';
@@ -20,14 +20,6 @@ import userReducerLoader from 'bundle-loader?lazy!./store/userStore';
 import regSagaLoader from 'bundle-loader?lazy!./store/regSaga';
 import loginSagaLoader from 'bundle-loader?lazy!./store/loginSaga';
 
-//服务器端渲染数据同步
-import User from './User';
-import Reg from './User/Reg';
-import Login from './User/Login';
-import {
-  getData as homeData
-} from './servers/homeServer';
-
 /**
  * 生成路由
  * @param sagaMiddleware
@@ -36,7 +28,16 @@ import {
  * @param pubState
  * @returns {[*,*,*,*,*]}
  */
-export default ({ sagaMiddleware, store, combineReducers, pubState,isSever}) => {
+export default ({ sagaMiddleware, store, combineReducers, pubState }) => {
+  //加载首页
+  const HomeComp=()=>{
+    store.replaceReducer(combineReducers({
+      pubState,
+      homeState,
+    }));
+    
+    return <Home/>;
+  };
   
   //动态加载组件
   //把路由url参数params原本传进去，
@@ -83,28 +84,22 @@ export default ({ sagaMiddleware, store, combineReducers, pubState,isSever}) => 
   /**
    * 生成路由组件,命名保持与路由路径一致，方便管理
    * ********************************************************************************************************/
-  let userComp = asyncLoadComp(UserCompLoader)(reducerUserAdder);
-  let regComp = asyncLoadComp(RegCompLoader)(reducerUserAdder, sagaRegAdder);
-  let loginComp = asyncLoadComp(LoginCompLoader)(reducerUserAdder, sagaLoginAdder);
-  
-  /*if (isSever) {
-    userComp=User;
-    regComp=Reg;
-    loginComp=Login;
-  }*/
+  const user = asyncLoadComp(UserCompLoader)(reducerUserAdder);
+  const reg = asyncLoadComp(RegCompLoader)(reducerUserAdder, sagaRegAdder);
+  const login = asyncLoadComp(LoginCompLoader)(reducerUserAdder, sagaLoginAdder);
   
   return [
     /**用户首页**/
-    { exact:true,path: '/', component: Home,loadData:homeData,stateName:'homeState' },
+    { exact:true,path: '/', render: HomeComp },
     
     /**用户首页**/
-    { path: '/user', render: userComp,loadData:homeData, },
+    { path: '/user', render: user },
     
     /**用户注册**/
-    { path: '/reg', render: regComp,loadData:homeData, },
+    { path: '/reg', render: reg },
     
     /**用户登录**/
-    { path: '/login', render: loginComp,loadData:homeData, },
+    { path: '/login', render: login },
     
     /**未匹配404**/
     {component: Err },

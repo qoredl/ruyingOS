@@ -8,7 +8,7 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 // 样式生成单独css文件插件
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+//const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 // 图片压缩插件
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
@@ -18,8 +18,7 @@ const ImageminPlugin = require('imagemin-webpack-plugin').default;
 const appName = 'app';
 
 const entry = `./src/${appName}/app.js`;
-//const output = `./${appName}/`;
-const output = `./`;
+const output = `./${appName}/`;
 
 //antd主题设置
 const antdTheme=JSON.stringify({ "primary-color": "#0e90d2"});
@@ -36,9 +35,9 @@ module.exports = {
     },
     output: {
       path: path.resolve(__dirname, output),
-      filename: `${appName}/js/[name].js`,
-      chunkFilename: `${appName}/js/[name].[chunkhash:5].chunk.js`,
-      publicPath: '',
+      filename: 'js/[name].js',
+      chunkFilename: 'js/[name].[chunkhash:5].chunk.js',
+      publicPath: './',
     },
     module: {
       rules: [
@@ -63,18 +62,11 @@ module.exports = {
         
         {
           test: /\.less$/,
-          use: ExtractTextPlugin.extract({
-            fallback: "style-loader",
-            use: [
-              { loader: 'css-loader', options: { importLoaders: 1,minimize:true  } },
-              `less-loader?{"modifyVars":${antdTheme}}`//替换antd主题
-            ]
-          }),
-          /*use: [
+          use: [
             'style-loader',
             { loader: 'css-loader', options: { importLoaders: 1 } },
             `less-loader?{"modifyVars":${antdTheme}}`//替换antd主题
-          ]*/
+          ]
         },
         
         //url-loader transforms image files. If the image size is smaller than 8192 bytes, it will be transformed into Data URL; otherwise, it will be transformed into normal URL. As you see, question mark(?) is used to pass parameters into loaders.
@@ -92,16 +84,16 @@ module.exports = {
     },
     
     plugins: [
-      /*new HtmlWebpackPlugin({
+      new HtmlWebpackPlugin({
         filename: 'index.html',
         minify: { collapseWhitespace: true },
         template: './src/index.html',
-      }),*/
-      /*new webpack.optimize.CommonsChunkPlugin({
+      }),
+      new webpack.optimize.CommonsChunkPlugin({
         name: 'vendor',
         filename: 'vendor-[hash].min.js',
-      }),*/
-      new ExtractTextPlugin(`${appName}/css/app.css`),//输出独立的css文件
+      }),
+      //new ExtractTextPlugin("css/[name].css"),//输出独立的css文件
       //压缩png图片
       new ImageminPlugin({
         test: ['images/*.png', 'images/*/*.png'],
