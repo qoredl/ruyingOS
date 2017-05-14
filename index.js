@@ -72,7 +72,7 @@ app.use('/node_modules', express.static(path.join(__dirname, '/node_modules')));
 // Parse Server plays nicely with the rest of your web routes
 var appServer=require('./bin/server.js');
 app.get('/*', function (req, res) {
-  console.log(req.url);
+  console.log('server:',req.url);
   appServer.default(req.url).then(data=>{
     res.send(data);
   });

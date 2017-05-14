@@ -4,22 +4,22 @@
  * @date:2016-11-19
  */
 //产品环境
-/*import React from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import { Route, Switch, } from 'react-router-dom';
 import { createStore, combineReducers, applyMiddleware,compose } from 'redux';
 import { Provider } from 'react-redux';
 import createHistory from 'history/createBrowserHistory'
 import { ConnectedRouter, routerMiddleware } from 'react-router-redux';
-import createSagaMiddleware from 'redux-saga';*/
+import createSagaMiddleware from 'redux-saga';
 
 //生产环境
-const { Route, Switch} = ReactRouterDOM;
+/*const { Route, Switch} = ReactRouterDOM;
 const { createStore, combineReducers, applyMiddleware, compose } = Redux;
 const { Provider } = ReactRedux;
 const { createBrowserHistory: createHistory } = History;
 const { ConnectedRouter, routerMiddleware } = ReactRouterRedux;
-const { default: createSagaMiddleware } = ReduxSaga;
+const { default: createSagaMiddleware } = ReduxSaga;*/
 
 Object.assign(window, { reactRouter: ReactRouter });
 

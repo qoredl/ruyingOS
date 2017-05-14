@@ -2,11 +2,6 @@
  * index.html模板
  * @date:2017-5-6
  */
-import {
-  addData,
-  getData
-} from './servers/homeServer';
-
 //生产环境
 let devJ='';
 if (process.env.NODE_ENV !== 'production') {
@@ -21,12 +16,20 @@ if (process.env.NODE_ENV !== 'production') {
 <script src="node_modules/redux-saga/dist/redux-saga.min.js"></script>`;
 }
 
-export default (state, renderComps) =>async (url)=> {
+
+
+
+export default (state, renderComps,routesConfig) =>async (url)=> {
   //服务器端状态与客户端同步
-  const data=await getData();
-  Object.assign(state,{homeState:{data}});
+  const config=routesConfig.find(({path})=>path===url);
+  
+  if (config) {
+    const data=await config.loadData();
+    Object.assign(state,{[config.stateName]:{data}});
+  }
   
   const htmlStr=renderComps(url);
+  console.log(htmlStr);
   
   return `<!doctype html>
 <html lang="zh-cn">
@@ -70,7 +73,6 @@ export default (state, renderComps) =>async (url)=> {
     <!--忽略数字自动识别为电话号码,忽略识别邮箱-->
     <meta content="telephone=no,email=no" name="format-detection">
     
-    <link rel="shortcut icon" href="favicon.ico">
     <link rel="stylesheet" href="./app/css/app.css">
 </head>
 
