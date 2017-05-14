@@ -14,8 +14,8 @@ export default connect(({ homeState}) => ({
       <div className={'r-page'}>
         <Header title={'标题'}/>
         <div className={'r-wrap'}>
-          <h1>首页</h1>
-          <img src="../app/images/logo.png"/>
+          <h1 className={'bg-test'}>首页</h1>
+          <img src={require('../images/logo.png')}/>
         </div>
         <Footer/>
       </div>);

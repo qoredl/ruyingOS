@@ -63,6 +63,7 @@ module.exports = {
           test: /\.less$/,
           use: ExtractTextPlugin.extract({
             fallback: "style-loader",
+            publicPath:'',
             use: [
               { loader: 'css-loader', options: { importLoaders: 1,minimize:true  } },
               `less-loader?{"modifyVars":${antdTheme}}`//替换antd主题
@@ -95,7 +96,12 @@ module.exports = {
         minify: { collapseWhitespace: true },
         template: './src/index.html',
       }),
-      new ExtractTextPlugin('css/app.css'),//输出独立的css文件
+      //输出独立的css文件
+      new ExtractTextPlugin({
+        filename:  '[name].css',
+        //代码拆分下必需设置为true
+        allChunks:true,
+      }),
       //压缩png图片
       new ImageminPlugin({
         test: ['images/*.png', 'images/*/*.png'],

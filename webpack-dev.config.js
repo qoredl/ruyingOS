@@ -4,7 +4,7 @@ const webpack = require("webpack");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 // 样式生成单独css文件插件
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+//const ExtractTextPlugin = require("extract-text-webpack-plugin");
 //const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { appName, antdTheme, prodConfig: { entry, output } } = require('./webpack.config.js');
 
@@ -39,13 +39,11 @@ module.exports = {
       
       {
         test: /\.less$/,
-        use: ExtractTextPlugin.extract({
-          fallback: "style-loader",
-          use: [
-            { loader: 'css-loader', options: { importLoaders: 1 } },
-            `less-loader?{"modifyVars":${antdTheme}}`//替换antd主题
-          ]
-        }),
+        use: [
+          'style-loader',
+          { loader: 'css-loader', options: { importLoaders: 1 } },
+          `less-loader?{"modifyVars":${antdTheme}}`//替换antd主题
+        ]
       },
       
       //url-loader transforms image files. If the image size is smaller than 8192 bytes, it will be transformed into Data URL; otherwise, it will be transformed into normal URL. As you see, question mark(?) is used to pass parameters into loaders.
@@ -61,7 +59,7 @@ module.exports = {
     ]
   },
   plugins: [
-    new ExtractTextPlugin(`${appName}/css/app.css`),//输出独立的css文件
+    //new ExtractTextPlugin(`${appName}/css/app.css`),//输出独立的css文件
     new HtmlWebpackPlugin({
       filename: '../index.html',
       template: './src/index.html',
