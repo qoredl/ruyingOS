@@ -1,7 +1,11 @@
+/**
+ * 用户登录与注册框
+ * @date:2016-11-19
+ */
 import { Form, Icon, Input, Button, Checkbox} from 'antd';
 const FormItem = Form.Item;
 
-export default class extends React.Component{
+export default class extends React.PureComponent{
   state={
     username:'',
     password:'',
@@ -14,13 +18,16 @@ export default class extends React.Component{
   handleChangeUsername = e => {
     this.setState({username: e.target.value})
   };
+  
   handleChangePassword = e => {
     this.setState({password: e.target.value})
   };
   
+  hanleSubmit=e=>this.props.action(this.state);
+  
   render(){
     //相关变量解析
-    const {action,type}=this.props;
+    const {type}=this.props;
     
     return <Form className="login-form">
       <FormItem>
@@ -44,7 +51,7 @@ export default class extends React.Component{
         <Button
             type="primary"
             className="login-form-button"
-            onClick={() => action(this.state)}>{type==='login'?'登录':'注册'}</Button>
+            onClick={this.hanleSubmit}>{type==='login'?'登录':'注册'}</Button>
       </FormItem>
     </Form>;
   }
