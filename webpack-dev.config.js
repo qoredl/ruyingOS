@@ -9,7 +9,7 @@ module.exports = {
   entry,
   output: Object.assign(output, {
     chunkFilename: 'js/[name].chunk.js',
-    sourceMapFilename: 'js/[name].map'
+    sourceMapFilename: 'js/[name].map',
   }),
   devtool: 'cheap-module-source-map',
   //devtool: 'inline-source-map',
@@ -57,7 +57,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      filename: 'index.html',
+      filename: '../index.html',
       template: './src/index.html',
     }),
     /*new webpack.optimize.CommonsChunkPlugin({

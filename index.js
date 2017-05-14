@@ -61,14 +61,14 @@ app.use(
 );
 
 // 静态资源文件夹
-app.use('/app', express.static(path.join(__dirname, '/app')));
+app.use('/', express.static(path.join(__dirname, '/')));
 
 // Parse Server plays nicely with the rest of your web routes
-app.get('/', function (req, res) {
+/*app.get('/', function (req, res) {
   //res.status(200).send('I dream of being a website.  Please star the parse-server repo on GitHub!');
   //重定向到app主页
   res.status(200).redirect('app');
-});
+});*/
 
 /**
  * 配置后备(fallback) URL

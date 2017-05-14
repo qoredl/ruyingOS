@@ -37,7 +37,7 @@ module.exports = {
       path: path.resolve(__dirname, output),
       filename: 'js/[name].js',
       chunkFilename: 'js/[name].[chunkhash:5].chunk.js',
-      publicPath: './',
+      publicPath: './app/',
     },
     module: {
       rules: [
@@ -85,7 +85,7 @@ module.exports = {
     
     plugins: [
       new HtmlWebpackPlugin({
-        filename: 'index.html',
+        filename: '/index.html',
         minify: { collapseWhitespace: true },
         template: './src/index.html',
       }),
