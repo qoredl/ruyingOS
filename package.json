@@ -12,8 +12,10 @@
   },
   "scripts": {
     "start": "node index.js",
+    
     "dev": "rimraf app && webpack --progress --watch --config webpack-dev.config.js",
-    "build": "rimraf app && webpack --p --progress --config webpack-prod.config.js",
+    "build": "rimraf app && webpack --p --progress --watch --config webpack-prod.config.js",
+    
     "test": "rimraf app && webpack --p --progress --watch --config webpack-test.config.js"
   },
   "dependencies": {

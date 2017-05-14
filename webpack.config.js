@@ -1,15 +1,13 @@
 /**
  * webpack打包公共配置文件
  */
+
 const path = require("path");
 const webpack = require('webpack');
-
 //加载样板html文件插件
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-
 // 样式生成单独css文件插件
-//const ExtractTextPlugin = require("extract-text-webpack-plugin");
-
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 // 图片压缩插件
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
 
@@ -37,6 +35,7 @@ module.exports = {
       path: path.resolve(__dirname, output),
       filename: 'js/[name].js',
       chunkFilename: 'js/[name].[chunkhash:5].chunk.js',
+      //表示资源的发布地址
       publicPath: './app/',
     },
     module: {
@@ -62,11 +61,18 @@ module.exports = {
         
         {
           test: /\.less$/,
-          use: [
+          use: ExtractTextPlugin.extract({
+            fallback: "style-loader",
+            use: [
+              { loader: 'css-loader', options: { importLoaders: 1,minimize:true  } },
+              `less-loader?{"modifyVars":${antdTheme}}`//替换antd主题
+            ]
+          }),
+          /*use: [
             'style-loader',
             { loader: 'css-loader', options: { importLoaders: 1 } },
             `less-loader?{"modifyVars":${antdTheme}}`//替换antd主题
-          ]
+          ]*/
         },
         
         //url-loader transforms image files. If the image size is smaller than 8192 bytes, it will be transformed into Data URL; otherwise, it will be transformed into normal URL. As you see, question mark(?) is used to pass parameters into loaders.
@@ -89,11 +95,7 @@ module.exports = {
         minify: { collapseWhitespace: true },
         template: './src/index.html',
       }),
-      /*new webpack.optimize.CommonsChunkPlugin({
-        name: 'vendor',
-        filename: 'vendor-[hash].min.js',
-      }),*/
-      //new ExtractTextPlugin("css/[name].css"),//输出独立的css文件
+      new ExtractTextPlugin('css/app.css'),//输出独立的css文件
       //压缩png图片
       new ImageminPlugin({
         test: ['images/*.png', 'images/*/*.png'],
@@ -104,6 +106,10 @@ module.exports = {
           optimizationLevel: 6
         }
       }),
+      /*new webpack.optimize.CommonsChunkPlugin({
+       name: 'vendor',
+       filename: 'vendor-[hash].min.js',
+       }),*/
     ]
   }
 };
