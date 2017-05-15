@@ -19,7 +19,7 @@ export default connect(({userState }) => ({
   console.log('outer');
   
   return (
-      <div className={'r-page'}>
+      <div className={'r-web'}>
         <Msg/>
         {console.log('reg')}
         

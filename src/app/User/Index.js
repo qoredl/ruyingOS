@@ -19,7 +19,7 @@ export default connect(({ userState }, owerProps) => ({ userState, ...owerProps 
   
   console.log(location, param);
   
-  return <div className={'r-page'}>
+  return <div className={'r-web'}>
     
     <div className={'r-wrap'}>
       {token ? <h2>{`您好！${username}`}</h2>

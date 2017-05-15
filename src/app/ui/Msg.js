@@ -3,7 +3,6 @@
  * date:2017-4-29
  */
 import { connect } from 'react-redux';
-import { message} from 'antd';
 
 export default connect(({pubState}) => ({ pubState}))(({
       pubState: {
@@ -13,9 +12,5 @@ export default connect(({pubState}) => ({ pubState}))(({
       },
     }) => {
   
-  message.config({ duration: msgDuration });
-  message.destroy();
-  msg && message[msgType](msg);
-  
-  return null;
+  return <div className={msg&&'r-msg'}>{msg}</div>;
 });

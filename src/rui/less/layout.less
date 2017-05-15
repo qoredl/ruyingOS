@@ -12,17 +12,15 @@ update：2016-9-3
 ======================
 */
 
-#r-root,.@{ns}page{
+#r-root,.@{ns}web{
   height: 100%;
 }
 
 .@{ns}header,
 .@{ns}footer{
   position: fixed;
-  left: 0;
   z-index: 100;
   width: 100%;
-  background-color: @global-primary;
   height: @toolBarHeight;
 }
 
@@ -30,6 +28,7 @@ update：2016-9-3
 .@{ns}header {
   top: 0;
   color: @white;
+  background-color: @global-primary;
 
   .flexbox(flex);
 }
@@ -41,8 +40,7 @@ update：2016-9-3
   .flexbox(flex);
   .align-items(center);
 
-  >a{
-    font-size: 12px;
+  >.@{ns}icon{
     color: @white;
   }
 }
@@ -64,7 +62,7 @@ update：2016-9-3
   left: 0;
   right: 0;
   height: 100%;
-  font-size: @font-size-sm;
+  font-size: @font-size-lg;
   font-weight: normal;
 
   .flex(~'1 1 auto');
@@ -77,8 +75,8 @@ update：2016-9-3
 .@{ns}footer{
   bottom: 0;
 
-  a{
-    color: @white;
+  .@{ns}footer-nav{
+    margin-top: 0;
   }
 }
 
