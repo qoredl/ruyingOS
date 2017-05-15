@@ -1,7 +1,7 @@
 /**
- * @app入口js
+ * app入口js
  * 稳定性：3
- * @date:2016-11-19
+ * date:2016-11-19
  */
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -11,25 +11,23 @@ import { Provider } from 'react-redux';
 import createHistory from 'history/createHashHistory'
 import { ConnectedRouter, routerMiddleware } from 'react-router-redux';
 import createSagaMiddleware from 'redux-saga';
-import pubState from './store/pubStore';
-
+import pubState from './store/storePub';
 import createRoutesConfig from './createRoutesConfig';
 
+Object.assign(window,{React});
 
-Object.assign(window, { React});
-
-const hashHistory = createHistory();
+const history = createHistory();
 const sagaMiddleware = createSagaMiddleware();
 
 //应用react-router-redux routerMiddleware中间件，
 //使其中的push,replace,go,goBack,goForward的actionCreater可用，
-const rMiddleware = routerMiddleware(hashHistory);
+const rMiddleware = routerMiddleware(history);
 
-// 合成app store状态树,整个app只有一个store
+//合成app store状态树,整个app只有一个store
 let store;
 
 if (process.env.NODE_ENV !== 'production') {
-  //生产环境才执行的代码
+  //生产环境
   store = createStore(pubState, compose(
       applyMiddleware(rMiddleware, sagaMiddleware,),
       window.devToolsExtension ? window.devToolsExtension() : f => f
@@ -39,13 +37,13 @@ if (process.env.NODE_ENV !== 'production') {
   store = createStore(pubState, applyMiddleware(rMiddleware, sagaMiddleware,));
 }
 
-//生成路由组件
+//生成路由配置
 const routesConfig = createRoutesConfig({ store, sagaMiddleware, combineReducers, pubState, });
 
 //渲染app
 ReactDOM.render(
     <Provider store={store}>
-      <ConnectedRouter history={hashHistory}>
+      <ConnectedRouter history={history}>
         <Switch>
           {routesConfig.map((config, i) => <Route key={i} {...config}/>)}
         </Switch>

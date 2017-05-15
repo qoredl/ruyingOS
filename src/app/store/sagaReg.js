@@ -5,11 +5,11 @@
 import {
   showMsgAction,
   destroyMsgAction,
-} from './pubStore';
+} from './storePub';
 import {
   START_REG,
   fetchUserSuccessAction,
-} from './userStore';
+} from './storeUser';
 
 import { takeLatest,delay } from 'redux-saga';
 import { call, put} from 'redux-saga/effects';
@@ -18,7 +18,7 @@ import { push } from 'react-router-redux';
 
 
 //注册新用户
-export default function *regSaga() {
+export default function *sagaReg() {
   yield* takeLatest(START_REG, function* signTask(action) {
     
     yield put(showMsgAction({ msg: '注册用户中...', msgType: 'loading' }));

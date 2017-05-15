@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import './index.less';
 import {
   loginAction,
-} from '../store/userStore';
+} from '../store/storeUser';
 import Msg from '../ui/Msg';
 import LoginBox from './ui/LoginBox';
 import Footer from '../ui/Footer';

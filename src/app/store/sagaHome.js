@@ -5,7 +5,7 @@
 import {
   fetchDataAction,
   addDataAction,
-} from './homeStore';
+} from './storeHome';
 
 import {put,call,} from 'redux-saga/effects';
 import {
@@ -15,7 +15,7 @@ import {
 
 
 //注册新用户
-export default function *homeSaga() {
+export default function *sagaHome() {
   try {
     const data = yield call(getData);
     yield put(fetchDataAction(data));

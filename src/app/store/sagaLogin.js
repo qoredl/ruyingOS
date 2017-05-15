@@ -5,11 +5,11 @@
 import {
   showMsgAction,
   destroyMsgAction,
-} from './pubStore';
+} from './storePub';
 import {
   START_LOGIN,
   fetchUserSuccessAction,
-} from './userStore';
+} from './storeUser';
 
 import { takeLatest, delay, } from 'redux-saga';
 import { call, put } from 'redux-saga/effects';
@@ -17,7 +17,7 @@ import { login } from '../servers/userServer';
 import { push } from 'react-router-redux';
 
 //注册新用户
-export default function *loginSaga() {
+export default function *sagaLogin() {
   yield* takeLatest(START_LOGIN, function* loginTask(action) {
     
     yield put(showMsgAction({ msg: '登录中...', msgType: 'loading' }));

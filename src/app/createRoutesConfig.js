@@ -1,9 +1,10 @@
 /**
- * @app路由配置
+ * app路由配置
  * 本文件改动会比较频繁
- * @date:2016-11-19
+ * date:2016-11-19
  */
-import homeState from './store/homeStore';
+
+import homeState from './store/storeHome';
 import Bundle from './ui/Bundle';
 import Home from './Home';
 import Err from './ui/Err';
@@ -14,11 +15,11 @@ import RegCompLoader from 'bundle-loader?lazy!./User/Reg';
 import LoginCompLoader from 'bundle-loader?lazy!./User/Login';
 
 //reducer动态加载器
-import userReducerLoader from 'bundle-loader?lazy!./store/userStore';
+import userReducerLoader from 'bundle-loader?lazy!./store/storeUser';
 
 //saga动态加载器
-import regSagaLoader from 'bundle-loader?lazy!./store/regSaga';
-import loginSagaLoader from 'bundle-loader?lazy!./store/loginSaga';
+import regSagaLoader from 'bundle-loader?lazy!./store/sagaReg';
+import loginSagaLoader from 'bundle-loader?lazy!./store/sagaLogin';
 
 /**
  * 生成路由

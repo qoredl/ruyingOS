@@ -35,6 +35,11 @@ const initState = {
   },
 };
 export default (state = initState, action) => {
+  //跳过系统action，如redux初始化，路由等action
+  if (action.type.startsWith('@@')) {
+    return state;
+  }
+  
   switch (action.type) {
     case FETCH_USER_SUCCESS:{
       const {

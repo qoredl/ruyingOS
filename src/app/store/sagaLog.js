@@ -5,7 +5,7 @@
 import { take} from 'redux-saga/effects';
 
 //打印日记
-export default function *logSaga(getState) {
+export default function *sagaLog(getState) {
   while (true) {
     const action = yield take('*');
     
