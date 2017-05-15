@@ -1,0 +1,23 @@
+@charset "utf-8";
+@import "var/var";
+@import "var/mix";
+/* ==========================================================================
+   Component: Breadcrumb
+ ============================================================================ */
+.@{ns}minav {
+  padding: .7em .5em;
+
+  > li {
+    display: inline-block;
+
+    + li:before {
+      content: "»"; // @{breadcrumb-separator}\00a0 Unicode space added since inline-block means non-collapsing white-space
+      padding: 0 8px;
+      color: @breadcrumb-divider-color;
+    }
+  }
+
+  > .on {
+    color: @breadcrumb-active-color;
+  }
+}

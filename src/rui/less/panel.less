@@ -1,0 +1,43 @@
+@charset "utf-8";
+@import "var/var";
+@import "var/mix";
+/* ==========================================================================
+   Component: Panel  Plugin
+ ============================================================================ */
+.@{ns}panel-list{
+  border-top: 1px solid #ddd;
+  border-left: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+
+  &:last-child{
+    border-bottom: 1px solid #ddd;
+  }
+
+  .@{ns}panel-title{
+    position: relative;
+    margin: 0;
+    padding-left: 15px;
+    height: @buttomHeight;
+    line-height: @buttomHeight;
+    font-weight: bold;
+    background-color: #EFEFEF;
+    cursor: pointer;
+
+    &>.@{ns}icon{
+      .absolute-middile-v;
+      right: 10px;
+    }
+  }
+}
+
+.@{ns}panel-bd{
+  margin-bottom: 0;
+  padding: 10px;
+  line-height: @default-line-height;
+}
+
+.@{on}{
+  .@{ns}panel-title {
+    border-bottom: 1px solid #ddd;
+  }
+}

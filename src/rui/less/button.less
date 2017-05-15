@@ -1,0 +1,56 @@
+@charset "utf-8";
+@import "var/var";
+@import "var/mix";
+/* ==========================================================================
+   Component: Button
+ ============================================================================ */
+
+// Button base styles
+.@{ns}btn {
+  display: inline-block;
+  padding: 0 1em; // relative font size
+  height:@buttomHeight;
+  vertical-align: middle;
+  line-height: @buttomHeight;
+  text-align: center;
+  border: 1px solid transparent;
+  box-sizing: border-box;
+  -webkit-appearance: none;
+  transition: background-color @default-duration @default-timing-fanction, border-color @default-duration @default-timing-fanction;
+
+  &,
+  &:active {
+    &:focus {
+      .tab-focus();
+    }
+  }
+
+  &:hover,
+  &:focus {
+    text-decoration: none;
+  }
+
+  &:active,
+  &.on {
+    background-image: none;
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, .15);
+  }
+
+  &.@{ns}disabled,
+  &[disabled],
+  fieldset[disabled] & {
+    // https://developer.mozilla.org/en-US/docs/Web/CSS/pointer-events
+    pointer-events: none; // Disable mouse events
+    border-color: transparent;
+    cursor: not-allowed; // may not styled because pointer-events: none;
+    opacity: 0.45;
+    box-shadow: none;
+  }
+}
+
+
+// Modifiers
+// =============================================================================
+.@{ns}btn-default {
+  .button-variant(@btn-primary-color; @btn-primary-bg; @btn-primary-border);
+}

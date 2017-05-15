@@ -1,0 +1,238 @@
+@charset "utf-8";
+@import "var/var";
+@import "var/mix";
+/* ==========================================================================
+   Component: Icon
+ ============================================================================ */
+// Adapted from http://fortawesome.github.com/Font-Awesome (Version 4.2.0)
+// =============================================================================
+
+// Variables
+// =============================================================================
+
+// https://github.com/staticfile/static/issues/11
+@fa-font-path: '../fonts';
+@fa-css-prefix: ~"@{ns}icon";
+@fa-version: '1.0.0';
+@fa-font-name: "iconfont";
+//@fa-border-color: #eee;
+//@fa-inverse: #fff;
+//@fa-li-width: (30em / 14);
+
+/* ==========================================================================
+   Component: Icon
+ ============================================================================ */
+
+/* Font-face
+============================================================================= */
+
+@font-face {
+  font-family: 'FontAwesome';
+  src: url('@{fa-font-path}/@{fa-font-name}.eot?v=@{fa-version}');
+  src: url('@{fa-font-path}/@{fa-font-name}.eot?#iefix&v=@{fa-version}') format('embedded-opentype'),
+  url('@{fa-font-path}/@{fa-font-name}.woff?v=@{fa-version}') format('woff'),
+  url('@{fa-font-path}/@{fa-font-name}.ttf?v=@{fa-version}') format('truetype'),
+  url('@{fa-font-path}/@{fa-font-name}.svg?v=@{fa-version}#fontawesomeregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Component
+============================================================================= */
+.icon-font() {
+  margin-right: 3px;
+  font: normal normal normal @default-font-size/1 "FontAwesome", sans-serif; // shortening font declaration
+  font-size: @baseHeight; // can't have font-size inherit on line above, so need to override
+  text-rendering: auto; // optimizelegibility throws things off #1094
+  -webkit-font-smoothing: antialiased; // 5
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.@{ns}icon {
+  height:100%;
+
+  .flexbox(inline-flex);
+  .align-items(center);
+
+  +.@{ns}icon{
+    margin-left: 10px;
+  }
+  &:before {
+    .icon-font;
+  }
+}
+
+// Size modifiers
+// =============================================================================
+
+/* Icon mapping
+============================================================================= */
+.@{fa-css-prefix}-qq:before { content: "\e6a8"; }
+.@{fa-css-prefix}-edit:before { content: "\e61c"; }
+.@{fa-css-prefix}-emoji:before { content: "\e695"; }
+.@{fa-css-prefix}-warnfill:before { content: "\e657"; }
+.@{fa-css-prefix}-warn:before { content: "\e65b"; }
+.@{fa-css-prefix}-notificationfill:before { content: "\e600"; }
+.@{fa-css-prefix}-notification:before { content: "\e601"; }
+.@{fa-css-prefix}-evaluate:before { content: "\e696"; }
+.@{fa-css-prefix}-arrow:before { content: "\e667"; }
+.@{fa-css-prefix}-more:before { content: "\e669"; }
+.@{fa-css-prefix}-form:before { content: "\e697"; }
+.@{fa-css-prefix}-qrcode:before { content: "\e602"; }
+.@{fa-css-prefix}-profile:before { content: "\e603"; }
+.@{fa-css-prefix}-circlelink:before { content: "\e66c"; }
+.@{fa-css-prefix}-lock:before { content: "\e604"; }
+.@{fa-css-prefix}-unlock:before { content: "\e605"; }
+.@{fa-css-prefix}-sinaweibo:before { content: "\e66d"; }
+.@{fa-css-prefix}-friendaddfill:before { content: "\e698"; }
+.@{fa-css-prefix}-friendadd:before { content: "\e699"; }
+.@{fa-css-prefix}-present:before { content: "\e69a"; }
+.@{fa-css-prefix}-add:before { content: "\e69b"; }
+.@{fa-css-prefix}-notificationnofill:before { content: "\e69c"; }
+.@{fa-css-prefix}-forwardfill:before { content: "\e66e"; }
+.@{fa-css-prefix}-forward:before { content: "\e66f"; }
+.@{fa-css-prefix}-voice:before { content: "\e606"; }
+.@{fa-css-prefix}-voicefill:before { content: "\e607"; }
+.@{fa-css-prefix}-friendfavor:before { content: "\e608"; }
+.@{fa-css-prefix}-mobile:before { content: "\e69d"; }
+.@{fa-css-prefix}-mobilefill:before { content: "\e69e"; }
+.@{fa-css-prefix}-copy:before { content: "\e67e"; }
+.@{fa-css-prefix}-clothesfill:before { content: "\e67f"; }
+.@{fa-css-prefix}-clothes:before { content: "\e680"; }
+.@{fa-css-prefix}-creativefill:before { content: "\e69f"; }
+.@{fa-css-prefix}-creative:before { content: "\e6a0"; }
+.@{fa-css-prefix}-female:before { content: "\e60a"; }
+.@{fa-css-prefix}-circlekeyboard:before { content: "\e6a1"; }
+.@{fa-css-prefix}-male:before { content: "\e60b"; }
+.@{fa-css-prefix}-rankfill:before { content: "\e681"; }
+.@{fa-css-prefix}-rank:before { content: "\e682"; }
+.@{fa-css-prefix}-bad:before { content: "\e6a2"; }
+.@{fa-css-prefix}-cameraadd:before { content: "\e6a3"; }
+.@{fa-css-prefix}-paycode:before { content: "\e65f"; }
+.@{fa-css-prefix}-love:before { content: "\e66a"; }
+.@{fa-css-prefix}-moneyincome:before { content: "\e66b"; }
+.@{fa-css-prefix}-moneyincome-1:before { content: "\e671"; }
+.@{fa-css-prefix}-circlestar:before { content: "\e693"; }
+.@{fa-css-prefix}-new:before { content: "\e661"; }
+.@{fa-css-prefix}-circleqq:before { content: "\e609"; }
+.@{fa-css-prefix}-link:before { content: "\e659"; }
+.@{fa-css-prefix}-peoplefill:before { content: "\e650"; }
+.@{fa-css-prefix}-people:before { content: "\e674"; }
+.@{fa-css-prefix}-repair:before { content: "\e683"; }
+.@{fa-css-prefix}-file:before { content: "\e684"; }
+.@{fa-css-prefix}-repairfill:before { content: "\e685"; }
+.@{fa-css-prefix}-read:before { content: "\e686"; }
+.@{fa-css-prefix}-qqweibo:before { content: "\e62a"; }
+.@{fa-css-prefix}-calendar:before { content: "\e687"; }
+.@{fa-css-prefix}-cut:before { content: "\e60c"; }
+.@{fa-css-prefix}-group:before { content: "\e60d"; }
+.@{fa-css-prefix}-newfill:before { content: "\e651"; }
+.@{fa-css-prefix}-sun:before { content: "\e6a6"; }
+.@{fa-css-prefix}-upload:before { content: "\e688"; }
+.@{fa-css-prefix}-writefill:before { content: "\e60e"; }
+.@{fa-css-prefix}-write:before { content: "\e60f"; }
+.@{fa-css-prefix}-safe:before { content: "\e610"; }
+.@{fa-css-prefix}-crownfill:before { content: "\e689"; }
+.@{fa-css-prefix}-crown:before { content: "\e68a"; }
+.@{fa-css-prefix}-narrow:before { content: "\e6a7"; }
+.@{fa-css-prefix}-phone:before { content: "\e694"; }
+.@{fa-css-prefix}-text:before { content: "\e611"; }
+.@{fa-css-prefix}-musicfill:before { content: "\e612"; }
+.@{fa-css-prefix}-musicforbidfill:before { content: "\e68b"; }
+.@{fa-css-prefix}-radiofill:before { content: "\e613"; }
+.@{fa-css-prefix}-radio:before { content: "\e614"; }
+.@{fa-css-prefix}-rectangle:before { content: "\e615"; }
+.@{fa-css-prefix}-rectangletickfill:before { content: "\e616"; }
+.@{fa-css-prefix}-rectangletick:before { content: "\e617"; }
+.@{fa-css-prefix}-wrong:before { content: "\e618"; }
+.@{fa-css-prefix}-circlewrongfill:before { content: "\e619"; }
+.@{fa-css-prefix}-circlewrong:before { content: "\e61a"; }
+.@{fa-css-prefix}-circleadd:before { content: "\e61b"; }
+.@{fa-css-prefix}-circleaddfill:before { content: "\e61d"; }
+.@{fa-css-prefix}-reduce:before { content: "\e61e"; }
+.@{fa-css-prefix}-circlenotefill:before { content: "\e61f"; }
+.@{fa-css-prefix}-circlenote:before { content: "\e620"; }
+.@{fa-css-prefix}-circleaskfill:before { content: "\e621"; }
+.@{fa-css-prefix}-circleask:before { content: "\e622"; }
+.@{fa-css-prefix}-tick:before { content: "\e623"; }
+.@{fa-css-prefix}-circle:before { content: "\e624"; }
+.@{fa-css-prefix}-circletickfill:before { content: "\e625"; }
+.@{fa-css-prefix}-circletick:before { content: "\e626"; }
+.@{fa-css-prefix}-starfill:before { content: "\e627"; }
+.@{fa-css-prefix}-star:before { content: "\e628"; }
+.@{fa-css-prefix}-share:before { content: "\e629"; }
+.@{fa-css-prefix}-shopcarfill:before { content: "\e62b"; }
+.@{fa-css-prefix}-shopcar:before { content: "\e62c"; }
+.@{fa-css-prefix}-gouwudai:before { content: "\e62d"; }
+.@{fa-css-prefix}-cardstyle:before { content: "\e62e"; }
+.@{fa-css-prefix}-servicefill:before { content: "\e62f"; }
+.@{fa-css-prefix}-service:before { content: "\e630"; }
+.@{fa-css-prefix}-liststyle:before { content: "\e631"; }
+.@{fa-css-prefix}-msgfill:before { content: "\e632"; }
+.@{fa-css-prefix}-msg:before { content: "\e633"; }
+.@{fa-css-prefix}-friendfill:before { content: "\e634"; }
+.@{fa-css-prefix}-friend:before { content: "\e635"; }
+.@{fa-css-prefix}-scan:before { content: "\e636"; }
+.@{fa-css-prefix}-filter:before { content: "\e637"; }
+.@{fa-css-prefix}-identity:before { content: "\e638"; }
+.@{fa-css-prefix}-timefill:before { content: "\e639"; }
+.@{fa-css-prefix}-time:before { content: "\e63a"; }
+.@{fa-css-prefix}-homefill:before { content: "\e63b"; }
+.@{fa-css-prefix}-home:before { content: "\e63c"; }
+.@{fa-css-prefix}-search:before { content: "\e63d"; }
+.@{fa-css-prefix}-searchlistfill:before { content: "\e63e"; }
+.@{fa-css-prefix}-searchlist:before { content: "\e63f"; }
+.@{fa-css-prefix}-ringfill:before { content: "\e640"; }
+.@{fa-css-prefix}-ring:before { content: "\e641"; }
+.@{fa-css-prefix}-circlemsgfill:before { content: "\e642"; }
+.@{fa-css-prefix}-circlemsg:before { content: "\e643"; }
+.@{fa-css-prefix}-positionfill:before { content: "\e644"; }
+.@{fa-css-prefix}-position:before { content: "\e645"; }
+.@{fa-css-prefix}-tobottom:before { content: "\e646"; }
+.@{fa-css-prefix}-circlelinearrow:before { content: "\e647"; }
+.@{fa-css-prefix}-circlearrowfill:before { content: "\e648"; }
+.@{fa-css-prefix}-circlearrow:before { content: "\e649"; }
+.@{fa-css-prefix}-camerafill:before { content: "\e64a"; }
+.@{fa-css-prefix}-camera:before { content: "\e64b"; }
+.@{fa-css-prefix}-reflesh:before { content: "\e64c"; }
+.@{fa-css-prefix}-wifi:before { content: "\e64d"; }
+.@{fa-css-prefix}-moneygift:before { content: "\e64e"; }
+.@{fa-css-prefix}-card:before { content: "\e64f"; }
+.@{fa-css-prefix}-ol:before { content: "\e652"; }
+.@{fa-css-prefix}-li:before { content: "\e653"; }
+.@{fa-css-prefix}-goodfill:before { content: "\e654"; }
+.@{fa-css-prefix}-good:before { content: "\e655"; }
+.@{fa-css-prefix}-shopcaradd:before { content: "\e656"; }
+.@{fa-css-prefix}-heart:before { content: "\e658"; }
+.@{fa-css-prefix}-clock:before { content: "\e65a"; }
+.@{fa-css-prefix}-circlecomplete:before { content: "\e65c"; }
+.@{fa-css-prefix}-arrowlight:before { content: "\e65d"; }
+.@{fa-css-prefix}-eye:before { content: "\e65e"; }
+.@{fa-css-prefix}-camera1:before { content: "\e660"; }
+.@{fa-css-prefix}-linearrow:before { content: "\e675"; }
+.@{fa-css-prefix}-circlephone:before { content: "\e662"; }
+.@{fa-css-prefix}-record:before { content: "\e663"; }
+.@{fa-css-prefix}-circlesoundlight:before { content: "\e68c"; }
+.@{fa-css-prefix}-brand:before { content: "\e664"; }
+.@{fa-css-prefix}-fullscreen:before { content: "\e6a5"; }
+.@{fa-css-prefix}-heartfill:before { content: "\e665"; }
+.@{fa-css-prefix}-gift:before { content: "\e666"; }
+.@{fa-css-prefix}-attachment:before { content: "\e668"; }
+.@{fa-css-prefix}-plane:before { content: "\e670"; }
+.@{fa-css-prefix}-order:before { content: "\e672"; }
+.@{fa-css-prefix}-setting:before { content: "\e673"; }
+.@{fa-css-prefix}-image:before { content: "\e676"; }
+.@{fa-css-prefix}-delete:before { content: "\e677"; }
+.@{fa-css-prefix}-pause:before { content: "\e67a"; }
+.@{fa-css-prefix}-full:before { content: "\e67b"; }
+.@{fa-css-prefix}-circlepause:before { content: "\e6a4"; }
+.@{fa-css-prefix}-goodsnewfill:before { content: "\e68d"; }
+.@{fa-css-prefix}-goodsnew:before { content: "\e68e"; }
+.@{fa-css-prefix}-medalfill:before { content: "\e68f"; }
+.@{fa-css-prefix}-medal:before { content: "\e690"; }
+.@{fa-css-prefix}-newshotfill:before { content: "\e691"; }
+.@{fa-css-prefix}-newshot:before { content: "\e692"; }
+.@{fa-css-prefix}-circleplayfill:before { content: "\e67c"; }
+.@{fa-css-prefix}-circleplay:before { content: "\e67d"; }
+.@{fa-css-prefix}-xiaolian:before { content: "\e678"; }
+.@{fa-css-prefix}-renminbi:before { content: "\e679"; }

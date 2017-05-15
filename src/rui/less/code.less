@@ -1,0 +1,47 @@
+@charset "utf-8";
+@import "var/var";
+@import "var/mix";
+/* ==========================================================================
+   Component: Code
+ ============================================================================ */
+/* Inline code */
+code {
+  margin:0 4px 0 5px;
+  padding: 2px 4px;
+  font-size: @code-font-size;
+  color: @code-color;
+  border-radius:@default-border-radius;
+  background-color: @code-bg;
+  /*white-space: nowrap;*/
+}
+
+/* Code block */
+pre {
+  padding: 1rem;
+  margin: 1rem  0;
+  white-space: pre-wrap;//Improve readability of pre-formatted text in all browsers.
+  font-size: @code-font-size;
+  line-height: @default-line-height;
+  word-break: break-all;
+  word-wrap: break-word;
+  color: @pre-color;
+  background-color: @pre-bg;
+  border: @pre-border;
+  border-radius:7px;
+
+  // Account for some code outputs that place code tags in pre tags
+  code {
+    padding: 0;
+    color: inherit;
+    white-space: pre-wrap;
+    background-color: transparent;
+  }
+}
+
+/* Enable scrollable blocks of code */
+.@{ns}pre-scroll-v {
+  max-height: @pre-scrollable-max-height;
+  overflow-y: scroll;
+}
+
+
