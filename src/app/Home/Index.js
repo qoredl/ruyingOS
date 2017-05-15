@@ -5,7 +5,9 @@
 import { connect } from 'react-redux';
 import Header from '../ui/Header';
 import Footer from '../ui/Footer';
-import '../ui/app.less';
+import Button from 'react-bootstrap/lib/Button';
+//import '../ui/app.less';
+import '../../bootstrap/less/bootstrap.less';
 
 export default connect(({ homeState}) => ({
   homeState,
@@ -16,6 +18,8 @@ export default connect(({ homeState}) => ({
         <div className={'r-wrap'}>
           <h1 className={'bg-test'}>首页</h1>
           <img src={require('../images/logo.png')}/>
+          <br/>
+          <Button>Default</Button>
         </div>
         <Footer/>
       </div>);

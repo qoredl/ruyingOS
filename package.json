@@ -12,10 +12,8 @@
   },
   "scripts": {
     "start": "node index.js",
-    
     "dev": "rimraf app && webpack --progress --watch --config webpack-dev.config.js",
     "build": "rimraf app && webpack --p --progress --watch --config webpack-prod.config.js",
-    
     "test": "rimraf app && webpack --p --progress --watch --config webpack-test.config.js"
   },
   "dependencies": {
@@ -50,6 +48,7 @@
     "moment-range": "^2.2.0",
     "parse": "^1.8.5",
     "react": "^15.4.1",
+    "react-bootstrap": "^0.31.0",
     "react-dom": "^15.4.1",
     "react-redux": "^5.0.1",
     "react-router": "^4.0.0",
