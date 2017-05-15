@@ -4,7 +4,7 @@
  * @date:2016-11-19
  */
 import homeState from './store/homeStore';
-import Bundle from '../rui/Bundle';
+import Bundle from './ui/Bundle';
 import Home from './Home';
 import Err from './ui/Err';
 

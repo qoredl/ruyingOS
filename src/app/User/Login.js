@@ -18,7 +18,7 @@ export default connect(({userState}) => ({
 })(({ loginAction}) => {
   
   return (
-      <div className={'r-web'}>
+      <div className={'r-page'}>
         <Msg/>
   
         <LoginBox action={loginAction} type="login"/>

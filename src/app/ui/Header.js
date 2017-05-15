@@ -2,11 +2,13 @@
  * app头部组件
  * date:2016-11-24
  */
+import { Menu,Icon, } from 'antd';
+
 export default props => {
-	return (<header className={'r-header'}>
-		<div className={'r-header-l'}><a href="" className="r-icon r-icon-left">返回</a></div>
-		<h2 className={'r-header-title'}>{props.title}</h2>
-		<div className={'r-header-r'}><span className="r-icon r-icon-user">&nbsp;</span><span className="r-icon r-icon-github">&nbsp;</span></div>
-	</header>);
+	return <Menu>
+		<Menu.Item><a href="/#"><Icon type="mail" />index</a></Menu.Item>
+		<Menu.Item><a href="/#user">me</a></Menu.Item>
+		<Menu.Item><a href="http://ruanyf.github.io/es-checker/index.cn.html">es-checker</a></Menu.Item>
+	</Menu>;
 }
 
