@@ -58,18 +58,31 @@ module.exports = {
       },
     ]
   },
+  
+  //不打包此模块，而直接引入全局使用
+  externals: {
+    'react': 'React',
+    'react-dom': 'ReactDOM',
+    'react-router-dom': 'ReactRouterDOM',
+    'redux': 'Redux',
+    'react-redux': 'ReactRedux',
+    'history/createHashHistory': 'History',
+    'react-router-redux': 'ReactRouterRedux',
+    'redux-saga': 'ReduxSaga',
+    'react-router': 'reactRouter',
+  },
   plugins: [
     //new ExtractTextPlugin(`${appName}/css/app.css`),//输出独立的css文件
     new HtmlWebpackPlugin({
       filename: '../index.html',
-      template: './src/index.html',
+      template: './src/index-dev.html',
     }),
     //设置环境变量
     /*new webpack.DefinePlugin({
-      'process.env': {
-        'NODE_ENV': JSON.stringify(nodeEnv)
-      }
-    })*/
+     'process.env': {
+     'NODE_ENV': JSON.stringify(nodeEnv)
+     }
+     })*/
     /*new webpack.optimize.CommonsChunkPlugin({
      name: 'vendor',
      filename: 'js/vendor-[hash].min.js',

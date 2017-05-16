@@ -3,18 +3,32 @@
  * 稳定性：3
  * date:2016-11-19
  */
-import React from 'react';
+
+//生产环境
+/*import React from 'react';
 import ReactDOM from 'react-dom';
 import { Route, Switch, } from 'react-router-dom';
-import { createStore, combineReducers, applyMiddleware,compose } from 'redux';
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import createHistory from 'history/createHashHistory'
 import { ConnectedRouter, routerMiddleware } from 'react-router-redux';
 import createSagaMiddleware from 'redux-saga';
+
+Object.assign(window, { React });*/
+
+
+//开发环境
+const { Route, Switch } = ReactRouterDOM;
+const { createStore, combineReducers, applyMiddleware, compose } = Redux;
+const { Provider } = ReactRedux;
+const { createHashHistory: createHistory } = History;
+const { ConnectedRouter, routerMiddleware } = ReactRouterRedux;
+const { default: createSagaMiddleware } = ReduxSaga;
+//Object.assign(window, { reactRouter: ReactRouter });
+
+
 import pubState from './store/storePub';
 import createRoutesConfig from './createRoutesConfig';
-
-Object.assign(window,{React});
 
 const history = createHistory();
 const sagaMiddleware = createSagaMiddleware();
@@ -30,9 +44,9 @@ if (process.env.NODE_ENV !== 'production') {
   //生产环境
   store = createStore(pubState, compose(
       applyMiddleware(rMiddleware, sagaMiddleware,),
-      window.devToolsExtension ? window.devToolsExtension() : f => f
+      window.devToolsExtension ? window.devToolsExtension(): f => f
   ));
-}else {
+} else {
   //产品环境
   store = createStore(pubState, applyMiddleware(rMiddleware, sagaMiddleware,));
 }
