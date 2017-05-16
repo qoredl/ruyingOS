@@ -72,6 +72,9 @@ module.exports = {
     'react-router': 'reactRouter',
   },
   plugins: [
+    //根据模块调用次数，给模块分配ids，常被调用的ids分配更短的id，使得ids可预测，降低文件大小，该模块推荐使用
+    new webpack.optimize.OccurrenceOrderPlugin(),
+    
     //new ExtractTextPlugin(`${appName}/css/app.css`),//输出独立的css文件
     new HtmlWebpackPlugin({
       filename: '../index.html',
