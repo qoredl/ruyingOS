@@ -1,0 +1,13 @@
+1.name:qoredl psw:013****lpy  email:qoredl@163.com
+2.name:ok111 psw:013****lpy   email:ok111net@163.com
+3.name:ruyingos psw:013****lpy   email:ruyingdesign@163.com
+
+npm 包发布：
+$ npm adduser	
+Username: your name
+Password: your password
+Email: yourmail
+
+$ npm publish
+
+删除包请联系：support@npmjs.com

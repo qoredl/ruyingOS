@@ -1,5 +1,4 @@
-//@import "./normalize.less";
-@import "../../../../normalize.css/normalize.css";
+@import "./normalize.less";
 
 // http://stackoverflow.com/a/13611748/3040605
 // ruying 2017-5-16
@@ -8,8 +7,6 @@
   src: local("Helvetica Neue");
   unicode-range: U+30-39;
 }
-
-
 
 * {
   box-sizing: border-box;
@@ -71,6 +68,11 @@ a {
   outline: none;
   cursor: pointer;
   transition: color .3s ease;
+
+  &:focus {
+    text-decoration: underline;
+    text-decoration-skip: ink;
+  }
 
   &:hover {
     color: @link-hover-color;

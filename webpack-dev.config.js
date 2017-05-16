@@ -6,7 +6,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 // 样式生成单独css文件插件
 //const ExtractTextPlugin = require("extract-text-webpack-plugin");
 //const CopyWebpackPlugin = require('copy-webpack-plugin');
-const { appName, antdTheme, prodConfig: { entry, output } } = require('./webpack.config.js');
+const { appName, prodConfig: { entry, output } } = require('./webpack.config.js');
 
 module.exports = {
   entry,
@@ -42,7 +42,7 @@ module.exports = {
         use: [
           'style-loader',
           { loader: 'css-loader', options: { importLoaders: 1 } },
-          `less-loader?{"modifyVars":${antdTheme}}`//替换antd主题
+          'less-loader'//替换antd主题
         ]
       },
       

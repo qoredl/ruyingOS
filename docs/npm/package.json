@@ -1,0 +1,18 @@
+{
+  "name": "ruying",
+  "version": "0.0.0",
+  "description": "npm占位",
+  "main": "hello.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ok111net"
+  },
+  "keywords": [
+    "ruying"
+  ],
+  "author": "ruying",
+  "license": "MIT"
+}

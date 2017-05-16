@@ -7,9 +7,6 @@
     "type": "git",
     "url": "https://git.oschina.net/ok111/ruying.git"
   },
-  "theme": {
-    "primary-color": "#1DA57A"
-  },
   "scripts": {
     "start": "node index.js",
     "dev": "rimraf app && webpack --progress --watch --config webpack-dev.config.js",
@@ -24,7 +21,7 @@
     "parse-server": "*"
   },
   "devDependencies": {
-    "antd": "^2.9.0",
+    "antd": "^2.10.1",
     "babel-core": "6.x.x",
     "babel-es6-polyfill": "^1.0.1",
     "babel-plugin-dynamic-import-webpack": "^1.0.1",

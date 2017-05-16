@@ -18,12 +18,8 @@ const appName = 'app';
 const entry = `./src/${appName}/app.js`;
 const output = `./${appName}/`;
 
-//antd主题设置
-const antdTheme=JSON.stringify({ "primary-color": "#0e90d2"});
-
 module.exports = {
   appName,
-  antdTheme,
   
   // 生产环境打包配置文件
   prodConfig: {
@@ -66,7 +62,7 @@ module.exports = {
             publicPath:'',
             use: [
               { loader: 'css-loader', options: { importLoaders: 1,minimize:true  } },
-              `less-loader?{"modifyVars":${antdTheme}}`//替换antd主题
+              'less-loader'
             ]
           }),
           /*use: [
