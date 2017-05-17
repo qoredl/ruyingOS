@@ -107,5 +107,20 @@ module.exports = {
      // to `true` copies all files.
      copyUnmodified: true
      })*/
-  ]
+  ],
+  
+  // 解析模块请求的选项
+  // （不适用于对 loader 解析）
+  resolve: {
+    // 用于查找模块的目录
+    modules: [
+      "node_modules",
+      path.resolve(__dirname, 'src')
+    ],
+    // 使用的扩展名
+    extensions: ['.js', '.json', '.jsx', '.less'],
+    alias: {
+      //'react': 'react',
+    }
+  },
 };
