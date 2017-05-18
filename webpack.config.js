@@ -11,6 +11,9 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 // 图片压缩插件
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
 
+//压缩es6
+//const UglifyjsPlugin=require('uglifyjs-webpack-plugin');
+
 //项目文件夹名,
 //不同项目可改变文件夹名分别编译
 const appName = 'app';
@@ -44,7 +47,8 @@ module.exports = {
           loader: "babel-loader",
           options: {
             // "modules"设置为false  使webpack使用默认的模块处理，并使tree shaking生效（使用UglifyJsPlugin插件时去掉不使用的代码）
-            presets: ["stage-2", "react"],
+			presets: [["es2015", { "modules": false }], "stage-2", "react"],
+            //presets: ["stage-2", "react"],
             plugins: [
               'transform-runtime',
               //Babel plugin to transpile import() to require.ensure, for Webpack.
@@ -87,6 +91,11 @@ module.exports = {
     },
     
     plugins: [
+	  // 编译环境变量
+      /* new webpack.DefinePlugin({
+  'process.env.NODE_ENV': JSON.stringify('production'),
+  __DEV__: false
+}), */
       //根据模块调用次数，给模块分配ids，常被调用的ids分配更短的id，使得ids可预测，降低文件大小，该模块推荐使用
       new webpack.optimize.OccurrenceOrderPlugin(),
       
@@ -101,6 +110,8 @@ module.exports = {
         //代码拆分下必需设置为true
         allChunks:true,
       }),
+	  //压缩es6
+	  //new UglifyjsPlugin(),
       //压缩png图片
       new ImageminPlugin({
         test: ['images/*.png', 'images/*/*.png'],
