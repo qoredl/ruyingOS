@@ -8,10 +8,10 @@
     "url": "https://git.oschina.net/ok111/ruying.git"
   },
   "scripts": {
-    "start": "node index.js",
-    "dev": "rimraf app && webpack --progress --watch --config webpack-dev.config.js",
-    "build": "rimraf app && webpack --p --progress --config webpack-prod.config.js",
-    "test": "rimraf app && webpack --p --progress --watch --config webpack-test.config.js"
+    "s": "node index.js",
+    "d": "rimraf app && webpack --progress --watch --config webpack-dev.config.js",
+    "b": "rimraf app && webpack --p --progress --watch --config webpack-prod.config.js",
+    "t": "rimraf app && webpack --p --progress --watch --config webpack-test.config.js"
   },
   "dependencies": {
     "express": "~4.11.x",
