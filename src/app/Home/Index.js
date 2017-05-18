@@ -12,7 +12,7 @@ export default connect(({ homeState}) => ({
   return (
       <div className={'r-page'}>
         <div className={'r-wrap'}>
-          <h1 className={'bg-test'}>首页</h1>
+          <h1 className={'bg-test'}>首页88888</h1>
           <img src={require('../images/logo.png')}/>
         </div>
         <Footer/>

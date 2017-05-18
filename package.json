@@ -10,7 +10,7 @@
   "scripts": {
     "s": "node index.js",
     "d": "rimraf app && webpack --progress --watch --config webpack-dev.config.js",
-    "b": "rimraf app && webpack --p --progress --watch --config webpack-prod.config.js",
+    "b": "rimraf app && webpack --p --progress --config webpack-prod.config.js",
     "t": "rimraf app && webpack --p --progress --watch --config webpack-test.config.js"
   },
   "dependencies": {

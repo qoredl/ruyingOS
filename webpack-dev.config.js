@@ -27,6 +27,7 @@ module.exports = {
         loader: "babel-loader",
         
         options: {
+          //presets: [["es2015", { "modules": false }], "stage-2", "react"],
           presets: ["stage-2", "react"],
           plugins: [
             ["import", { "libraryName": "antd", "style": true }],

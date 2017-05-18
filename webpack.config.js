@@ -44,7 +44,7 @@ module.exports = {
           loader: "babel-loader",
           options: {
             // "modules"设置为false  使webpack使用默认的模块处理，并使tree shaking生效（使用UglifyJsPlugin插件时去掉不使用的代码）
-            presets: [["es2015", { "modules": false }], "stage-2", "react"],
+            presets: ["stage-2", "react"],
             plugins: [
               'transform-runtime',
               //Babel plugin to transpile import() to require.ensure, for Webpack.

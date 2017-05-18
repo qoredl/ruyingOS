@@ -12,3 +12,5 @@
 /logs
 /*.log
 /index.html
+/cordova/node_modules
+/cordova/platforms
