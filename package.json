@@ -9,6 +9,7 @@
   },
   "scripts": {
     "s": "node index.js",
+    "app": "rimraf cordova/www/app && webpack --progress --config webpack-app.config.js",
     "d": "rimraf app && webpack --progress --watch --config webpack-dev.config.js",
     "b": "rimraf app && webpack --progress --p --config webpack-prod.config.js",
     "t": "rimraf app && webpack --p --progress --watch --config webpack-test.config.js"

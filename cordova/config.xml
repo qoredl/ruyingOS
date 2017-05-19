@@ -7,7 +7,7 @@
     <author email="ok111net@163.com" href="http://ok111.net">
         ruying Team
     </author>
-    <content src="http://192.168.0.100:8086" />
+    <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />

@@ -18,31 +18,30 @@ module.exports = {
   //devtool: 'inline-source-map',
   //devtool: 'eval-source-map', // 调试工具
   module: {
-    rules: [
-      {
-        test: /\.(js|jsx)$/,
-        exclude: [
-          path.resolve(__dirname, 'node_modules')
+    rules: [{
+      test: /\.(js|jsx)$/,
+      exclude: [
+        path.resolve(__dirname, 'node_modules')
+      ],
+      loader: "babel-loader",
+      
+      options: {
+        presets: ["stage-2", "react"],
+        plugins: [
+          ["import", { "libraryName": "antd", "style": true }],
+          //Babel plugin to transpile import() to require.ensure, for Webpack.
+          'dynamic-import-webpack',
+          'transform-object-rest-spread', //对象扩展...obj
         ],
-        loader: "babel-loader",
-        
-        options: {
-          presets: ["stage-2", "react"],
-          plugins: [
-            ["import", { "libraryName": "antd", "style": true }],
-            //Babel plugin to transpile import() to require.ensure, for Webpack.
-            'dynamic-import-webpack',
-            'transform-object-rest-spread',//对象扩展...obj
-          ],
-        },
       },
+    },
       
       {
         test: /\.less$/,
         use: [
           'style-loader',
           { loader: 'css-loader', options: { importLoaders: 1 } },
-          'less-loader'//替换antd主题
+          'less-loader' //替换antd主题
         ]
       },
       
