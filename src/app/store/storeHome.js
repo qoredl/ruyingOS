@@ -19,7 +19,6 @@ export const ADD_DATA = 'ADD_DATA'+nameSpace;
  * @param payload
  */
 export const fetchDataAction = (payload) => ({ type: FETCH_DATA, payload });
-export const addDataAction = () => ({ type: ADD_DATA});
 
 /**3.reducer***************************************************************
  * @param payload

@@ -6,15 +6,15 @@
 
 //生产环境
 /*import React from 'react';
-import ReactDOM from 'react-dom';
-import { Route, Switch, } from 'react-router-dom';
-import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
-import { Provider } from 'react-redux';
-import createHistory from 'history/createHashHistory'
-import { ConnectedRouter, routerMiddleware } from 'react-router-redux';
-import createSagaMiddleware from 'redux-saga';
-
-Object.assign(window, { React });*/
+ import ReactDOM from 'react-dom';
+ import { Route, Switch, } from 'react-router-dom';
+ import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
+ import { Provider } from 'react-redux';
+ import createHistory from 'history/createHashHistory'
+ import { ConnectedRouter, routerMiddleware } from 'react-router-redux';
+ import createSagaMiddleware from 'redux-saga';
+ 
+ Object.assign(window, { React });*/
 
 
 //开发环境
@@ -28,6 +28,7 @@ const { default: createSagaMiddleware } = ReduxSaga;
 import '../var/string.extend.js';
 import pubState from './store/storePub';
 import createRoutesConfig from './createRoutesConfig';
+import '../../cordova/www/js/vconsole.min';
 
 const history = createHistory();
 const sagaMiddleware = createSagaMiddleware();
