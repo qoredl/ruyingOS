@@ -24,7 +24,7 @@ export const addDataAction = () => ({ type: ADD_DATA});
 /**3.reducer***************************************************************
  * @param payload
  */
-const initState = {a:'test'};
+const initState = {msg:''};
 export default (state = initState, action) => {
   //跳过系统action，如redux初始化，路由等action
   if (action.type.startsWith('@@')) {
@@ -35,7 +35,7 @@ export default (state = initState, action) => {
     case FETCH_DATA:
       return {
         ...state,
-        data:action.payload,
+        msg:action.payload,
       };
       
     default:

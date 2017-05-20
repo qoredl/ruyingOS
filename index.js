@@ -9,6 +9,9 @@ const ParseServer = require('parse-server').ParseServer;
 const ParseDashboard = require('parse-dashboard');
 const config = require('./config');
 
+//server send event
+const serverSendEvent=require('./cloud/sever-send-event');
+
 const databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
 
 if (!databaseUri) {
@@ -66,6 +69,9 @@ app.use(
 
 // 静态资源文件夹
 app.use('/', express.static(path.join(__dirname, '/')));
+
+//server send event
+app.get('/seversSendEvent', serverSendEvent);
 
 const port = process.env.PORT || config.port;
 const httpServer = require('http').createServer(app);

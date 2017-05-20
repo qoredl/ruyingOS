@@ -1,2 +1,31 @@
 <!--配置WebView可以打开的外部链接-->  
 <allow-navigation href="http://*/*" />  
+
+crosswalk-webview支持的h5有用特性：
+1.tag: main figure figcaption mark wbr details summary dialog (download ping attribute)
+2.insertAdjacentHTML
+3.forms里除了input type=file里的directory upload外的所有特性
+4.web components
+5.location and orientation
+6.output(无用）
+7.communication
+8.readable streams
+9.WebRTC 1.0   
+10.data channel 
+11.access the webcam
+12.enumerate devices  
+13.media stream recorder
+14.user interaction里除了drag and drop
+15.performance里除了shared workers
+16.security里除了web autentication /fido2
+17.payments
+18.video里除了audio video track selection
+19.audion里除了speech synthesis   dolby digital   
+dolby digital plus   oog opus   webm with opus
+20.streaming除了
+21.responsive images
+22.animation
+23.offline resoures
+24.storage
+25.files里除了filesystem api
+26.others
