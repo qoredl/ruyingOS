@@ -4,7 +4,7 @@
  */
 import { connect } from 'react-redux';
 import Footer from '../ui/Footer';
-import Html5 from '../ui/Html5';
+//import Htmlfiv from '../ui/Htmlfiv';
 import '../ui/app.less';
 
 export default connect(({ homeState }) => ({
@@ -15,7 +15,7 @@ export default connect(({ homeState }) => ({
         <div className={'r-wrap'}>
           <h1 className={'bg-test'}>首页88886888888</h1>
           <img src={require('../images/logo.png')}/>
-          <Html5 {...props}/>
+          {/*<Htmlfiv {...props}/>*/}
         </div>
         <Footer/>
       </div>);

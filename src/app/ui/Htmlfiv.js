@@ -2,6 +2,7 @@
  * html5测试组件
  * date:2017-5-19
  */
+ import React from 'react';
 import {baseUrl} from '../../../config';
 
 //const b = navigator.sendBeacon('beacon', 'ok111net');
