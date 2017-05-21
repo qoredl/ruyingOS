@@ -1,4 +1,7 @@
-//开发环境打包配置文件
+/**
+ * 开发环境
+ * webpack打包配置文件
+ */
 const path = require("path");
 const webpack = require("webpack");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -8,8 +11,12 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 //const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { appName, prodConfig: { entry, output } } = require('./webpack.config.js');
 
+const devEntr=Object.assign({},entry, {
+  app: entry.app.replace('app.js', 'app-dev.js'),
+});
+
 module.exports = {
-  entry,
+  entry:devEntr,
   output: Object.assign(output, {
     chunkFilename: 'js/[name].chunk.js',
     sourceMapFilename: 'js/[name].map',

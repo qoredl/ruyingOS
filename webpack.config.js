@@ -1,5 +1,6 @@
 /**
- * webpack打包公共配置文件
+ * 产品环境
+ * webpack打包配置文件
  */
 
 const path = require("path");
@@ -104,7 +105,7 @@ module.exports = {
        __DEV__: false
        }), */
       //根据模块调用次数，给模块分配ids，常被调用的ids分配更短的id，使得ids可预测，降低文件大小，该模块推荐使用
-      new webpack.optimize.OccurrenceOrderPlugin(),
+      //new webpack.optimize.OccurrenceOrderPlugin(),
       
       //输出独立的css文件
       new ExtractTextPlugin({

@@ -1,22 +1,18 @@
 /**
- * app生产环境入口js
+ * app开发环境入口js
  * 稳定性：3
- * date:2016-11-19
+ * date:2017-5-21
  */
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { Route, Switch, } from 'react-router-dom';
-import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
-import { Provider } from 'react-redux';
-import createHistory from 'history/createHashHistory'
-import { ConnectedRouter, routerMiddleware } from 'react-router-redux';
-import createSagaMiddleware from 'redux-saga';
-
-Object.assign(window, { React });
-
 import '../var/string.extend.js';
 import pubState from './store/storePub';
 import createRoutesConfig from './createRoutesConfig';
+
+const { Route, Switch } = ReactRouterDOM;
+const { createStore, combineReducers, applyMiddleware, compose } = Redux;
+const { Provider } = ReactRedux;
+const { createHashHistory: createHistory } = History;
+const { ConnectedRouter, routerMiddleware } = ReactRouterRedux;
+const { default: createSagaMiddleware } = ReduxSaga;
 
 const history = createHistory();
 const sagaMiddleware = createSagaMiddleware();

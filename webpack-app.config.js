@@ -1,6 +1,8 @@
-//导出生产环境打包配置文件
+/**
+ * app环境
+ * webpack打包配置文件
+ */
 const path = require("path");
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const config = require('./webpack.config.js').prodConfig;
 
 Object.assign(config, {
