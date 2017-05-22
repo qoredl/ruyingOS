@@ -16,9 +16,9 @@ crosswalk-webview支持的h5有用特性：
 12.enumerate devices  
 13.media stream recorder
 14.user interaction里除了drag and drop
-15.performance里除了shared workers
+15.performance里除了shared workers　　（requestIdleCallback app上不太准确）
 16.security里除了web autentication /fido2
-17.payments
+17.payments（不实用）
 18.video里除了audio video track selection
 19.audion里除了speech synthesis   dolby digital   
 dolby digital plus   oog opus   webm with opus

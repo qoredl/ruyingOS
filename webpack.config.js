@@ -84,10 +84,10 @@ module.exports = {
           //小于8kb的图片直接base64编码到css中
           loader: 'url-loader?limit=8192&name=images/[name].[ext]',
         },
-        
+  
         {
-          test: /\.(svg|eot|woff|woff2|ttf)$/,
-          loader: 'file-loader?name=fonts/[name].[ext]',
+          test: /\.(svg|eot|woff|woff2|ttf|wav|mp3|mp4|ogg|mpeg|webm)$/,
+          loader: 'file-loader?name=source/[name].[ext]',
         },
       ]
     },

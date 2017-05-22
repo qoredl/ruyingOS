@@ -32,13 +32,14 @@ import loginSagaLoader from 'bundle-loader?lazy!./store/sagaLogin';
  */
 export default ({ sagaMiddleware, store, combineReducers, pubState }) => {
   //初始state
-  const initState={pubState};
+  const initState = { pubState };
   
   //动态加载组件
   //把路由url参数params原本传进去，
   // 以弥补react-router-redux中state无params数据
   const asyncLoadComp = compLoader => (reducerAdder, sagaAdder) =>
-      ({location,match:{params}}) => <Bundle compLoader={compLoader} reducerAdder={reducerAdder} sagaAdder={sagaAdder} location={location} params={params}/>;
+      ({ location, match: { params } }) =>
+          <Bundle compLoader={compLoader} reducerAdder={reducerAdder} sagaAdder={sagaAdder} location={location} params={params}/>;
   
   //加载器记录,检查
   const cacheContainer = [];
@@ -46,24 +47,22 @@ export default ({ sagaMiddleware, store, combineReducers, pubState }) => {
   const isCacked = cackeName => cacheContainer.includes(cackeName);
   
   //动态加载reducer
-  const asyncLoadReducer = (replaceReducer, combineReducers, pubState) => (reducerName, reducerLoader) =>() => reducerLoader(reducer => {
-    //记录并只运行一次添加进来的saga逻辑代码
+  const asyncLoadReducer = (replaceReducer, combineReducers, pubState) => (reducerName, reducerLoader) => () => reducerLoader(reducer => {
+    //相同的reducer逻辑代码只添加一次
     if (!isCacked(reducerName)) {
-    recCacke(reducerName, reducerLoader);
+      recCacke(reducerName, reducerLoader);
+      replaceReducer(combineReducers(Object.assign(initState, {
+        [reducerName]: reducer.default ? reducer.default: reducer,
+      })))
+    }
     
-    replaceReducer(combineReducers(Object.assign(initState,{
-      [reducerName]: reducer.default ? reducer.default: reducer,
-    })))
-  }
-  
   });
   
   //动态加载saga
-  const asyncLoadSaga = (sagaMiddleware, getState) => ({ sagaName, sagaLoader }) =>
-  () => sagaLoader(saga => {
+  const asyncLoadSaga = (sagaMiddleware, getState) => ({ sagaName, sagaLoader }) => () => sagaLoader(saga => {
     saga = saga.default ? saga.default: saga;
     
-    //记录并只运行一次添加进来的saga逻辑代码
+    //saga逻辑代码只运行一次
     if (!isCacked(sagaName)) {
       sagaMiddleware.run(saga, getState);
       recCacke(sagaName, saga);
@@ -95,7 +94,7 @@ export default ({ sagaMiddleware, store, combineReducers, pubState }) => {
   
   return [
     /**用户首页**/
-    { exact:true,path: '/', render: home },
+    { exact: true, path: '/', render: home },
     
     /**用户首页**/
     { path: '/user', render: user },
@@ -107,6 +106,6 @@ export default ({ sagaMiddleware, store, combineReducers, pubState }) => {
     { path: '/login', render: login },
     
     /**未匹配404**/
-    {component: Err },
+    { component: Err },
   ];
 };
