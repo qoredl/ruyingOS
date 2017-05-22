@@ -85,7 +85,7 @@ export default ({ sagaMiddleware, store, combineReducers, pubState }) => {
   /**
    * 生成路由组件,命名保持与路由路径一致，方便管理
    * ********************************************************************************************************/
-  const home = asyncLoadComp(HomeCompLoader)(reducerHomeAdder);
+  const home = asyncLoadComp(HomeCompLoader)(reducerHomeAdder,sagaHomeAdder);
   const user = asyncLoadComp(UserCompLoader)(reducerUserAdder);
   const reg = asyncLoadComp(RegCompLoader)(reducerUserAdder, sagaRegAdder);
   const login = asyncLoadComp(LoginCompLoader)(reducerUserAdder, sagaLoginAdder);
