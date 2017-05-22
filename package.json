@@ -1,12 +1,15 @@
 {
-  "name": "ruyingOS",
+  "name": "ruying",
   "description": "如影开源项目(ruyingOS)-基于html5,css3,es2015,react,redux的前端开源项目。",
-  "version": "1.0.0",
+  "version": "1.0.4",
   "main": "index.js",
   "repository": {
     "type": "git",
     "url": "https://git.oschina.net/ok111/ruying.git"
   },
+  "keywords": [
+    "ruying"
+  ],
   "scripts": {
     "s": "node index.js",
     
@@ -68,5 +71,6 @@
   "engines": {
     "node": ">=4.3"
   },
+  "author": "qoredl",
   "license": "MIT"
 }

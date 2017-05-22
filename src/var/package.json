@@ -1,0 +1,27 @@
+{
+  "name": "r-var",
+  "description": "r-var",
+  "version": "0.0.1",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://git.oschina.net/ok111/ruying.git"
+  },
+  "keywords": [
+    "r-var"
+  ],
+  "scripts": {
+  
+  },
+  "dependencies": {
+  
+  },
+  "devDependencies": {
+  
+  },
+  "engines": {
+    "node": ">=4.3"
+  },
+  "author": "qoredl",
+  "license": "MIT"
+}
