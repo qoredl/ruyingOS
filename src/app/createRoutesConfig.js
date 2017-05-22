@@ -4,9 +4,7 @@
  * date:2016-11-19
  */
 
-//import homeState from './store/storeHome';
 import Bundle from './ui/Bundle';
-//import Home from './Home';
 import Err from './ui/Err';
 
 //组件动态加载器
