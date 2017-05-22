@@ -4,20 +4,23 @@
  * date:2016-11-19
  */
 
-import homeState from './store/storeHome';
+//import homeState from './store/storeHome';
 import Bundle from './ui/Bundle';
-import Home from './Home';
+//import Home from './Home';
 import Err from './ui/Err';
 
 //组件动态加载器
+import HomeCompLoader from 'bundle-loader?lazy!./Home';
 import UserCompLoader from 'bundle-loader?lazy!./User';
 import RegCompLoader from 'bundle-loader?lazy!./User/Reg';
 import LoginCompLoader from 'bundle-loader?lazy!./User/Login';
 
 //reducer动态加载器
+import homeReducerLoader from 'bundle-loader?lazy!./store/storeHome';
 import userReducerLoader from 'bundle-loader?lazy!./store/storeUser';
 
 //saga动态加载器
+import homeSagaLoader from 'bundle-loader?lazy!./store/sagaHome';
 import regSagaLoader from 'bundle-loader?lazy!./store/sagaReg';
 import loginSagaLoader from 'bundle-loader?lazy!./store/sagaLogin';
 
@@ -30,15 +33,8 @@ import loginSagaLoader from 'bundle-loader?lazy!./store/sagaLogin';
  * @returns {[*,*,*,*,*]}
  */
 export default ({ sagaMiddleware, store, combineReducers, pubState }) => {
-  //加载首页
-  const HomeComp=()=>{
-    store.replaceReducer(combineReducers({
-      pubState,
-      homeState,
-    }));
-    
-    return <Home/>;
-  };
+  //初始state
+  const initState={pubState};
   
   //动态加载组件
   //把路由url参数params原本传进去，
@@ -46,26 +42,33 @@ export default ({ sagaMiddleware, store, combineReducers, pubState }) => {
   const asyncLoadComp = compLoader => (reducerAdder, sagaAdder) =>
       ({location,match:{params}}) => <Bundle compLoader={compLoader} reducerAdder={reducerAdder} sagaAdder={sagaAdder} location={location} params={params}/>;
   
-  //动态加载reducer
-  const asyncLoadReducer = (replaceReducer, combineReducers, pubState) => (reducerName, reducerLoader) =>
-      () => reducerLoader(reducer => replaceReducer(combineReducers({
-        pubState,
-        [reducerName]: reducer.default ? reducer.default: reducer,
-      })));
+  //加载器记录,检查
+  const cacheContainer = [];
+  const recCacke = cackeName => cacheContainer.push(cackeName);
+  const isCacked = cackeName => cacheContainer.includes(cackeName);
   
-  //记录,检查saga
-  const sagaRecContainer = [];
-  const recSaga = sagaName => sagaRecContainer.push(sagaName);
-  const hasSaga = sagaName => sagaRecContainer.includes(sagaName);
+  //动态加载reducer
+  const asyncLoadReducer = (replaceReducer, combineReducers, pubState) => (reducerName, reducerLoader) =>() => reducerLoader(reducer => {
+    //记录并只运行一次添加进来的saga逻辑代码
+    if (!isCacked(reducerName)) {
+    recCacke(reducerName, reducerLoader);
+    
+    replaceReducer(combineReducers(Object.assign(initState,{
+      [reducerName]: reducer.default ? reducer.default: reducer,
+    })))
+  }
+  
+  });
   
   //动态加载saga
-  const asyncLoadSaga = (sagaMiddleware, getState) => ({ sagaName, sagaLoader }) => () => sagaLoader(saga => {
+  const asyncLoadSaga = (sagaMiddleware, getState) => ({ sagaName, sagaLoader }) =>
+  () => sagaLoader(saga => {
     saga = saga.default ? saga.default: saga;
     
     //记录并只运行一次添加进来的saga逻辑代码
-    if (!hasSaga(sagaName)) {
+    if (!isCacked(sagaName)) {
       sagaMiddleware.run(saga, getState);
-      recSaga(sagaName, saga);
+      recCacke(sagaName, saga);
     }
   });
   
@@ -73,25 +76,28 @@ export default ({ sagaMiddleware, store, combineReducers, pubState }) => {
    * reducerAdder列表
    * ************************************************************************************************************/
   const addReducerParamCache = asyncLoadReducer(store.replaceReducer, combineReducers, pubState);
+  const reducerHomeAdder = addReducerParamCache('homeState', homeReducerLoader);
   const reducerUserAdder = addReducerParamCache('userState', userReducerLoader);
   
   /**
    * sagaAdder列表
    * ****************************************************************************************************************/
   const addSagaParamCache = asyncLoadSaga(sagaMiddleware, store.getState);
+  const sagaHomeAdder = addSagaParamCache({ sagaName: 'sagaHome', sagaLoader: homeSagaLoader });
   const sagaRegAdder = addSagaParamCache({ sagaName: 'sagaReg', sagaLoader: regSagaLoader });
   const sagaLoginAdder = addSagaParamCache({ sagaName: 'sagaLogin', sagaLoader: loginSagaLoader });
   
   /**
    * 生成路由组件,命名保持与路由路径一致，方便管理
    * ********************************************************************************************************/
+  const home = asyncLoadComp(HomeCompLoader)(reducerHomeAdder);
   const user = asyncLoadComp(UserCompLoader)(reducerUserAdder);
   const reg = asyncLoadComp(RegCompLoader)(reducerUserAdder, sagaRegAdder);
   const login = asyncLoadComp(LoginCompLoader)(reducerUserAdder, sagaLoginAdder);
   
   return [
     /**用户首页**/
-    { exact:true,path: '/', render: HomeComp },
+    { exact:true,path: '/', render: home },
     
     /**用户首页**/
     { path: '/user', render: user },
