@@ -11,23 +11,20 @@ import { Provider } from 'react-redux';
 import createHistory from 'history/createHashHistory'
 import { ConnectedRouter, routerMiddleware } from 'react-router-redux';
 import createSagaMiddleware from 'redux-saga';
-
 Object.assign(window, { React });
 
 import '../var/string.extend.js';
 import pubState from './store/storePub';
 import createRoutesConfig from './createRoutesConfig';
 
+let store;
 const history = createHistory();
 const sagaMiddleware = createSagaMiddleware();
-
 //应用react-router-redux routerMiddleware中间件，
 //使其中的push,replace,go,goBack,goForward的actionCreater可用，
 const rMiddleware = routerMiddleware(history);
 
 //合成app store状态树,整个app只有一个store
-let store;
-
 if (process.env.NODE_ENV !== 'production') {
   //生产环境
   store = createStore(pubState, compose(

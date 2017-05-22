@@ -1,23 +1,23 @@
 {
   "name": "ruying",
-  "description": "如影开源项目(ruyingOS)-基于html5,css3,es2015,react,redux的前端开源项目。",
-  "version": "1.0.4",
+  "description": "如影(ruying)-基于es2015,html5,css3,react,redux,react-router,cordova,crosswalk等前端前沿技术构建的全栈web项目。",
+  "version": "1.0.5-alpha.1",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "https://git.oschina.net/ok111/ruying.git"
+    "url": "https://github.com/ok111net/ruying.git"
   },
   "keywords": [
-    "ruying"
+    "如影,ruying,es2015,html5,css3,react,redux,react-router,cordova,crosswalk,前沿技术,全栈"
   ],
   "scripts": {
-    "s": "node index.js",
+    "start": "node index.js",
     
-    "d": "rimraf app && webpack --progress --watch --config webpack-dev.config.js",
-    "b": "rimraf app && webpack --progress --watch --p --config webpack-prod.config.js",
+    "dev": "rimraf app && webpack --progress --watch --config webpack-dev.config.js",
+    "build": "rimraf app && webpack --progress --watch --p --config webpack-prod.config.js",
     "app": "rimraf cordova/www/app && webpack --progress --watch --config webpack-app.config.js",
     
-    "t": "rimraf app && webpack --p --progress --watch --config webpack-test.config.js"
+    "test": "rimraf app && webpack --p --progress --watch --config webpack-test.config.js"
   },
   "dependencies": {
     "express": "~4.11.x",
@@ -68,9 +68,9 @@
     "webpack": "^2.2.0",
     "whatwg-fetch": "^2.0.3"
   },
-  "engines": {
-    "node": ">=4.3"
+  "devEngines": {
+    "node": ">=6.10.3"
   },
-  "author": "qoredl",
+  "author": "ruying",
   "license": "MIT"
 }

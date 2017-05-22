@@ -14,16 +14,14 @@ const { createHashHistory: createHistory } = History;
 const { ConnectedRouter, routerMiddleware } = ReactRouterRedux;
 const { default: createSagaMiddleware } = ReduxSaga;
 
+let store;
 const history = createHistory();
 const sagaMiddleware = createSagaMiddleware();
-
 //应用react-router-redux routerMiddleware中间件，
 //使其中的push,replace,go,goBack,goForward的actionCreater可用，
 const rMiddleware = routerMiddleware(history);
 
 //合成app store状态树,整个app只有一个store
-let store;
-
 if (process.env.NODE_ENV !== 'production') {
   //生产环境
   store = createStore(pubState, compose(

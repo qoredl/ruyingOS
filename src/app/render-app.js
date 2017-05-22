@@ -3,8 +3,6 @@
  * 稳定性：3
  * date:2016-11-19
  */
-
-//生产环境
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Route, Switch, } from 'react-router-dom';
@@ -13,21 +11,13 @@ import { Provider } from 'react-redux';
 import createHistory from 'history/createHashHistory'
 import { ConnectedRouter, routerMiddleware } from 'react-router-redux';
 import createSagaMiddleware from 'redux-saga';
-
 Object.assign(window, { React });
-
-//开发环境
-/*const { Route, Switch } = ReactRouterDOM;
- const { createStore, combineReducers, applyMiddleware, compose } = Redux;
- const { Provider } = ReactRedux;
- const { createHashHistory: createHistory } = History;
- const { ConnectedRouter, routerMiddleware } = ReactRouterRedux;
- const { default: createSagaMiddleware } = ReduxSaga;*/
 
 import '../var/string.extend.js';
 import pubState from './store/storePub';
 import createRoutesConfig from './createRoutesConfig';
 
+let store;
 const history = createHistory();
 const sagaMiddleware = createSagaMiddleware();
 
@@ -36,8 +26,6 @@ const sagaMiddleware = createSagaMiddleware();
 const rMiddleware = routerMiddleware(history);
 
 //合成app store状态树,整个app只有一个store
-let store;
-
 if (process.env.NODE_ENV !== 'production') {
   //生产环境
   store = createStore(pubState, compose(

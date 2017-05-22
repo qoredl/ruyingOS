@@ -31,9 +31,6 @@ import loginSagaLoader from 'bundle-loader?lazy!./store/sagaLogin';
  * @returns {[*,*,*,*,*]}
  */
 export default ({ sagaMiddleware, store, combineReducers, pubState }) => {
-  //初始state
-  const initState = { pubState };
-  
   //动态加载组件
   //把路由url参数params原本传进去，
   // 以弥补react-router-redux中state无params数据
@@ -47,6 +44,7 @@ export default ({ sagaMiddleware, store, combineReducers, pubState }) => {
   const isCacked = cackeName => cacheContainer.includes(cackeName);
   
   //动态加载reducer
+  const initState = { pubState };//初始state
   const asyncLoadReducer = (replaceReducer, combineReducers, pubState) => (reducerName, reducerLoader) => () => reducerLoader(reducer => {
     //相同的reducer逻辑代码只添加一次
     if (!isCacked(reducerName)) {
