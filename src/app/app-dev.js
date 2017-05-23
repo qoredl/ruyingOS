@@ -5,7 +5,7 @@
  */
 import '../var/string.extend.js';
 import pubState from './store/storePub';
-import createRoutesConfig from './createRoutesConfig';
+import appCreater from './appCreater';
 
 const { Route, Switch } = ReactRouterDOM;
 const { createStore, combineReducers, applyMiddleware, compose } = Redux;
@@ -33,15 +33,10 @@ if (process.env.NODE_ENV !== 'production') {
   store = createStore(pubState, applyMiddleware(rMiddleware, sagaMiddleware,));
 }
 
-//生成路由配置
-const routesConfig = createRoutesConfig({ store, sagaMiddleware, combineReducers, pubState, });
-
 //渲染app
 ReactDOM.render(
     <Provider store={store}>
       <ConnectedRouter history={history}>
-        <Switch>
-          {routesConfig.map((config, i) => <Route key={i} {...config}/>)}
-        </Switch>
+        {appCreater({ store, sagaMiddleware, combineReducers, pubState, })(Switch, Route)}
       </ConnectedRouter>
     </Provider>, document.getElementById('r-root'));

@@ -34,35 +34,36 @@ export default class Html5 extends React.PureComponent {
     
     
     //todo:webRTC 在app上测试未成功
-    /*navigator.getUserMedia({
-     video: true,
-     audio: true
-     }, (stream) => {
-     let url = window.URL.createObjectURL(stream);
-     
-     console.log(stream,`url:${url}`);
-     
-     //本地路文件路径系统，如手机app下
-     if (location.origin === 'file://') {
-     url = 'blob:' + location.origin + location.pathname.slice(0, -10) + url.slice(13);
-     }
-     
-     this.setState({ url });
-     
-     console.log(`url:${url}`);
-     console.log(`origin:${location.origin}`);
-     console.log(`href:${location.href}`);
-     console.log(`pathname:${location.pathname}`);
-     }, (e) => {
-     this.setState({ url: '' });
-     console.log(e.message);
-     });*/
+    navigator.getUserMedia({
+      video: true,
+      audio: true
+    }, (stream) => {
+      let url = window.URL.createObjectURL(stream);
+    
+      console.log(stream, `url:${url}`);
+    
+      //本地路文件路径系统，如手机app下
+      if (location.origin === 'file://') {
+        url = 'blob:' + location.origin + location.pathname.slice(0, -10) + url.slice(13);
+      }
+    
+      this.setState({ url });
+    
+      console.log(`url:${url}`);
+      console.log(`origin:${location.origin}`);
+      console.log(`href:${location.href}`);
+      console.log(`pathname:${location.pathname}`);
+    }, (e) => {
+      this.setState({ url: '' });
+      console.log(e.message);
+    });
   }
   
   render() {
     return <div>
       <h2>{this.state.time}</h2>
-      <video src={require('../media/m.mp4')} controls autoPlay style={{width:'100%',height:'auto'}}></video>
+      <video src={this.state.url} controls autoPlay style={{width:'100%',height:'auto'}}></video>
+      {/*<video src={require('../media/m.mp4')} controls autoPlay style={{width:'100%',height:'auto'}}></video>*/}
       <form>
         <input type="text" required/>
         <button type="subbmit">提交</button>
