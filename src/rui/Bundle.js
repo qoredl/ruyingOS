@@ -2,6 +2,7 @@
  * bundle loader 动态加载组件
  * 常用于用于代码拆分
  * date:2017-4-2
+ * https://reacttraining.cn/web/guides/code-splitting
  */
 import { Component } from 'react';
 export default class extends Component {
@@ -11,8 +12,8 @@ export default class extends Component {
   };
   
   componentDidMount() {
-    const { compLoader,reducerAdder, sagaAdder,...otherProps} = this.props;
-    this.otherProps=otherProps;
+    const { compLoader, reducerAdder, sagaAdder, ...otherProps } = this.props;
+    this.otherProps = otherProps;
     
     //组合reducer
     reducerAdder && reducerAdder();
@@ -25,10 +26,10 @@ export default class extends Component {
   }
   
   /*componentWillReceiveProps(nextProps) {
-    if (nextProps.load !== this.props.load) {
-      this.load(nextProps);
-    }
-  }*/
+   if (nextProps.load !== this.props.load) {
+   this.load(nextProps);
+   }
+   }*/
   
   handleLoadComp(compLoader) {
     compLoader(comp => this.setState({
@@ -38,6 +39,6 @@ export default class extends Component {
   }
   
   render() {
-    return this.state.comp?<this.state.comp {...this.otherProps}/>:null;
+    return this.state.comp ? <this.state.comp {...this.otherProps}/>: null;
   }
 };

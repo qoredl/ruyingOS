@@ -5,7 +5,7 @@
 import { connect } from 'react-redux';
 import Footer from '../ui/Footer';
 import Html5 from '../ui/Html5';
-import '../ui/app.less';
+import '../ui/less/app.less';
 
 export default connect(({ homeState }) => ({
   homeState,

@@ -3,26 +3,24 @@
  * date:2017-3-11
  */
 import { connect } from 'react-redux';
-import './index.less';
 import {
   loginAction,
 } from '../store/storeUser';
 import Msg from '../ui/Msg';
 import LoginBox from './ui/LoginBox';
 import Footer from '../ui/Footer';
+import './less/index.less';
 
-export default connect(({userState}) => ({
+export default connect(({ userState }) => ({
   userState,
 }), {
   loginAction,
-})(({ loginAction}) => {
+})(({ loginAction }) => {
   
   return (
       <div className={'r-page'}>
         <Msg/>
-  
         <LoginBox action={loginAction} type="login"/>
-        
         <Footer/>
       </div>);
 });
