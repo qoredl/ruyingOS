@@ -22,6 +22,41 @@ import homeSagaLoader from 'bundle-loader?lazy!./store/sagaHome';
 import regSagaLoader from 'bundle-loader?lazy!./store/sagaReg';
 import loginSagaLoader from 'bundle-loader?lazy!./store/sagaLogin';
 
+//路由配置
+const routeConfigs = [
+  /**首页**/
+  {
+    exact: true,
+    path: '/',
+    comp: HomeCompLoader,
+    reducer: {name:'homeState',loader:homeReducerLoader},
+    saga: {name:'sagaHome',loader:homeSagaLoader},
+  },
+  
+  /**用户中心**/
+  {
+    path: '/user',
+    comp: UserCompLoader,
+    reducer: {name:'userState',loader:userReducerLoader},
+  },
+  
+  /**用户注册**/
+  {
+    path: '/reg',
+    comp: RegCompLoader,
+    reducer: {name:'userState',loader:userReducerLoader},
+    saga: {name:'sagaReg',loader:regSagaLoader},
+  },
+  
+  /**用户登录**/
+  {
+    path: '/login',
+    comp: LoginCompLoader,
+    reducer: {name:'userState',loader:userReducerLoader},
+    saga: {name:'sagaLogin',loader:loginSagaLoader},
+  },
+];
+
 /**
  * 生成App组件
  * @param sagaMiddleware
@@ -40,25 +75,25 @@ export default ({ sagaMiddleware, store, combineReducers, pubState }) => (Switch
   const isCacked = cackeName => cacheContainer.includes(cackeName);
   
   //动态加载reducer
-  const asyncLoadReducer = (replaceReducer, combineReducers, pubState) => (reducerName, reducerLoader) => () => reducerLoader(reducer => {
+  const asyncLoadReducer = (replaceReducer, combineReducers, pubState) => ({name, loader}) => () => loader(reducer => {
     //相同的reducer逻辑代码只添加一次
-    if (!isCacked(reducerName)) {
-      recCacke(reducerName, reducerLoader);
+    if (!isCacked(name)) {
+      recCacke(name, loader);
       replaceReducer(combineReducers(Object.assign(initState, {
-        [reducerName]: reducer.default ? reducer.default: reducer,
+        [name]: reducer.default ? reducer.default: reducer,
       })))
     }
     
   });
   
   //动态加载saga
-  const asyncLoadSaga = (sagaMiddleware, getState) => ({ sagaName, sagaLoader }) => () => sagaLoader(saga => {
+  const asyncLoadSaga = (sagaMiddleware, getState) => ({ name, loader }) => () => loader(saga => {
     saga = saga.default ? saga.default: saga;
     
     //saga逻辑代码只运行一次
-    if (!isCacked(sagaName)) {
+    if (!isCacked(name)) {
       sagaMiddleware.run(saga, getState);
-      recCacke(sagaName, saga);
+      recCacke(name, saga);
     }
   });
   
@@ -66,47 +101,25 @@ export default ({ sagaMiddleware, store, combineReducers, pubState }) => (Switch
    * reducerAdder列表
    * ************************************************************************************************************/
   const addReducerParamCache = asyncLoadReducer(store.replaceReducer, combineReducers, pubState);
-  const reducerHomeAdder = addReducerParamCache('homeState', homeReducerLoader);
-  const reducerUserAdder = addReducerParamCache('userState', userReducerLoader);
-  
-  /**
-   * sagaAdder列表
-   * ****************************************************************************************************************/
   const addSagaParamCache = asyncLoadSaga(sagaMiddleware, store.getState);
-  const sagaHomeAdder = addSagaParamCache({ sagaName: 'sagaHome', sagaLoader: homeSagaLoader });
-  const sagaRegAdder = addSagaParamCache({ sagaName: 'sagaReg', sagaLoader: regSagaLoader });
-  const sagaLoginAdder = addSagaParamCache({ sagaName: 'sagaLogin', sagaLoader: loginSagaLoader });
   
   //动态加载组件
   //把路由url参数params原本传进去，
   // 以弥补react-router-redux中state无params数据
-  const asyncLoadComp = (reducerAdder, sagaAdder) => compLoader => ({ location, match: { params } }) =>
-          <Bundle compLoader={compLoader} reducerAdder={reducerAdder} sagaAdder={sagaAdder} location={location} params={params}/>;
+  const asyncLoadComp = compLoader =>(reducerAdder, sagaAdder) =>  ({ location, match: { params } }) =>
+      <Bundle compLoader={compLoader} reducerAdder={reducerAdder} sagaAdder={sagaAdder} location={location} params={params}/>;
   
-  /**
-   * 生成路由组件,命名保持与路由路径一致，方便管理
-   * ********************************************************************************************************/
-  const home = asyncLoadComp(reducerHomeAdder, sagaHomeAdder)(HomeCompLoader);
-  const user = asyncLoadComp(reducerUserAdder)(UserCompLoader);
-  const reg = asyncLoadComp(reducerUserAdder, sagaRegAdder)(RegCompLoader);
-  const login = asyncLoadComp(reducerUserAdder, sagaLoginAdder)(LoginCompLoader);
+  const routes = routeConfigs.map((config, i) => {
+    const { exact, path, comp, reducer, saga } = config;
+    let render=saga?asyncLoadComp(comp)(addReducerParamCache(reducer), addSagaParamCache(saga))
+        :asyncLoadComp(comp)(addReducerParamCache(reducer))
+    
+    return <Route exact={!!exact} path={path} component={render}/>;
+  });
   
-  const routeConfigs = [
-    /**用户首页**/
-    { exact: true, path: '/', render: home },
-    
-    /**用户首页**/
-    { path: '/user', render: user },
-    
-    /**用户注册**/
-    { path: '/reg', render: reg },
-    
-    /**用户登录**/
-    { path: '/login', render: login },
-    
-    /**未匹配404**/
-    { component: Err },
-  ]
   
-  return <Switch>{routeConfigs.map((config, i) => <Route key={i} {...config}/>)}</Switch>;
+  return <Switch>
+    {routes}
+    <Route component={Err}/>
+  </Switch>;
 };
