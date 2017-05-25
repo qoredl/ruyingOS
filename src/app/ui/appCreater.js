@@ -1,61 +1,13 @@
 /**
  * appCreater高阶组件
  * 生成应用最外层App组件
- * 本文件改动会比较频繁
+ * 稳定性：3
  * date:2017-5-23
  */
-import Bundle from '../rui/Bundle';
-import Err from './ui/Err';
-
-//组件动态加载器
-import HomeCompLoader from 'bundle-loader?lazy!./Home';
-import UserCompLoader from 'bundle-loader?lazy!./User';
-import RegCompLoader from 'bundle-loader?lazy!./User/Reg';
-import LoginCompLoader from 'bundle-loader?lazy!./User/Login';
-
-//reducer动态加载器
-import homeReducerLoader from 'bundle-loader?lazy!./store/storeHome';
-import userReducerLoader from 'bundle-loader?lazy!./store/storeUser';
-
-//saga动态加载器
-import homeSagaLoader from 'bundle-loader?lazy!./store/sagaHome';
-import regSagaLoader from 'bundle-loader?lazy!./store/sagaReg';
-import loginSagaLoader from 'bundle-loader?lazy!./store/sagaLogin';
-
+import Bundle from '../../rui/Bundle';
+import Err from './Err';
 //路由配置
-const routeConfigs = [
-  /**首页**/
-  {
-    exact: true,
-    path: '/',
-    comp: HomeCompLoader,
-    reducer: {name:'homeState',loader:homeReducerLoader},
-    saga: {name:'sagaHome',loader:homeSagaLoader},
-  },
-  
-  /**用户中心**/
-  {
-    path: '/user',
-    comp: UserCompLoader,
-    reducer: {name:'userState',loader:userReducerLoader},
-  },
-  
-  /**用户注册**/
-  {
-    path: '/reg',
-    comp: RegCompLoader,
-    reducer: {name:'userState',loader:userReducerLoader},
-    saga: {name:'sagaReg',loader:regSagaLoader},
-  },
-  
-  /**用户登录**/
-  {
-    path: '/login',
-    comp: LoginCompLoader,
-    reducer: {name:'userState',loader:userReducerLoader},
-    saga: {name:'sagaLogin',loader:loginSagaLoader},
-  },
-];
+import routeConfigs from '../config/routes';
 
 /**
  * 生成App组件

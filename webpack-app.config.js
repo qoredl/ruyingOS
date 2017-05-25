@@ -7,7 +7,7 @@ const config = require('./webpack.config.js').prodConfig;
 
 Object.assign(config, {
   entry: {
-    app: config.entry.app.replace('app.js', 'render-app.js'),
+    app: config.entry.app.replace('app.js', 'app-render.js'),
   }
 });
 config.plugins.shift();

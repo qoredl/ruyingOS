@@ -15,7 +15,7 @@ Object.assign(window, { React });
 
 import '../var/string.extend.js';
 import pubState from './store/storePub';
-import appCreater from './appCreater';
+import appCreater from './ui/appCreater';
 
 let store;
 const history = createHistory();

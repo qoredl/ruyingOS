@@ -5,7 +5,7 @@
  */
 import '../var/string.extend.js';
 import pubState from './store/storePub';
-import appCreater from './appCreater';
+import appCreater from './ui/appCreater';
 
 const { Route, Switch } = ReactRouterDOM;
 const { createStore, combineReducers, applyMiddleware, compose } = Redux;
