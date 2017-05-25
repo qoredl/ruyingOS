@@ -4,8 +4,8 @@
  * date:2017-4-2
  * https://reacttraining.cn/web/guides/code-splitting
  */
-import { Component } from 'react';
-export default class extends Component {
+import React from 'react';
+export default class extends React.PureComponent {
   state = {
     // short for "module" but that's a keyword in js, so "comp"
     comp: null,
@@ -24,12 +24,6 @@ export default class extends Component {
     //加载组件
     this.handleLoadComp(compLoader);
   }
-  
-  /*componentWillReceiveProps(nextProps) {
-   if (nextProps.load !== this.props.load) {
-   this.load(nextProps);
-   }
-   }*/
   
   handleLoadComp(compLoader) {
     compLoader(comp => this.setState({
