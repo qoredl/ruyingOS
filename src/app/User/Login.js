@@ -9,6 +9,7 @@ import {
 import Msg from '../ui/Msg';
 import LoginBox from './ui/LoginBox';
 import Footer from '../ui/Footer';
+import '../ui/less/app.less';
 import './less/index.less';
 
 export default connect(({ userState }) => ({

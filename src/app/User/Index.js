@@ -5,6 +5,7 @@
 import { connect } from 'react-redux';
 import Footer from '../ui/Footer';
 import Me from './ui/Me';
+import '../ui/less/app.less';
 import './less/index.less';
 
 export default connect(({ userState }, owerProps) => ({ userState, ...owerProps }), {
@@ -18,7 +19,7 @@ export default connect(({ userState }, owerProps) => ({ userState, ...owerProps 
       param,
     }) => {
   
-  console.log(location, param);
+  console.log('location:',location, 'param:',param);
   
   const userData={username};
   

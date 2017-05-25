@@ -1,6 +1,6 @@
 /**
  * Home模块入口组件
- * @date:2017-3-9
+ * date:2017-3-9
  */
 import { connect } from 'react-redux';
 import Footer from '../ui/Footer';
