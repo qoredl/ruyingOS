@@ -1,6 +1,6 @@
-# 如影开源项目(ruyingOS)
+# 如影(ruying)web项目
 
-> 基于es2015,html5,css3,react的前端web全栈项目。
+> 基于es2015,html5,css3,react,redux,react-router,cordova,crosswalk等前端前沿技术构建的全栈web项目。
 
 ##文件与接口稳定性说明：
 * 5 - 锁定：文件或api不会再修改
@@ -10,7 +10,7 @@
 * 1 - 试验：文件或api随时有可能会废弃或修改
 
 ### src/
-项目源目录。
+项目源文件目录。
 
 ### icons/
 app应用标题图标。
@@ -21,7 +21,7 @@ app应用标题图标。
 ### cloud/
 项目云服务。
 
-### webpack/
+### webpack.config.js/webpack-*.config.js
 webpack构建工具配置文件。
 
 ### config.js
@@ -31,7 +31,15 @@ webpack构建工具配置文件。
 项目总入口。
 
 ### package.json
-项目包文件。执行npm run start开始运行项目；执行npm run dev构建开发版app,一般用于开发调试；执行npm run build构建生产版app,用于正式发布。
+项目包文件。
+
+1. 执行npm run start开始运行项目；
+2. 执行npm run dev构建开发版app,一般用于开发调试；
+3. 执行npm run app构建app版,用于app应用；
+4.执行npm run build构建生产版app,用于正式发布。
+
+### .npmignore
+发布npm包忽略列表配置文件。
 
 ### .gitignore
 项目git忽略列表配置文件。

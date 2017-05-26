@@ -3,28 +3,25 @@
 > 此文件夹对应着某个具体的app项目
 
 ### config/
-项目的全局配置文件。
+app的全局配置文件。
 
 ### images/
 项目图片文件夹。
 
 ### servers/
-项目数据层文件夹。
+app数据服务层文件夹。
 
 ### store/
-项目逻辑层文件夹。
+app逻辑层文件夹。
 
 ### ui/
-项目公共组件文件夹。
+app ui组件文件夹。
 
-### User/
+### User/Home...
 用户模块文件夹,模块首字母使用大写与其它文件夹区别，可当做模块样板。
 
-### app.js
-项目入口文件。
-
-### routes.js
-项目路由文件。
+### app-dev.js/app.js/app-render.js
+webapp开发版，webapp正式发布版，手机app安装版入口文件。
 
 
 
