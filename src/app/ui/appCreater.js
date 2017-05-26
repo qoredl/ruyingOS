@@ -5,7 +5,6 @@
  * date:2017-5-23
  */
 import Bundle from '../../rui/Bundle';
-import Err from './Err';
 //路由配置
 import routeConfigs from '../config/routes';
 
@@ -20,6 +19,12 @@ import routeConfigs from '../config/routes';
 export default ({ sagaMiddleware, store, combineReducers, pubState }) => (Switch, Route) => {
   //app初始state
   const initState = { pubState };
+  
+  //动态加载组件
+  //把路由url参数params原本传进去，
+  // 以弥补react-router-redux中state无params数据
+  const asyncLoadComp = compLoader =>(reducerAdder, sagaAdder) =>  ({ location, match: { params } }) =>
+      <Bundle compLoader={compLoader} reducerAdder={reducerAdder} sagaAdder={sagaAdder} location={location} params={params}/>;
   
   //加载器记录,检查
   const cacheContainer = [];
@@ -50,28 +55,24 @@ export default ({ sagaMiddleware, store, combineReducers, pubState }) => (Switch
   });
   
   /**
-   * reducerAdder列表
+   * 缓存参数
    * ************************************************************************************************************/
   const addReducerParamCache = asyncLoadReducer(store.replaceReducer, combineReducers, pubState);
   const addSagaParamCache = asyncLoadSaga(sagaMiddleware, store.getState);
   
-  //动态加载组件
-  //把路由url参数params原本传进去，
-  // 以弥补react-router-redux中state无params数据
-  const asyncLoadComp = compLoader =>(reducerAdder, sagaAdder) =>  ({ location, match: { params } }) =>
-      <Bundle compLoader={compLoader} reducerAdder={reducerAdder} sagaAdder={sagaAdder} location={location} params={params}/>;
-  
-  const routes = routeConfigs.map((config, i) => {
-    const { exact, path, comp, reducer, saga } = config;
-    let render=saga?asyncLoadComp(comp)(addReducerParamCache(reducer), addSagaParamCache(saga))
-        :asyncLoadComp(comp)(addReducerParamCache(reducer))
-    
-    return <Route exact={!!exact} path={path} component={render}/>;
-  });
-  
-  
+  //返回app组件
   return <Switch>
-    {routes}
-    <Route component={Err}/>
+    {routeConfigs.map((config, i) => {
+      const { exact, path, comp, reducer, saga } = config;
+      
+      if (path) {
+        let render=saga?asyncLoadComp(comp)(addReducerParamCache(reducer), addSagaParamCache(saga))
+            :asyncLoadComp(comp)(addReducerParamCache(reducer))
+  
+        return <Route exact={!!exact} path={path} component={render}/>;
+      }
+  
+      return <Route component={comp}/>;
+    })}
   </Switch>;
 };

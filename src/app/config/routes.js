@@ -3,7 +3,7 @@
  * 稳定性：2
  * date:2017-5-25
  */
-
+import Err from '../ui/Err';
 //组件动态加载器
 import HomeCompLoader from 'bundle-loader?lazy!../Home';
 import UserCompLoader from 'bundle-loader?lazy!../User';
@@ -51,5 +51,10 @@ export default [
     comp: LoginCompLoader,
     reducer: {name:'userState',loader:userReducerLoader},
     saga: {name:'sagaLogin',loader:loginSagaLoader},
+  },
+  
+  /**404出错页**/
+  {
+    comp: Err,
   },
 ];
