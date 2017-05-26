@@ -23,16 +23,16 @@ export default ({ sagaMiddleware, store, combineReducers, pubState }) => (Switch
   //动态加载组件
   //把路由url参数params原本传进去，
   // 以弥补react-router-redux中state无params数据
-  const asyncLoadComp = compLoader =>(reducerAdder, sagaAdder) =>  ({ location, match: { params } }) =>
+  const asyncLoadComp = (reducerAdder, sagaAdder) => compLoader => ({ location, match: { params } }) =>
       <Bundle compLoader={compLoader} reducerAdder={reducerAdder} sagaAdder={sagaAdder} location={location} params={params}/>;
   
   //加载器记录,检查
   const cacheContainer = [];
-  const recCacke = cackeName => cacheContainer.push(cackeName);
-  const isCacked = cackeName => cacheContainer.includes(cackeName);
+  const recCacke = name => cacheContainer.push(name);
+  const isCacked = name => cacheContainer.includes(name);
   
   //动态加载reducer
-  const asyncLoadReducer = (replaceReducer, combineReducers, pubState) => ({name, loader}) => () => loader(reducer => {
+  const asyncLoadReducer = (replaceReducer, combineReducers, pubState) => ({ name, loader }) => () => loader(reducer => {
     //相同的reducer逻辑代码只添加一次
     if (!isCacked(name)) {
       recCacke(name, loader);
@@ -64,15 +64,11 @@ export default ({ sagaMiddleware, store, combineReducers, pubState }) => (Switch
   return <Switch>
     {routeConfigs.map((config, i) => {
       const { exact, path, comp, reducer, saga } = config;
+      const reducerAdder = reducer ? addReducerParamCache(reducer): undefined;
+      const sagaAdder = saga ? addSagaParamCache(saga): undefined;
       
-      if (path) {
-        let render=saga?asyncLoadComp(comp)(addReducerParamCache(reducer), addSagaParamCache(saga))
-            :asyncLoadComp(comp)(addReducerParamCache(reducer))
-  
-        return <Route exact={!!exact} path={path} component={render}/>;
-      }
-  
-      return <Route component={comp}/>;
+      return path ? <Route exact={!!exact} path={path} component={asyncLoadComp(reducerAdder, sagaAdder)(comp)}/>
+          : <Route component={comp}/>;
     })}
   </Switch>;
 };

@@ -2,7 +2,7 @@
  * user数据服务
  */
 import { fetch, } from '../../lib/utils';
-import { server } from '../config/index';
+import server from '../config/Server';
 
 const { headers, serverURL } = server;
 
@@ -14,13 +14,13 @@ export const addUser = userInfo => fetch(`${serverURL}users`, {
   headers,
   method: 'post',
   body: JSON.stringify(userInfo)
-})/*.catch(err=>err.error)*/;
+});
 
 /**
  * 用户登录
  * @param username
  * @param password
  */
-export const login = ({username,password}) => fetch(`${serverURL}login?username=${username}&password=${password}`, {
+export const login = ({ username, password }) => fetch(`${serverURL}login?username=${username}&password=${password}`, {
   headers,
 });

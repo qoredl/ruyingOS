@@ -3,5 +3,5 @@
  * date:2016-11-18
  */
 export default {
-	erro404:'404 Not Found!',
+  erro404: '404 Not Found!',
 }

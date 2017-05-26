@@ -8,7 +8,7 @@ import Me from './ui/Me';
 import '../ui/less/app.less';
 import './less/index.less';
 
-export default connect(({ userState }, owerProps) => ({ userState, ...owerProps }), {
+export default connect(({ userState }) => ({ userState}), {
   //regAction
 })(({
       userState: {

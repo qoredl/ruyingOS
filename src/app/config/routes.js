@@ -16,8 +16,8 @@ import userReducerLoader from 'bundle-loader?lazy!../store/storeUser';
 
 //saga动态加载器
 import homeSagaLoader from 'bundle-loader?lazy!../store/sagaHome';
-import regSagaLoader from 'bundle-loader?lazy!../store/sagaReg';
-import loginSagaLoader from 'bundle-loader?lazy!../store/sagaLogin';
+import regSagaLoader from 'bundle-loader?lazy!../store/sagaUserReg';
+import loginSagaLoader from 'bundle-loader?lazy!../store/sagaUserLogin';
 
 //路由配置
 export default [
@@ -26,31 +26,31 @@ export default [
     exact: true,
     path: '/',
     comp: HomeCompLoader,
-    reducer: {name:'homeState',loader:homeReducerLoader},
-    saga: {name:'sagaHome',loader:homeSagaLoader},
+    reducer: { name: 'homeState', loader: homeReducerLoader },
+    saga: { name: 'sagaHome', loader: homeSagaLoader },
   },
   
   /**用户中心**/
   {
     path: '/user',
     comp: UserCompLoader,
-    reducer: {name:'userState',loader:userReducerLoader},
+    reducer: { name: 'userState', loader: userReducerLoader },
   },
   
   /**用户注册**/
   {
     path: '/reg',
     comp: RegCompLoader,
-    reducer: {name:'userState',loader:userReducerLoader},
-    saga: {name:'sagaReg',loader:regSagaLoader},
+    reducer: { name: 'userState', loader: userReducerLoader },
+    saga: { name: 'sagaReg', loader: regSagaLoader },
   },
   
   /**用户登录**/
   {
     path: '/login',
     comp: LoginCompLoader,
-    reducer: {name:'userState',loader:userReducerLoader},
-    saga: {name:'sagaLogin',loader:loginSagaLoader},
+    reducer: { name: 'userState', loader: userReducerLoader },
+    saga: { name: 'sagaLogin', loader: loginSagaLoader },
   },
   
   /**404出错页**/

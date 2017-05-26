@@ -12,18 +12,16 @@ const nameSpace=guid();
  * @type {string}
  */
 export const FETCH_DATA = 'FETCH_DATA'+nameSpace;
-export const ADD_DATA = 'ADD_DATA'+nameSpace;
-
 
 /**2.action***************************************************************
  * @param payload
  */
-export const fetchDataAction = (payload) => ({ type: FETCH_DATA, payload });
+export const fetchInitDataAction = (payload) => ({ type: FETCH_DATA, payload });
 
 /**3.reducer***************************************************************
  * @param payload
  */
-const initState = {msg:''};
+const initState = {};
 export default (state = initState, action) => {
   //跳过系统action，如redux初始化，路由等action
   if (action.type.startsWith('@@')) {
@@ -34,7 +32,7 @@ export default (state = initState, action) => {
     case FETCH_DATA:
       return {
         ...state,
-        msg:action.payload,
+        initData:action.payload.results,
       };
       
     default:
